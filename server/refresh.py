@@ -244,6 +244,17 @@ NOT_ORIGINAL = re.compile(r"^https?://([a-z0-9-]+\.)*(dreamspon\.com|ipsitalk\.n
 EMAIL = re.compile(r"[\w.+-]+@[\w-]+(\.[\w-]+)+")
 
 
+PERSON = re.compile(r"(작성자|등록자|게시자)\s*[:：]?\s*[가-힣]{2,4}|(담당자?|문의)\s*[:：]?\s*[가-힣]{2,4}\s*(선생님|주무관|팀장|과장|계장|교수|조교|님)")
+STAFF_TITLE = re.compile(r"[가-힣]{2,4}\s*(주무관|선생님)")
+
+
+def mask_people(text: str) -> str:
+    """공고에 적힌 담당자 이름·작성자 이름은 다시 싣지 않는다 (부서·대표 전화로 충분하다)."""
+    text = PERSON.sub(lambda m: (m.group(1) or m.group(2) or "담당"), text)
+    text = STAFF_TITLE.sub("담당자", text)
+    return EMAIL.sub("(이메일은 원문 참고)", text)
+
+
 def key_facts(text: str, limit: int = 500) -> str:
     """공고 본문에서 신청 판단에 필요한 핵심 줄만 짧게 남긴다 (본문 전체를 옮기지 않는다)."""
     out, n = [], 0
@@ -267,6 +278,10 @@ def public(r: dict) -> dict:
     if src not in ("kosaf_univ", "kosaf_high", "kosaf_abroad", "kosaf_creditbank", "kosaf_hist", "gov24"):
         r["summary"] = key_facts(r.get("summary") or "")
     r["images"] = []
+    if src not in ("kosaf_univ", "kosaf_high", "kosaf_abroad", "kosaf_creditbank", "kosaf_hist", "gov24"):
+        for k in ("summary", "documents", "target", "selection", "quota", "recommend", "special"):
+            if isinstance(r.get(k), str) and r[k]:
+                r[k] = mask_people(r[k])
     for k in ("url", "apply_url"):  # 다른 장학 정보 서비스는 원문이 아니므로 링크하지 않는다
         if r.get(k) and NOT_ORIGINAL.search(r[k]):
             r[k] = ""

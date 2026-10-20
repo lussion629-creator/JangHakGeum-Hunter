@@ -22,11 +22,8 @@ jobs:
         with: { persist-credentials: false }
       - name: index.html 안의 스크립트를 따로 빼서 검사 대상에 넣기
         if: matrix.language == 'javascript-typescript'
-        run: python3 - <<'PY'
-          import re, pathlib
-          h = pathlib.Path("web/index.html").read_text()
-          pathlib.Path("web/app.codeql.js").write_text(re.findall(r"<script>(.*?)</script>", h, re.S)[0])
-          PY
+        run: |
+          python3 -c "import re,pathlib; h=pathlib.Path('web/index.html').read_text(); pathlib.Path('web/app.codeql.js').write_text(re.findall(r'<script>(.*?)</script>', h, re.S)[0])"
       - uses: github/codeql-action/init@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
         with: { languages: "${{ matrix.language }}" }
       - uses: github/codeql-action/analyze@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
