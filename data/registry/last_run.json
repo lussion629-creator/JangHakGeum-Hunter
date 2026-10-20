@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-20T17:12:39+00:00",
- "finishedAt": "2026-10-20T17:50:06+00:00",
+ "startedAt": "2026-10-20T17:51:20+00:00",
+ "finishedAt": "2026-10-20T18:24:19+00:00",
  "online": true,
- "total": 4388,
- "new": 2,
- "changed": 490,
+ "total": 4380,
+ "new": 1,
+ "changed": 427,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 250곳",
    "ok": true,
-   "count": 1091,
-   "mode": "성공 227 / 실패 23"
+   "count": 1079,
+   "mode": "성공 226 / 실패 24"
   },
   {
    "source": "gov24",
@@ -1124,7 +1124,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 8
+    "count": 0
    },
    {
     "name": "전주대학교",
@@ -4873,7 +4873,7 @@
     "url": "https://www.ccn.ac.kr/scholarship",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -4893,8 +4893,8 @@
     "url": "http://www.dnue.ac.kr/kor/CMS/Board/Board.do?mCode=MN169",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 10
+    "ok": false,
+    "count": 0
    },
    {
     "name": "대구대학교",
@@ -4974,7 +4974,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "서정대학교",
@@ -5283,8 +5283,8 @@
     "url": "https://www.sunlin.ac.kr/?main=true",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 5
+    "ok": false,
+    "count": 0
    },
    {
     "name": "신안산대학교",
