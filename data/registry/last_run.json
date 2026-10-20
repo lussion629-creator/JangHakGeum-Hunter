@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-20T15:01:26+00:00",
- "finishedAt": "2026-10-20T15:40:06+00:00",
+ "startedAt": "2026-10-20T16:29:55+00:00",
+ "finishedAt": "2026-10-20T17:06:39+00:00",
  "online": true,
- "total": 4510,
- "new": 8,
- "changed": 395,
+ "total": 4408,
+ "new": 4408,
+ "changed": 0,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,8 +45,8 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 127,
-   "work": 3,
+   "count": 0,
+   "work": 0,
    "mode": "seed/seed"
   },
   {
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 250곳",
    "ok": true,
-   "count": 1086,
-   "mode": "성공 224 / 실패 26"
+   "count": 1113,
+   "mode": "성공 230 / 실패 20"
   },
   {
    "source": "gov24",
@@ -93,7 +93,7 @@
   }
  ],
  "registry": {
-  "total": 654,
+  "total": 573,
   "enabled": 250,
   "sources": [
    {
@@ -243,8 +243,8 @@
     "url": "https://www.ewha.ac.kr/ewha/bachelor/scholarship-notice.do",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 11
    },
    {
     "name": "숙명여자대학교",
@@ -543,7 +543,7 @@
     "url": "https://scholarship.uos.ac.kr/scholarship/notice/notice/list.do?brdBbsseq=1",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -713,8 +713,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 12
    },
    {
     "name": "호서대학교 아산/천안",
@@ -1287,26 +1287,6 @@
     "count": 0
    },
    {
-    "name": "미래에셋박현주재단",
-    "type": "corporate",
-    "region": "전국",
-    "url": "https://foundation.miraeasset.com",
-    "enabled": false,
-    "verified": true,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "CJ나눔재단·CJ도너스캠프(꿈키움장학)",
-    "type": "corporate",
-    "region": "전국",
-    "url": "https://www.donorscamp.org",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "대산농촌재단(교보)",
     "type": "corporate",
     "region": "전국",
@@ -1387,16 +1367,6 @@
     "count": null
    },
    {
-    "name": "LG전자(사회공헌 장학)",
-    "type": "corporate",
-    "region": "전국",
-    "url": "https://www.lge.co.kr",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "포스코청암재단",
     "type": "corporate",
     "region": "전국",
@@ -1421,16 +1391,6 @@
     "type": "corporate",
     "region": "전국",
     "url": "https://www.namchonfoundation.org",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "KT&G장학재단",
-    "type": "corporate",
-    "region": "전국",
-    "url": "",
     "enabled": false,
     "verified": false,
     "ok": null,
@@ -1523,66 +1483,6 @@
     "url": "https://www.samsungfoundation.org",
     "enabled": false,
     "verified": true,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "호반장학재단",
-    "type": "corporate",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "OK배정장학재단",
-    "type": "corporate",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "서암윤세영재단",
-    "type": "corporate",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "JW이종호재단",
-    "type": "corporate",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "HL Klemove(HL그룹)",
-    "type": "corporate",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "LIG Defense&Aerospace",
-    "type": "corporate",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
     "ok": null,
     "count": null
    },
@@ -1817,16 +1717,6 @@
     "count": null
    },
    {
-    "name": "중부재단",
-    "type": "corporate",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "아산사회복지재단",
     "type": "welfare",
     "region": "전국",
@@ -1897,26 +1787,6 @@
     "count": 0
    },
    {
-    "name": "굿패밀리복지재단",
-    "type": "welfare",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "사회복지법인 사랑의날개",
-    "type": "welfare",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "밀알복지재단",
     "type": "welfare",
     "region": "전국",
@@ -1957,26 +1827,6 @@
     "count": null
    },
    {
-    "name": "사단법인 유쾌한반란",
-    "type": "welfare",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "무지개장학재단",
-    "type": "welfare",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "한국예술인복지재단",
     "type": "welfare",
     "region": "전국",
@@ -1985,16 +1835,6 @@
     "verified": true,
     "ok": true,
     "count": 0
-   },
-   {
-    "name": "한경직목사기념사업회",
-    "type": "religious",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
    },
    {
     "name": "옥한흠장학회",
@@ -2039,216 +1879,6 @@
    {
     "name": "서울대학교 총동창회 관악장학",
     "type": "alumni",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "경기도민회장학회",
-    "type": "alumni",
-    "region": "경기",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "(사)청권사",
-    "type": "alumni",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "글로벌한상드림",
-    "type": "alumni",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "윤영문화재단",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "두을장학재단",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "동산장학회",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "재단법인 천정",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "심명문화재단",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "김태수장학재단",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "다케다장학회",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "앨트웰 민초장학재단",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "허지영장학재단",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "용복장학회",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "보건장학회",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "삼일문화재단",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "세종연구원",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "대한간호협회",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "대한한돈협회",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "사단법인 한국고무학회",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "한국지하수토양환경학회",
-    "type": "private",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "산학협동재단",
-    "type": "private",
     "region": "전국",
     "url": "",
     "enabled": false,
@@ -2507,40 +2137,10 @@
     "count": null
    },
    {
-    "name": "고속도로장학재단",
-    "type": "public",
-    "region": "전국",
-    "url": "http://www.hsf.or.kr",
-    "enabled": false,
-    "verified": true,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "국립국제교육원(GKS)",
-    "type": "public",
-    "region": "전국",
-    "url": "https://www.niied.go.kr",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "남북하나재단",
     "type": "public",
     "region": "전국",
     "url": "https://www.koreahana.or.kr",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "한국농어촌희망재단",
-    "type": "public",
-    "region": "전국",
-    "url": "",
     "enabled": false,
     "verified": false,
     "ok": null,
@@ -2560,56 +2160,6 @@
     "name": "근로복지공단(산재근로자 자녀 장학)",
     "type": "public",
     "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "한국선원복지고용센터",
-    "type": "public",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "한국학중앙연구원",
-    "type": "public",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "한국국제교류재단",
-    "type": "public",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "한국원자력협력재단",
-    "type": "public",
-    "region": "전국",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "한국수력원자력",
-    "type": "public",
-    "region": "원전 주변지역",
     "url": "",
     "enabled": false,
     "verified": false,
@@ -2707,76 +2257,6 @@
     "count": null
    },
    {
-    "name": "부마민주항쟁기념재단",
-    "type": "public",
-    "region": "부산·경남",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "삼척문화원",
-    "type": "public",
-    "region": "강원",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "서울미래인재재단(구 서울장학재단)",
-    "type": "public",
-    "region": "서울",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "인천인재평생교육진흥원",
-    "type": "public",
-    "region": "인천",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "강원인재원",
-    "type": "public",
-    "region": "강원",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "충북인재평생교육진흥원",
-    "type": "public",
-    "region": "충북",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "충청남도평생교육인재육성진흥원",
-    "type": "public",
-    "region": "충남",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "전북특별자치도평생교육장학진흥원",
     "type": "public",
     "region": "전북",
@@ -2787,29 +2267,9 @@
     "count": 0
    },
    {
-    "name": "전남인재평생교육진흥원",
-    "type": "public",
-    "region": "전남",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "경상북도인재평생교육재단",
     "type": "public",
     "region": "경북",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "경상남도장학회",
-    "type": "public",
-    "region": "경남",
     "url": "",
     "enabled": false,
     "verified": false,
@@ -2837,16 +2297,6 @@
     "count": 2
    },
    {
-    "name": "대전청년내일재단",
-    "type": "public",
-    "region": "대전",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "부산인재평생교육진흥원",
     "type": "public",
     "region": "부산",
@@ -2867,250 +2317,10 @@
     "count": null
    },
    {
-    "name": "마포인재육성장학재단",
-    "type": "public",
-    "region": "서울 마포",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "중구인재육성장학재단",
-    "type": "public",
-    "region": "서울 중구",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "노원교육복지재단",
-    "type": "public",
-    "region": "서울 노원",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "계양구인재양성장학재단",
-    "type": "public",
-    "region": "인천 계양",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "서구인재육성재단",
-    "type": "public",
-    "region": "인천 서구",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "광주광역시 서구 장학재단",
-    "type": "public",
-    "region": "광주 서구",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "광주 동구 인재육성장학회",
-    "type": "public",
-    "region": "광주 동구",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "광산장학회",
     "type": "public",
     "region": "광주 광산구",
     "url": "https://www.gwangsan.go.kr",
-    "enabled": false,
-    "verified": true,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "춘천시민장학복지재단",
-    "type": "public",
-    "region": "강원 춘천",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "횡성인재육성장학회",
-    "type": "public",
-    "region": "강원 횡성",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "진도군인재육성장학회",
-    "type": "public",
-    "region": "전남 진도",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "순천시인재육성장학회",
-    "type": "public",
-    "region": "전남 순천",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "진안사랑장학재단",
-    "type": "public",
-    "region": "전북 진안",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "정읍시민장학재단",
-    "type": "public",
-    "region": "전북 정읍",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "군산교육발전진흥재단",
-    "type": "public",
-    "region": "전북 군산",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "의성군인재육성재단",
-    "type": "public",
-    "region": "경북 의성",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "김해시미래인재장학재단",
-    "type": "public",
-    "region": "경남 김해",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "함안군장학재단",
-    "type": "public",
-    "region": "경남 함안",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "거창군장학회",
-    "type": "public",
-    "region": "경남 거창",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "영동군민장학회",
-    "type": "public",
-    "region": "충북 영동",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "진천군장학회",
-    "type": "public",
-    "region": "충북 진천",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "오산교육재단",
-    "type": "public",
-    "region": "경기 오산",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "안산인재육성재단",
-    "type": "public",
-    "region": "경기 안산",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "화성시인재육성재단",
-    "type": "public",
-    "region": "경기 화성",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "드림스폰",
-    "type": "aggregator",
-    "region": "전국",
-    "url": "https://www.dreamspon.com/scholarship/list.html",
     "enabled": false,
     "verified": true,
     "ok": null,
@@ -3270,16 +2480,6 @@
     "name": "세종인재평생교육진흥원",
     "type": "public",
     "region": "세종",
-    "url": "",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
-    "name": "경기도평생교육진흥원(경기도 장학)",
-    "type": "public",
-    "region": "경기",
     "url": "",
     "enabled": false,
     "verified": false,
@@ -3673,7 +2873,7 @@
     "url": "https://www.gangnam.go.kr/board/B_000031/list.do?mid=ID01",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -5567,16 +4767,6 @@
     "count": null
    },
    {
-    "name": "드림스폰",
-    "type": "local",
-    "region": "전국",
-    "url": "https://www.dreamspon.com/",
-    "enabled": false,
-    "verified": false,
-    "ok": null,
-    "count": null
-   },
-   {
     "name": "HY-in 포털",
     "type": "local",
     "region": "서울",
@@ -5784,7 +4974,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 1
+    "count": 0
    },
    {
     "name": "서정대학교",
@@ -6213,8 +5403,8 @@
     "url": "https://www.htus.ac.kr/board/board.php?b_id=001",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 5
    },
    {
     "name": "경민대학교",
@@ -6553,7 +5743,7 @@
     "url": "https://www.u1.ac.kr/u1/community/scholarship.do",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
