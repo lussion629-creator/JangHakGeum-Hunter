@@ -1,0 +1,39 @@
+# 비밀 값 — 절대 커밋 금지
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+google-services.json
+*service-account*.json
+*-firebase-adminsdk-*.json
+extractor-secrets.json
+# 빌드 산출물·도구
+__pycache__/
+.venv/
+site/
+android/build/
+android/tools/
+*.apk
+*.aab
+# 업로드 자료
+data/imports/*.json
+!data/imports/.keep
+*.idsig
+android/SIGNING-KEY*.txt
+ios/www/
+ios/build/
+ios/*.xcodeproj/
+ios/Payload/
+*.ipa
+
+# 공고 본문이 들어 있는 작업 파일은 공개 저장소에 올리지 않는다 (Actions 캐시에만 둔다)
+data/scholarships.db
+data/seed/sogang.json
+data/seed/konkuk.json
+data/seed/hywoman.json
+data/seed/kangwon.json
+data/seed/hanyang_public.json

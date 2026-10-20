@@ -1,0 +1,90 @@
+# 6시간마다 전체 수집 → 보안 점검 → 공개용 데이터만 커밋 → GitHub Pages 배포.
+name: refresh-scholarships
+on:
+  schedule:
+    - cron: "17 */6 * * *"   # UTC 기준 6시간마다 (KST 02:17, 08:17, 14:17, 20:17)
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ["web/**", "server/**", "scripts/**", "data/registry/**"]
+# 기본 권한은 읽기만. 필요한 작업에서만 권한을 연다.
+permissions:
+  contents: read
+concurrency: { group: refresh, cancel-in-progress: false }
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: write   # 데이터 커밋용
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }   # 수집·설치 단계에서는 저장소 쓰기 열쇠를 남겨 두지 않는다
+      # 공고 본문이 들어 있는 작업 파일(지난 수집 기록·게시판 사본)은 공개 저장소에 올리지 않고 Actions 캐시에만 둔다
+      - name: 지난 수집 기록 불러오기
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/scholarships.db
+            data/seed/sogang.json
+            data/seed/konkuk.json
+            data/seed/hywoman.json
+            data/seed/kangwon.json
+            data/seed/hanyang_public.json
+          key: work-${{ github.run_id }}
+          restore-keys: work-
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements.txt playwright==1.48.0
+      - name: 헤드리스 브라우저 (자바스크립트 게시판용)
+        run: python -m playwright install --with-deps chromium
+      - name: 수집 전 보안 점검
+        env: { PII_DENYLIST: "${{ secrets.PII_DENYLIST }}" }
+        run: python scripts/security_check.py
+      - name: 수집
+        env:
+          GOV24_API_KEY: ${{ secrets.GOV24_API_KEY }}
+        run: python -m server.refresh
+      - name: 수집 기록 저장 (캐시)
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data/scholarships.db
+            data/seed/sogang.json
+            data/seed/konkuk.json
+            data/seed/hywoman.json
+            data/seed/kangwon.json
+            data/seed/hanyang_public.json
+          key: work-${{ github.run_id }}
+      - name: 수집 후 보안 점검 (실패하면 커밋·배포 안 함)
+        env: { PII_DENYLIST: "${{ secrets.PII_DENYLIST }}" }
+        run: python scripts/security_check.py
+      - name: 데이터 커밋
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          git config user.name "scholarship-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/seed/*.csv data/seed/kosaf_hist_*.json data/registry/status.json data/registry/last_run.json web/data
+          git commit -m "data: 자동 갱신 $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "변경 없음"; exit 0; }
+          url="https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}"
+          # 그사이 다른 커밋이 올라왔으면 위에 얹어서 다시 올린다 (최대 3번)
+          for i in 1 2 3; do
+            git pull -q --rebase -X theirs "$url" main && git push -q "$url" HEAD:main && exit 0
+            sleep 10
+          done
+          exit 1
+      - name: 페이지 만들기
+        run: python scripts/build_site.py
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: site }
+  deploy:
+    needs: refresh
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment: { name: github-pages, url: "${{ steps.d.outputs.page_url }}" }
+    steps:
+      - id: d
+        uses: actions/deploy-pages@v4

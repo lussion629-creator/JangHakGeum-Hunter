@@ -1,0 +1,1616 @@
+<meta charset="utf-8">
+<title>장학금헌터</title>
+<meta name="description" content="전국 장학금을 한곳에서 찾고 내 조건으로 지원 가능 여부를 확인합니다.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="장학금헌터">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<style>
+/* Layout: 조용한 목록 앱 — 상단 요약 숫자, 왼쪽 조건 레일, 오른쪽 마감순 목록, 상세는 오른쪽 시트.
+   Pretendard 한 가족으로 굵기 대비만 쓰고, 색은 청록(행동) 하나와 인주 빨강(마감 임박)만 강조에 쓴다. */
+:root{
+  --bg:#f4f5f7; --surface:#ffffff; --surface-2:#f9fafb; --ink:#121820; --ink-2:#4b5563; --ink-3:#8a93a0;
+  --line:#e4e7eb; --line-2:#eef0f3;
+  --accent:#2d6a3e; --accent-ink:#ffffff; --accent-soft:#e6f1e8;
+  --seal:#d4382c; --seal-soft:#fdeceb;
+  --ok:#14804a; --ok-soft:#e5f5ec; --no:#c0392b; --no-soft:#fbe9e7; --check:#9a6400; --check-soft:#fdf3dc;
+  --shadow:0 1px 2px rgba(18,24,32,.04),0 6px 20px rgba(18,24,32,.06);
+  --c-tuition:#2459c9; --c-tuition-soft:#e6eefc; --c-living:#c0306b; --c-living-soft:#fce8f0; --c-dorm:#6a43c9; --c-dorm-soft:#efe9fc; --c-loan:#5b6573; --c-loan-soft:#eceef1; --c-work:#b45309; --c-work-soft:#fdf0e1;
+  --font:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --r-lg:16px; --r:12px; --r-sm:8px;
+  --p-fld:#4338ca; --p-fld-soft:#e9e8fd; --p-reg:#0f7a5c; --p-reg-soft:#ddf3ea; --p-lvl:#9d3cb8; --p-lvl-soft:#f6e6fb; --p-kind:#0b6694; --p-kind-soft:#e0f0f9; --p-rec:#a15c00; --p-rec-soft:#fdefd8;
+  --st-live:#2d6a3e; --st-live-soft:#dff1f2; --st-soon:#9a6400; --st-soon-soft:#fdf1d6; --st-end-soft:#eceef1;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1216; --surface:#161b21; --surface-2:#1b2128; --ink:#eef1f4; --ink-2:#b4bcc6; --ink-3:#808a96;
+  --line:#262d35; --line-2:#20262d;
+  --accent:#7cc98f; --accent-ink:#08190d; --accent-soft:#16301d;
+  --seal:#ff7b6e; --seal-soft:#3a1d1a;
+  --ok:#5bd394; --ok-soft:#14301f; --no:#ff8a7d; --no-soft:#3a1e1b; --check:#f2bf55; --check-soft:#33290f;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3); color-scheme:dark;
+  --c-tuition:#7aa5ff; --c-tuition-soft:#18243d; --c-living:#ff86b5; --c-living-soft:#3a1828; --c-dorm:#b79bff; --c-dorm-soft:#261d40; --c-loan:#a7b0bc; --c-loan-soft:#232a32; --c-work:#f3a65a; --c-work-soft:#3a2814;
+  --p-fld:#a5a1ff; --p-fld-soft:#23214a; --p-reg:#5fd3a6; --p-reg-soft:#123326; --p-lvl:#e19cf5; --p-lvl-soft:#35193f; --p-kind:#71c3ee; --p-kind-soft:#10293a; --p-rec:#f5b860; --p-rec-soft:#3a2a10;
+  --st-live:#4fc1cb; --st-live-soft:#123135; --st-soon:#f2bf55; --st-soon-soft:#33290f; --st-end-soft:#20262d;}}
+:root[data-theme="dark"]{
+  --bg:#0e1216; --surface:#161b21; --surface-2:#1b2128; --ink:#eef1f4; --ink-2:#b4bcc6; --ink-3:#808a96;
+  --line:#262d35; --line-2:#20262d;
+  --accent:#7cc98f; --accent-ink:#08190d; --accent-soft:#16301d;
+  --seal:#ff7b6e; --seal-soft:#3a1d1a;
+  --ok:#5bd394; --ok-soft:#14301f; --no:#ff8a7d; --no-soft:#3a1e1b; --check:#f2bf55; --check-soft:#33290f;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3); color-scheme:dark;
+  --c-tuition:#7aa5ff; --c-tuition-soft:#18243d; --c-living:#ff86b5; --c-living-soft:#3a1828; --c-dorm:#b79bff; --c-dorm-soft:#261d40; --c-loan:#a7b0bc; --c-loan-soft:#232a32; --c-work:#f3a65a; --c-work-soft:#3a2814;
+  --p-fld:#a5a1ff; --p-fld-soft:#23214a; --p-reg:#5fd3a6; --p-reg-soft:#123326; --p-lvl:#e19cf5; --p-lvl-soft:#35193f; --p-kind:#71c3ee; --p-kind-soft:#10293a; --p-rec:#f5b860; --p-rec-soft:#3a2a10;
+  --st-live:#4fc1cb; --st-live-soft:#123135; --st-soon:#f2bf55; --st-soon-soft:#33290f; --st-end-soft:#20262d;}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.topright{display:flex;align-items:center;gap:10px}
+.themebtn{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:5px 10px;font:inherit;font-size:12px;font-weight:650;cursor:pointer;white-space:nowrap}
+.tbtns{display:flex;gap:6px}
+.themebtn:hover{border-color:var(--accent);color:var(--ink)}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--font);margin:0;letter-spacing:-.005em;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--accent);text-underline-offset:2px}
+button,input,select{font:inherit;color:inherit;letter-spacing:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.num,.kpi .n,.due,.cal .num,.cal .cnt{font-variant-numeric:tabular-nums}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:20px;padding-block:0 56px}
+
+header.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding-block:28px 20px}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.brand:active{opacity:.6}
+.updbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:var(--r);padding:8px 12px;margin:0 0 8px;font-size:13.5px}
+.updbar[hidden]{display:none}
+.updbar .btn{padding:6px 12px;font-size:13px}
+.mark{width:40px;height:40px;border-radius:12px;background:var(--accent);display:grid;place-items:center;flex:none}
+.mark svg{width:24px;height:24px}
+.brand h1{font-weight:800;font-size:24px;line-height:1.15;letter-spacing:-.03em;margin:0}
+.brand p{margin:2px 0 0;color:var(--ink-3);font-size:13.5px}
+.stamp{font-size:12.5px;color:var(--ink-3);text-align:right;line-height:1.5}
+@media (max-width:560px){
+  header.top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding-block:18px 14px}
+  .topright{display:contents}
+  .tbtns{grid-column:2;grid-row:1;align-self:center}
+  .stamp{grid-column:1/-1;text-align:left;padding-left:52px;margin-top:-4px;font-size:12px}
+}
+/* 찾기 화면에서만 '새로 올라온 장학'과 요약 숫자를 보여 준다 (다른 화면은 깔끔하게) */
+body:not([data-tab="find"]) #fresh, body:not([data-tab="find"]) #kpis{display:none!important}
+/* 내 정보 맞춤 켜고 끄기 */
+.pfbar{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:4px 8px;margin:0 0 10px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);font-size:13px;color:var(--ink-2)}
+.pfbar .sw{display:inline-flex;align-items:center;gap:8px;border:0;background:none;font:inherit;font-weight:700;color:var(--ink);cursor:pointer;padding:2px 0}
+.pfbar .sw i{position:relative;width:38px;height:22px;border-radius:999px;background:var(--line);transition:background .15s;flex:none}
+.pfbar .sw i::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+.pfbar .sw[aria-pressed="true"] i{background:var(--accent)}
+.pfbar .sw[aria-pressed="true"] i::after{transform:translateX(16px)}
+.pfbar .grow{grid-column:1/-1;grid-row:2;min-width:0;font-size:12.5px;color:var(--ink-3)}
+.pfbar .lk{border:0;background:none;color:var(--accent);font:inherit;font-weight:650;cursor:pointer;padding:2px 4px}
+.stamp b{color:var(--ink-2);font-weight:600}
+
+.kpis{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 6px;margin:2px 0 4px}
+.kpi{display:inline-flex;align-items:baseline;gap:4px;background:none;border:1px solid var(--line);border-radius:999px;padding:3px 9px;cursor:pointer;color:var(--ink-3);font:inherit;font-size:11.5px;line-height:1.4}
+.kpi:hover{border-color:var(--accent);color:var(--ink-2)}
+.kpi .n{font-weight:700;font-size:11.5px;color:var(--ink-2)}
+.kpi .l{order:-1}
+.kpi.hot .n{color:var(--seal)}
+.fresh{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px 6px;margin:0 0 8px}
+.fresh h2{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;font-weight:750;margin:0 0 4px;letter-spacing:-.01em}
+.fresh h2 small{font-weight:500;color:var(--ink-3);font-size:11.5px}
+.fresh ul{list-style:none;margin:0;padding:0}
+.fresh li{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--line);cursor:pointer;font-size:13.5px;min-width:0}
+.fresh li:first-child{border-top:0}
+.fresh li:hover .ft{color:var(--accent)}
+.fresh .fb{flex:none;font-size:10.5px;font-weight:750;border-radius:5px;padding:1px 6px;background:var(--accent-soft);color:var(--accent)}
+.fresh .fb.u{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.fresh .ft{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fresh .fd{flex:none;font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.fresh .fd.hot{color:var(--seal);font-weight:700}
+.fresh .more{display:block;margin:0 auto;background:none;border:0;color:var(--accent);font:inherit;font-size:12px;font-weight:650;cursor:pointer;padding:2px 8px 4px}
+
+nav.tabs{display:flex;gap:2px;overflow-x:auto;margin:22px auto 0;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;width:max-content;max-width:100%;position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;box-shadow:var(--shadow)}
+nav.tabs button{border:0;background:none;padding:9px 20px;border-radius:999px;cursor:pointer;white-space:nowrap;font-weight:600;font-size:14px;color:var(--ink-2)}
+nav.tabs button:hover{color:var(--ink)}
+nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+nav.tabs .count{font-weight:700;font-size:11.5px;margin-left:5px;background:var(--seal);color:#fff;border-radius:999px;padding:0 6px}
+nav.tabs .count:empty{display:none}
+
+.layout{display:grid;grid-template-columns:256px minmax(0,1fr);gap:28px;margin-top:22px}
+.side{align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 72px);height:calc(100vh - 88px);display:flex;flex-direction:column;gap:12px;min-height:0}
+aside.filters{display:flex;flex-direction:column;gap:18px;flex:1 1 auto;min-height:0;overflow:auto;padding:2px 4px 8px 0}
+.onlybox{flex:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px}
+.onlybox h3{margin:0 0 6px;font-size:12.5px;font-weight:750;color:var(--ink-2);display:flex;justify-content:space-between;align-items:center;gap:6px}
+.onlybox .chips{display:flex;flex-wrap:wrap;gap:5px}
+.onlybox .chip{font-size:12px;padding:4px 9px}
+.onlybox .chip b{font-weight:650;color:var(--ink-3);margin-left:2px}
+.onlybox .note{font-size:11.5px;margin:6px 0 0}
+.grouphead{display:flex;flex-wrap:wrap;word-break:keep-all;align-items:baseline;gap:2px 8px;margin:14px 2px 2px;font-size:14px;font-weight:750;color:var(--ink)}
+.grouphead:first-child{margin-top:0}
+.gsec{margin-bottom:14px}
+.gsec:first-child .grouphead{margin-top:0}
+.grouphead .n{font-size:12px;font-weight:600;color:var(--ink-3)}
+.grouphead small{font-size:11.5px;font-weight:500;color:var(--ink-3)}
+.grouphead.closed{border-top:1px dashed var(--line);padding-top:12px;color:var(--ink-2)}
+.bell{border:0;background:none;width:30px;height:26px;border-radius:8px;cursor:pointer;color:var(--ink-3);display:grid;place-items:center;margin:0 -4px 0 0}
+.bell:hover{background:var(--surface-2)}
+.bell svg{width:18px;height:18px}
+.bell[aria-pressed="true"]{color:var(--accent)}
+.bell[aria-pressed="true"] svg path{fill:currentColor}
+.chip.ex[aria-pressed="true"]{background:var(--surface-2);color:var(--seal);border-color:var(--seal);text-decoration:line-through}
+.quickex{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:-2px 2px 12px}
+.quickex .lab{font-size:12px;font-weight:700;color:var(--ink-3);margin-right:2px}
+.quickex .chip{font-size:12.5px;padding:4px 10px}
+.quickex .sp{flex:1}
+.quickex .hid[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media (max-width:560px){.quickex{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.quickex::-webkit-scrollbar{display:none}.quickex>*{flex:none}.quickex .sp{display:none}}
+.watchhits{background:var(--accent-soft);border:1px solid var(--accent);border-radius:var(--r);padding:10px 12px;margin:0 0 8px;font-size:13.5px}
+.watchhits h2{font-size:13px;margin:0 0 4px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.watchhits ul{list-style:none;margin:0;padding:0}
+.watchhits li{padding:5px 0;border-top:1px solid var(--line);cursor:pointer}
+.watchhits li:first-child{border-top:0}
+.watchlist{list-style:none;margin:8px 0 0;padding:0}
+.watchlist li{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px}
+.watchlist li span{flex:1;min-width:0}
+.watchlist li small{display:block;color:var(--ink-3);font-size:11.5px}
+.helpwrap{position:fixed;inset:0;z-index:30;background:rgba(8,12,16,.42);display:grid;place-items:center;padding:16px}
+.helpwrap[hidden]{display:none}
+.helpbox{background:var(--surface);color:var(--ink);border-radius:16px;box-shadow:var(--shadow);width:min(560px,100%);max-height:calc(100vh - 32px);overflow:auto;padding:20px 20px 16px}
+.helpbox h2{margin:0 0 4px;font-size:18px}
+.helpbox input{margin:10px 0 6px}
+.helpbox details{border-top:1px solid var(--line);padding:9px 0}
+.helpbox summary{cursor:pointer;font-weight:700;font-size:14.5px}
+.helpbox details p{margin:6px 0 0;font-size:13.5px;color:var(--ink-2);line-height:1.6}
+.helpbox .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+.fgroup[data-g="status"],.fgroup[data-g="level"]{border-radius:var(--r);padding:10px 12px;border:1px solid transparent}
+.fmore summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--ink-2);padding:4px 0}
+.fmore[open]{display:flex;flex-direction:column;gap:18px}
+.fmore[open] summary{margin-bottom:-6px}
+.fgroup[data-g="status"]{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+.fgroup[data-g="status"] h3{color:var(--accent)}
+.fgroup[data-g="status"] .chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.fgroup[data-g="level"]{background:var(--c-dorm-soft);border-color:color-mix(in srgb,var(--c-dorm) 35%,transparent)}
+.fgroup[data-g="level"] h3 h3{color:var(--c-dorm)}
+.fgroup[data-g="level"] .chip[aria-pressed="true"] .chip[aria-pressed="true"]{background:var(--c-dorm);color:#fff;border-color:var(--c-dorm)}
+.fgroup[data-g="ex"] h3{color:var(--seal)}
+.grouphead.g-모집중{color:var(--accent)} .grouphead.g-예정{color:var(--check)}
+.fgroup h3{font-weight:700;font-size:12px;letter-spacing:.02em;color:var(--ink-3);margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px;font-size:13px;font-weight:500;cursor:pointer;color:var(--ink-2);transition:background .12s,border-color .12s}
+.chip:hover{border-color:var(--ink-3)}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:650}
+textarea{width:100%;min-height:84px;resize:vertical;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-sm);padding:9px 12px;font:inherit;line-height:1.55;color:var(--ink)}
+.tips{margin:6px 0 4px;padding:0;list-style:none;counter-reset:t}
+.tips li{counter-increment:t;position:relative;padding:10px 0 10px 34px;border-top:1px solid var(--line);font-size:14px;line-height:1.6}
+.tips li:first-child{border-top:0}
+.tips li::before{content:counter(t);position:absolute;left:0;top:10px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:750;display:grid;place-items:center}
+.tips b{color:var(--ink)}
+.sch-box{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;font-size:13.5px;line-height:1.6;white-space:pre-wrap;color:var(--ink-2)}
+.out{border:1px solid var(--line);border-radius:var(--r);margin-top:14px;overflow:hidden;background:var(--surface)}
+.out header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.out h3{margin:0;font-size:15px;font-weight:750;letter-spacing:-.02em}
+.out h3 small{display:block;font-weight:500;color:var(--ink-3);font-size:12.5px;margin-top:2px}
+.out .acts{display:flex;flex-wrap:wrap;gap:6px}
+.out .acts .btn{padding:7px 12px;font-size:13px}
+.out pre{margin:0;padding:12px 14px;max-height:260px;overflow:auto;white-space:pre-wrap;word-break:break-word;font:inherit;font-size:13px;line-height:1.6;background:var(--surface-2)}
+select,input[type=text],input[type=search],input[type=number]{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-sm);padding:9px 12px;transition:border-color .12s}
+select:focus,input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+
+.search{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.search input{font-size:16px;padding:13px 16px 13px 44px;border-radius:var(--r);background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%238a93a0' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='8' cy='8' r='6'/%3E%3Cpath d='m13 13 4 4'/%3E%3C/svg%3E") no-repeat 16px center;box-shadow:var(--shadow)}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin:4px 2px 10px;color:var(--ink-3);font-size:13px}
+.toolbar b{color:var(--ink);font-weight:700}
+.toolbar select{width:auto;padding:6px 10px;font-size:13px}
+
+.list{display:flex;flex-direction:column;gap:6px}
+.item{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:10px;align-items:start;padding:9px 8px 9px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.item:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));box-shadow:var(--shadow)}
+.due{display:flex;flex-direction:column;gap:1px;font-size:10.5px;color:var(--ink-3);line-height:1.25}
+.due .d{font-weight:800;font-size:15px;letter-spacing:-.02em;color:var(--ink)}
+.due.hot .d{color:var(--seal)}
+.due.closed .d{color:var(--ink-3);font-size:12.5px;font-weight:700}
+.due{border-radius:8px;padding:5px 4px;align-self:start;align-items:center;text-align:center;white-space:nowrap;min-width:0}
+.due span{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.due .d2{font-size:10px;font-weight:600;color:var(--ink-3)}
+.due.st-모집중{background:var(--st-live-soft)} .due.st-모집중 .d{color:var(--st-live)} .due.st-모집중.hot .d{color:var(--seal)}
+.due.st-예정{background:var(--st-soon-soft)} .due.st-예정 .d{color:var(--st-soon)}
+.due.st-마감,.due.st-상시\/미정{background:var(--st-end-soft)}
+.pill.fld{background:var(--p-fld-soft);color:var(--p-fld)} .pill.reg{background:var(--p-reg-soft);color:var(--p-reg)} .pill.lvl{background:var(--p-lvl-soft);color:var(--p-lvl)} .pill.kind{background:var(--p-kind-soft);color:var(--p-kind)} .pill.rec{background:var(--p-rec-soft);color:var(--p-rec)}
+.t{font-weight:700;font-size:14.5px;line-height:1.35;letter-spacing:-.015em;margin:0;text-wrap:pretty}
+.item .t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.meta{display:flex;flex-wrap:wrap;gap:2px 12px;color:var(--ink-2);font-size:12px;margin-top:2px}
+.meta .amt{color:var(--ink);font-weight:700}
+.pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.pill{font-size:10.5px;font-weight:600;border-radius:5px;padding:1px 6px;background:var(--line-2);color:var(--ink-2);line-height:1.5}
+.pill.ok{background:var(--ok-soft);color:var(--ok)} .pill.no{background:var(--no-soft);color:var(--no)} .pill.check{background:var(--check-soft);color:var(--check)}
+.pill.live{background:var(--accent-soft);color:var(--accent)} .pill.field{background:var(--surface-2);color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line)} .pill.state{background:var(--ink);color:var(--bg)} .pill.seal{background:var(--seal-soft);color:var(--seal)}
+.star{border:0;background:none;width:30px;height:30px;border-radius:8px;cursor:pointer;color:var(--ink-3);display:grid;place-items:center;margin:-4px -2px 0 0}
+.star:hover{background:var(--surface-2)}
+/* 새로 올라온 장학(최근 7일)은 따뜻한 색 바탕과 '새 장학' 표시, 바뀐 장학은 파란 표시 */
+.item.is-new{background:color-mix(in srgb,#ffb020 10%,var(--surface));border-color:color-mix(in srgb,#f59e0b 60%,var(--line))}
+.item.is-upd{border-color:color-mix(in srgb,#3b82f6 45%,var(--line))}
+.newtag{display:inline-block;margin-right:5px;padding:0 6px;border-radius:999px;font-size:10.5px;font-weight:800;vertical-align:2px;background:#f59e0b;color:#fff;letter-spacing:-.01em}
+.newtag.upd{background:#3b82f6}
+.item .acts{display:flex;flex-direction:column;align-items:center;gap:0}
+.hide{border:0;background:none;width:30px;height:26px;border-radius:8px;cursor:pointer;color:var(--ink-3);display:grid;place-items:center;margin:0 -4px 0 0;font-size:12px;white-space:nowrap}
+.hide:hover{background:var(--surface-2);color:var(--ink)}
+.hide svg{width:18px;height:18px}
+.hidebar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 10px;padding:8px 12px;border:1px dashed var(--line);border-radius:var(--r);font-size:13px;color:var(--ink-2)}
+.hidebar[hidden]{display:none}
+.linkbtn2{border:0;background:none;color:var(--accent);font:inherit;font-weight:650;cursor:pointer;padding:2px 4px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:#1f2937;color:#fff;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:calc(100vw - 32px)}
+.toast[hidden]{display:none}
+.toast button{border:0;background:none;color:#fcd34d;font:inherit;font-weight:750;cursor:pointer;white-space:nowrap;flex:none}
+.star svg{width:20px;height:20px}
+.star[aria-pressed="true"]{color:var(--seal)}
+.star[aria-pressed="true"] svg path{fill:currentColor}
+.more{margin:18px auto 0;display:block;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 22px;cursor:pointer;font-weight:600;color:var(--ink-2)}
+.empty{padding:48px 16px;color:var(--ink-3);text-align:center;background:var(--surface);border:1px dashed var(--line);border-radius:var(--r)}
+
+.scrim{position:fixed;inset:0;background:rgba(8,12,16,.38);backdrop-filter:blur(2px);z-index:20}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(620px,100%);background:var(--surface);z-index:21;overflow:auto;box-shadow:var(--shadow);padding:calc(env(safe-area-inset-top,0px) + 20px) 26px calc(env(safe-area-inset-bottom,0px) + 40px);border-left:1px solid var(--line)}
+.drawer h2{font-weight:800;font-size:22px;line-height:1.35;letter-spacing:-.03em;margin:10px 0 4px;text-wrap:balance}
+.drawer .close{position:sticky;top:0;float:right;border:1px solid var(--line);background:var(--surface);border-radius:999px;width:36px;height:36px;cursor:pointer;display:grid;place-items:center;color:var(--ink-2)}
+.drawer h3{font-weight:700;font-size:14px;margin:22px 0 8px}
+.facts{display:grid;grid-template-columns:104px minmax(0,1fr);margin:18px 0 0;border-top:1px solid var(--line)}
+.facts dt,.facts dd{padding:11px 0;border-bottom:1px solid var(--line-2);margin:0}
+.facts dt{color:var(--ink-3);font-size:13px;font-weight:600;padding-right:12px}
+.facts dd{white-space:pre-line;font-size:14.5px;min-width:0}
+.reasons{margin:16px 0 0;padding:12px 14px;border-radius:var(--r-sm);font-size:13.5px}
+.reasons b{font-weight:700}
+.reasons.ok{background:var(--ok-soft)} .reasons.no{background:var(--no-soft)} .reasons.check{background:var(--check-soft)}
+.reasons ul{margin:6px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:3px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;text-decoration:none;color:var(--ink);font-size:14px;font-weight:600;cursor:pointer}
+.btn:hover{border-color:var(--ink-3)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.06)}
+.summary{white-space:pre-line;background:var(--surface-2);border:1px solid var(--line-2);border-radius:var(--r-sm);padding:14px;font-size:14px;max-height:340px;overflow:auto}
+
+.cal-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:22px 0 12px}
+.cal-head h2{font-weight:800;font-size:22px;letter-spacing:-.03em;margin:0;min-width:128px;text-align:center}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cal div{border:1px solid var(--line);border-radius:10px;min-height:72px;padding:6px 7px;font-size:12px;background:var(--surface);cursor:pointer}
+.cal div:hover{border-color:var(--ink-3)}
+.cal .dow{min-height:auto;border:0;background:none;font-weight:700;color:var(--ink-3);cursor:default;text-align:center}
+.cal .off{background:none;border-style:dashed;cursor:default}
+.cal .today{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.cal .sel{background:var(--accent-soft);border-color:var(--accent)}
+.cal .num{font-weight:700;font-size:12.5px}
+.cal .ev{display:block;font-size:10.5px;font-weight:600;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:4px;padding:1px 4px;margin-top:3px;background:var(--seal-soft);color:var(--seal)}
+.cal .ev.s{background:var(--accent-soft);color:var(--accent)}
+.cal .ev.g{opacity:.65}
+.cal .ev:hover{text-decoration:underline}
+.cal .evmore{display:block;font-size:10px;color:var(--ink-3);margin-top:2px;font-weight:650}
+
+.panel{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px}
+.form{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px 20px;align-items:end}
+.form label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:var(--ink-2);min-width:0}
+.form .full{grid-column:1/-1}
+.form fieldset{border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px}
+.form label.chip{flex-direction:row;align-items:center;gap:6px;font-weight:500;color:var(--ink-2)}
+.form .chip input{accent-color:var(--accent);margin:0}
+.form label.chip:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:650}
+.note{font-size:13px;color:var(--ink-3);max-width:68ch;margin:0}
+.lead{font-weight:800;font-size:20px;letter-spacing:-.03em;margin:0 0 6px}
+.mfilter{display:none}
+.track{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:14px;font-size:13px;color:var(--ink-3)}
+.track>span{margin-right:4px;font-weight:600}
+.seg{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.seg[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.docs{display:flex;flex-direction:column;gap:2px}
+.doc{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;font-size:14px;cursor:pointer}
+.doc:hover{background:var(--surface-2)}
+.doc input{accent-color:var(--accent);margin-top:4px}
+.doc input:checked+span{color:var(--ink-3);text-decoration:line-through}
+.favgroup{margin:18px 0 8px;font-weight:750;font-size:15px;display:flex;gap:8px;align-items:center}
+.favgroup .n{font-size:12px;color:var(--ink-3);font-weight:600}
+.addr{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:10px;font-size:12.5px;color:var(--ink-3)}
+.addr code{font:12.5px/1.4 var(--font);color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line-2);border-radius:6px;padding:4px 8px;min-width:0;overflow-wrap:anywhere;user-select:all;flex:1 1 220px}
+.addr .btn{padding:5px 10px;font-size:12.5px}
+.cats{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px 0 0}
+.cat{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;font-weight:650;font-size:14px;cursor:pointer;color:var(--ink-2)}
+.cat i{width:10px;height:10px;border-radius:50%;background:var(--c);display:inline-block}
+.cat .n{font-weight:600;font-size:12px;color:var(--ink-3)}
+.cat:hover{border-color:var(--c)}
+.cat[aria-pressed="true"]{background:var(--cs);border-color:var(--c);color:var(--c)}
+.cat[aria-pressed="true"] .n{color:var(--c)}
+.cat.all{--c:var(--ink);--cs:var(--line-2)}
+.cat.tuition,.pill.tuition{--c:var(--c-tuition);--cs:var(--c-tuition-soft)}
+.cat.living,.pill.living{--c:var(--c-living);--cs:var(--c-living-soft)}
+.cat.dorm,.pill.dorm{--c:var(--c-dorm);--cs:var(--c-dorm-soft)}
+.cat.etc{--c:var(--ink-3);--cs:var(--surface-2)}
+.onlybar{flex-basis:100%;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;margin-top:4px}
+.onlybar .chip{font-size:12.5px;padding:4px 10px}
+.onlybar .chip b{font-weight:650;color:var(--ink-3);margin-left:2px}
+.pill.only{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.cats-hint{flex-basis:100%;text-align:center;font-size:12px;color:var(--ink-3);margin:2px 0 0}
+.linkbtn{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-weight:650;cursor:pointer;text-decoration:underline}
+.money.big{font-size:14px;padding:2px 9px;vertical-align:4px}
+.money{display:inline-block;vertical-align:1px;margin-left:6px;padding:0 6px;border-radius:5px;background:var(--accent-soft);color:var(--accent);font-size:11.5px;font-weight:750;letter-spacing:-.01em;white-space:nowrap}
+.cat.loan,.pill.loan{--c:var(--c-loan);--cs:var(--c-loan-soft)}
+.cat.work,.pill.work{--c:var(--c-work);--cs:var(--c-work-soft)}
+.pill.tuition,.pill.living,.pill.dorm,.pill.loan,.pill.work{background:var(--cs);color:var(--c)}
+.item.sup-tuition{border-left:3px solid var(--c-tuition)} .item.sup-living{border-left:3px solid var(--c-living)} .item.sup-dorm{border-left:3px solid var(--c-dorm)} .item.sup-loan{border-left:3px solid var(--c-loan)} .item.sup-work{border-left:3px solid var(--c-work)}
+footer.legal{max-width:1180px;margin:28px auto 36px;padding:14px 16px 0;border-top:1px solid var(--line,#e5e7eb);color:var(--ink-3);font-size:12.5px;line-height:1.7;text-align:center}
+footer.legal a{color:var(--ink-2)}
+.src-note{margin-top:14px;padding:10px 12px;border-radius:10px;background:var(--surface-2)}
+.privacy{display:flex;gap:12px;align-items:flex-start;background:var(--accent-soft);color:var(--ink);border-radius:var(--r);padding:14px 16px;margin:10px 0 18px;font-size:14px;line-height:1.55}
+.privacy svg{flex:none;color:var(--accent);margin-top:2px}
+.privacy b{font-weight:700}
+.sec{border:0;border-top:1px solid var(--line);padding:18px 0 4px;margin:0}
+.sec+.sec{margin-top:18px}
+.sec legend{font-weight:750;font-size:15px;padding:0 10px 0 0;letter-spacing:-.02em}
+.flabel{display:block;font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:8px}
+.callout{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-size:13.5px;color:var(--ink-2)}
+.callout b{color:var(--ink)}
+
+@media (max-width:860px){
+  .wrap{padding-inline:16px}
+  .layout{grid-template-columns:minmax(0,1fr);gap:0}
+  .side{position:static;height:auto;display:block}
+  .onlybox{margin-bottom:12px;padding:8px 10px;display:flex;align-items:center;gap:8px}
+  .onlybox h3{margin:0;flex:none;font-size:12px}
+  .onlybox .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;min-width:0}
+  .onlybox .chip{flex:none;white-space:nowrap}
+  .onlybox .chips::-webkit-scrollbar,.cats::-webkit-scrollbar{display:none}
+  .onlybox .note,.onlybox [data-only-others]{display:none}
+  .cats{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;padding:2px 2px 4px;margin-top:12px}
+  .cats>*{flex:none}
+  .cats .onlybar,.cats .cats-hint{flex-basis:auto}
+  aside.filters{position:static;max-height:none;display:none;margin-bottom:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+  aside.filters.open{display:flex}
+  .mfilter{display:inline-flex;white-space:nowrap}
+  .kpi{padding:2px 7px;font-size:11px}
+  .kpi .n{font-size:11px}
+  nav.tabs{width:100%;justify-content:space-between}
+  nav.tabs button{padding:8px 6px;flex:1;font-size:13px}
+  .due{padding:5px 2px}
+  .due span:not(.d){font-size:9.5px;letter-spacing:-.02em}
+  .item{grid-template-columns:56px minmax(0,1fr) auto;gap:8px;padding:8px 4px 8px 10px}
+  .form{grid-template-columns:minmax(0,1fr)}
+  .facts{grid-template-columns:86px minmax(0,1fr)}
+  .panel{padding:18px}
+  .cal div{min-height:58px;padding:4px 5px}
+  .cal .ev{font-size:9.5px;padding:1px 2px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-all}
+}
+@media (prefers-reduced-motion:no-preference){.drawer{animation:slide .2s cubic-bezier(.2,.8,.2,1)}@keyframes slide{from{transform:translateX(28px);opacity:.5}}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand" id="brandBtn" role="button" tabindex="0" title="새로고침" aria-label="장학금헌터 — 눌러서 새로고침">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12.5" r="8" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12.5" r="3.6" stroke="#fff" stroke-width="1.6" opacity=".8"/><path d="M12 2v3.2M12 19.8V23M1.5 12.5h3.2M19.3 12.5h3.2" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12.5" r="1.4" fill="#f2b630"/></svg></span>
+      <h1>장학금헌터</h1>
+    </div>
+    <div class="topright"><span class="tbtns"><button class="themebtn" type="button" id="helpBtn" aria-label="도움말 열기">도움말</button><button class="themebtn" type="button" id="themeBtn" aria-label="화면 밝기 바꾸기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor"/></svg><span id="themeLbl">자동</span></button></span><div class="stamp" id="stamp">자료를 불러오는 중…</div></div>
+  </header>
+
+  <div class="updbar" id="updBar" role="status" hidden></div>
+  <section class="watchhits" id="watchHits" aria-label="알림" hidden></section>
+  <section class="fresh" id="fresh" aria-label="새로 올라오거나 바뀐 장학금" hidden></section>
+  <section class="kpis" id="kpis" aria-label="요약"></section>
+
+  <nav class="tabs" role="tablist" aria-label="화면">
+    <button role="tab" data-tab="find" aria-selected="true">찾기</button>
+    <button role="tab" data-tab="cal" aria-selected="false">마감 달력</button>
+    <button role="tab" data-tab="fav" aria-selected="false">관심<span class="count" id="favCount"></span></button>
+    <button role="tab" data-tab="alert" aria-selected="false">알림<span class="count" id="watchCount"></span></button>
+    <button role="tab" data-tab="me" aria-selected="false">내 정보</button>
+    <button role="tab" data-tab="doc" aria-selected="false">서류 쓰기</button>
+    <button role="tab" data-tab="src" aria-selected="false">새 소식<span class="count" id="newCount"></span></button>
+  </nav>
+
+  <div class="cats" id="cats" role="group" aria-label="지원 종류"></div>
+  <main id="view-find" class="layout">
+    <div class="side"><aside class="filters" id="filters" aria-label="필터"></aside><section class="onlybox" id="onlyBox" aria-label="학교 전용 공고"></section></div>
+    <section style="min-width:0">
+      <div class="search">
+        <input type="search" id="q" placeholder="장학금명·재단·지역·학교·학과로 검색 (예: 서강대, 간호학과, 생활비)" aria-label="검색">
+        <button class="btn mfilter" id="toggleFilters" type="button" style="padding:13px 16px">필터</button>
+      </div>
+      <div class="callout" id="installTip" hidden><span><b>아이폰에서 앱처럼 쓰기</b> — Safari 아래쪽 <b>공유 버튼</b>(네모에 위쪽 화살표)을 누르고 <b>‘홈 화면에 추가’</b>를 고르세요. 홈 화면 아이콘으로 열면 주소창 없이 앱처럼 열리고, 인터넷이 없어도 마지막으로 본 목록이 보여요.</span><button class="btn" type="button" id="installTipClose">닫기</button></div>
+      <div class="callout" id="meCallout"><span><b>내 정보</b>를 넣으면 지역·학교·형편에 맞는 장학금만 골라 드립니다. 입력한 정보는 이 기기에만 저장됩니다.</span><button class="btn primary" type="button" id="goMe">내 정보 입력</button></div>
+      <div class="pfbar" id="pfBar" hidden></div>
+      <div class="hidebar" id="hideBar" hidden></div>
+      <div class="toolbar">
+        <span id="resultCount"></span>
+        <label>정렬 <select id="sort">
+          <option value="fit">나에게 맞는 순</option>
+          <option value="due">마감 임박순</option>
+          <option value="amount">지원금 많은순</option>
+          <option value="new">최근 등록순</option>
+          <option value="next">다음 모집 예상순</option>
+        </select></label>
+      </div>
+      <div class="quickex" id="quickEx" aria-label="빠르게 빼고 보기"></div>
+      <div class="list" id="list"></div>
+      <button class="more" id="more" type="button" hidden>더 보기</button>
+    </section>
+  </main>
+
+  <main id="view-cal" hidden>
+    <div class="cal-head">
+      <button class="btn" id="calPrev" type="button" aria-label="이전 달">‹</button>
+      <h2 id="calTitle"></h2>
+      <button class="btn" id="calNext" type="button" aria-label="다음 달">›</button>
+      <label class="chip" style="margin-left:auto"><input type="checkbox" id="calFav" style="accent-color:var(--accent);margin:0 4px 0 0"> 관심만</label><label class="chip"><input type="checkbox" id="calNextYear" style="accent-color:var(--accent);margin:0 4px 0 0"> 작년 일정으로 예상 포함</label>
+    </div>
+    <p class="note" style="margin-bottom:10px">빨간 이름은 그날 마감, 청록 이름은 그날 접수 시작입니다. 이름을 누르면 상세가, 날짜를 누르면 아래에 그날 목록이 나옵니다.</p>
+    <div class="cal" id="cal"></div>
+    <div class="list" id="calList" style="margin-top:16px"></div>
+  </main>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+  <main id="view-fav" hidden style="margin-top:22px">
+    <p class="lead">관심 장학금</p>
+    <p class="note" style="margin-bottom:14px">별표를 누른 장학금이 이 기기에 저장됩니다.</p>
+    <div class="callout" id="icsBox" hidden><span><b>마감일을 휴대폰 캘린더에 넣기</b> — 관심 장학금의 마감일을 캘린더 파일(.ics)로 받아 아이폰·안드로이드 캘린더에 추가해요. 마감 하루 전 오전 9시에 알림이 울려요.</span><button class="btn" type="button" id="icsBtn">캘린더 파일 받기</button></div>
+    <div class="list" id="favList"></div>
+  </main>
+
+  <main id="view-alert" hidden><section class="panel">
+    <p class="lead">알림 설정</p>
+    <div id="alertBox"></div>
+  </section><section class="panel">
+    <p class="lead">비슷한 장학 알림</p>
+    <p class="note">장학금 목록에서 별 아래 <b>종</b>을 누르면, 그 장학과 같거나 비슷한 이름의 장학이 새로 올라올 때 알려 드려요. 내년에 다시 열리는 같은 장학도 알려 드려요.</p>
+    <ul class="watchlist" id="watchList"></ul>
+  </section></main>
+
+  <main id="view-me" hidden><section class="panel">
+    <p class="lead">내 정보</p>
+    <div class="privacy"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg><div><b>입력한 정보는 이 기기에만 저장됩니다.</b><br>서버로 보내지 않으며, 앱을 만든 사람을 포함해 누구도 볼 수 없습니다. 지원 가능 여부 계산도 이 기기 안에서만 합니다. ‘내 정보 초기화’를 누르면 바로 삭제됩니다.</div></div>
+    <form id="profile" autocomplete="off">
+      <fieldset class="sec"><legend>어디 학생인가요</legend><div class="form">
+        <label>신분<select id="p_status"><option value="">선택 안 함</option><option value="hs">고등학생</option><option value="pre">대학 입학 예정 (고3·신입생)</option><option value="univ">대학생 (재학)</option><option value="leave">대학생 (휴학)</option><option value="grad">대학원생</option></select></label>
+        <label title="여학생 대상 장학을 판단할 때만 씁니다">성별<select id="p_gender"><option value="">선택 안 함</option><option value="f">여성</option><option value="m">남성</option></select></label>
+        <label>학교 유형<select id="p_school"><option value="">선택 안 함</option><option value="4y">4년제 대학</option><option value="2y">전문대(2~3년제)</option><option value="grad">대학원</option><option value="cyber">원격·사이버대</option></select></label>
+        <label>학교<input type="search" id="p_schoolName" list="schoolList" placeholder="학교 이름을 쳐서 찾기 (예: 건국대)" autocomplete="off"><datalist id="schoolList"></datalist></label>
+        <label>학교 소재지 (시·도)<select id="p_ssido"></select></label>
+        <label>다음 학기 기준 학기<select id="p_sem"><option value="">선택 안 함</option><option value="0">신입생(1학기)</option><option value="2">2학기</option><option value="3">3학기</option><option value="4">4학기</option><option value="5">5학기</option><option value="6">6학기</option><option value="7">7학기</option><option value="8">8학기 이상</option></select></label>
+        <label>학과(전공)<input type="search" id="p_dept" list="deptList" placeholder="학과 이름을 쳐서 찾기 (예: 간호, 컴퓨터)" autocomplete="off"><datalist id="deptList"></datalist><span class="note" id="p_deptHint" style="font-size:11.5px"></span></label>
+        <label>계열<select id="p_major"><option value="">선택 안 함</option><option>인문계열</option><option>사회계열</option><option>교육계열</option><option>공학계열</option><option>자연계열</option><option>의약계열</option><option>예체능계열</option></select></label>
+      </div></fieldset>
+      <fieldset class="sec"><legend>내 지역</legend><div class="form">
+        <label>내 주민등록 주소 (시·도)<select id="p_sido" data-gu="p_gu"></select></label>
+        <label>시·군·구<select id="p_gu"><option value="">시·도를 먼저 고르세요</option></select></label>
+        <label>출신 고등학교 (시·도)<select id="p_hsido" data-gu="p_hgu"></select></label>
+        <label>시·군·구<select id="p_hgu"><option value="">시·도를 먼저 고르세요</option></select></label>
+      </div></fieldset>
+      <fieldset class="sec"><legend>부모님(보호자) 지역</legend><div class="form">
+        <label>주민등록 주소 (시·도)<select id="p_psido" data-gu="p_pgu"></select></label>
+        <label>시·군·구<select id="p_pgu"><option value="">시·도를 먼저 고르세요</option></select></label>
+      </div></fieldset>
+      <fieldset class="sec"><legend>형편·성적·자격</legend><div class="form">
+        <label>학자금 지원구간(소득분위)<select id="p_income"><option value="">모름</option><option value="0">기초·차상위</option><option value="1">1구간</option><option value="2">2구간</option><option value="3">3구간</option><option value="4">4구간</option><option value="5">5구간</option><option value="6">6구간</option><option value="7">7구간</option><option value="8">8구간</option><option value="9">9구간</option><option value="10">10구간</option></select></label>
+        <label>직전 학기 평점 (4.5 만점)<input type="number" id="p_gpa" step="0.01" min="0" max="4.5" placeholder="예: 3.8"></label>
+        <div class="full"><span class="flabel">해당하는 항목</span><div class="chips" id="p_flags"></div></div>
+      </div></fieldset>
+      
+      <div class="actions"><button class="btn primary" type="submit">저장하고 나에게 맞는 장학금 보기</button><button class="btn" type="button" id="p_clear">내 정보 초기화</button><span class="note" id="p_saved" role="status"></span></div>
+      <p class="note" style="margin-top:12px">목록에 <span class="pill ok">지원 가능</span> <span class="pill check">확인 필요</span> <span class="pill no">지원 불가</span> 표시가 붙고, 장학금을 누르면 판단 근거가 나옵니다. 공고 원문이 최종 기준입니다.</p>
+    </form>
+  </section></main>
+
+  <main id="view-doc" hidden>
+    <section class="panel">
+      <p class="lead">추천서·자기소개서 쓰기</p>
+      <p class="note">장학금을 고르고 내 정보를 채우면 ① 추천서 부탁 메일 ② 추천서 초안 ③ 자기소개서 초안을 만들어 주는 글이 완성됩니다. 복사해서 Claude나 ChatGPT에 붙여 넣으면 내 정보에 맞춘 글을 써 줍니다.</p>
+      <div class="privacy"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg><div><b>여기 적은 내용도 이 기기에만 저장됩니다.</b><br>AI에 붙여 넣기 전에 주민등록번호·학번·전화번호처럼 민감한 정보는 넣지 마세요.</div></div>
+      <form id="docForm" autocomplete="off">
+        <fieldset class="sec"><legend>어떤 장학금인가요</legend><div class="form">
+          <label class="full">장학금 고르기<select id="w_sch"></select></label>
+          <div class="full sch-box" id="w_schInfo">관심 등록한 장학금과 지금 모집 중인 장학금 중에서 고를 수 있어요. 장학금 상세의 ‘추천서·자소서 쓰기’ 버튼으로도 바로 올 수 있어요.</div>
+        </div></fieldset>
+        <fieldset class="sec"><legend>나에 대해</legend><div class="form">
+          <label>이름<input type="text" id="w_name" placeholder="예: 김한양"></label>
+          <label>학교·학과·학년<input type="text" id="w_affil" placeholder="예: 한양대학교 기계공학부 3학년"></label>
+          <label>성적<input type="text" id="w_gpa" placeholder="예: 직전 학기 4.1 / 전체 3.9 (4.5 만점)"></label>
+          <label>장학금이 필요한 이유 <span class="note" style="display:inline">(선택)</span><input type="text" id="w_need" placeholder="예: 등록금과 생활비를 아르바이트로 충당"></label>
+          <label class="full">나의 강점과 경험 <span class="note" style="display:inline">— 한 줄에 하나, ‘무엇을 · 어떻게 · 결과(숫자)’</span><textarea id="w_exp" rows="4" placeholder="예: 유체역학 수업 팀 프로젝트 팀장, 실험 설계를 맡아 학과 발표회 1위&#10;학과 학습 멘토링 2학기 운영, 멘티 12명 평균 성적 0.4점 상승&#10;주 15시간 아르바이트하며 장학 성적 유지"></textarea></label>
+          <label class="full">진로·학업 계획<textarea id="w_plan" rows="2" placeholder="예: 대학원에서 배터리 열관리를 연구해 친환경 모빌리티 분야 연구자로 일하고 싶다"></textarea></label>
+        </div></fieldset>
+        <fieldset class="sec"><legend>추천해 주실 교수님</legend><div class="form">
+          <label>교수님 성함<input type="text" id="w_prof" placeholder="예: 이OO"></label>
+          <label>교수님과의 인연<input type="text" id="w_rel" placeholder="예: 2025-2학기 ‘열역학’ 수강(A+), 학부연구생 6개월"></label>
+        </div></fieldset>
+        <fieldset class="sec"><legend>자기소개서</legend><div class="form">
+          <label class="full">공고의 자기소개서 문항 <span class="note" style="display:inline">(없으면 비워 두세요)</span><textarea id="w_q" rows="3" placeholder="공고에 있는 문항을 그대로 붙여 넣으세요"></textarea></label>
+          <label>문항별 글자 수<input type="number" id="w_len" min="100" step="100" placeholder="예: 800"></label>
+          <label>말투·추가 요청 <span class="note" style="display:inline">(선택)</span><input type="text" id="w_tone" placeholder="예: 담백하게, 과장 없이"></label>
+        </div></fieldset>
+        <div class="actions"><button class="btn" type="button" id="w_fill">내 정보에서 가져오기</button><button class="btn" type="button" id="w_clear">이 화면 지우기</button><span class="note" id="w_saved" role="status"></span></div>
+      </form>
+      <div id="w_out"></div>
+    </section>
+  </main>
+
+  <main id="view-src" hidden>
+    <section class="panel">
+      <p class="lead">새로 올라오거나 바뀐 장학금</p>
+      <p class="note" id="srcReport"></p>
+      <div class="list" id="changes" style="margin-top:14px"></div>
+    </section>
+  </main>
+</div>
+
+<footer class="legal"><a href="about.html">정보 출처</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="terms.html">이용약관</a><br>장학금헌터는 공공데이터와 누구나 볼 수 있는 공개 공지를 모아 보여 주는 무료 서비스이며, 장학 운영기관과 관계가 없습니다. 정확한 내용은 각 공고 원문을 확인하세요.</footer>
+<div class="scrim" id="scrim" hidden></div>
+<div class="helpwrap" id="helpWrap" hidden><div class="helpbox" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+  <h2 id="helpTitle">장학금헌터 사용법</h2>
+  <p class="note">궁금한 말을 쳐서 찾을 수 있어요. 이 도움말은 오른쪽 위 <b>도움말</b> 버튼으로 언제든 다시 열 수 있어요.</p>
+  <input type="search" id="helpQ" placeholder="도움말 검색 (예: 알림, 숨기기, 학과)" aria-label="도움말 검색">
+  <div id="helpList">
+    <details open data-k="찾기 검색 학교 학과 이름"><summary>장학금 찾기·검색</summary><p>위쪽 검색 칸에 장학금 이름·재단·지역·학교·학과를 쳐 보세요. ‘간호학과’처럼 학과를 치면 그 계열 대상 장학까지, ‘건국대’처럼 학교를 치면 그 학교 공고까지 찾아요. 검색 칸 위의 색 버튼(등록금·생활비·근로 등)을 누르면 그 종류만 볼 수 있어요.</p></details>
+    <details data-k="중복 같은 장학 한 번 세부 분야 회차"><summary>같은 장학은 한 번만</summary><p>여러 곳에 올라온 같은 장학, 지난 회차, 성적우수·특기처럼 세부 분야만 다른 장학은 한 줄로 묶어 보여 줘요. 묶인 세부 분야는 카드의 ‘세부 n개’ 표시와 상세의 ‘세부 분야’에서 볼 수 있어요.</p></details>
+    <details data-k="모집 상태 접수 예정 마감 내년 예상 묶음"><summary>모집중 · 접수 예정 · 마감·내년 예상</summary><p>목록은 ‘지금 모집중’, ‘접수 예정’, ‘마감·내년 예상’으로 나뉘어 차례로 나와요. 마감된 장학도 작년 일정을 보고 다음 모집 시기를 예상해 보여 줘요. 왼쪽(휴대폰은 ‘필터’ 버튼) 모집 상태에서 원하는 것만 켜고 끌 수 있어요.</p></details>
+    <details data-k="빼고 보기 한국장학재단 제외 국가장학 기관"><summary>한국장학재단 같은 곳 빼고 보기</summary><p>목록 바로 위 <b>빼고 보기</b> 줄에서 한국장학재단, 정부·공공기관, 지자체, 교내 장학, 근로장학, 학자금 대출, 추천 필요를 눌러 뺄 수 있어요. 필터의 ‘빼고 보기’ 칸에는 낱말을 넣어 뺄 수도 있어요. 줄이 그어진 버튼이 지금 빼고 있는 것이에요.</p></details>
+    <details data-k="학교 전용 공고 왼쪽 아래 다른 학교"><summary>학교 전용 공고</summary><p>그 학교 학생만 지원할 수 있는 공고는 기본 목록에서 빼고 왼쪽 아래 <b>학교 전용</b> 칸에 따로 모아 두었어요(휴대폰은 목록 위). 학교 이름을 누르거나, 칸 아래 ‘다른 학교 찾기’에서 전국 대학 중 원하는 학교를 고르면 그 학교 전용 공고만 보여요. 검색 칸에 ‘○○대’처럼 학교 이름을 쳐도 찾을 수 있어요.</p></details>
+    <details data-k="별표 관심 종 알림 비슷한 같은"><summary>별표(관심)와 종(알림)</summary><p><b>별</b>을 누르면 ‘관심’ 탭에 모이고, 마감 전에 알려 드려요. 별 아래 <b>종</b>을 누르면 그 장학과 같거나 비슷한 장학이 새로 올라올 때 알려 드려요. 키워드·지원 종류 알림과 등록한 목록은 ‘알림’ 탭에서 바꿀 수 있어요. 휴대폰 앱은 휴대폰 알림으로, 웹은 다음에 열 때 맨 위에 알려 드려요.</p></details>
+    <details data-k="숨기기 숨김 안 보이게"><summary>장학 숨기기</summary><p>카드 오른쪽 <b>눈 모양</b>을 누르면 목록·달력·새 소식에서 빠져요. 실수했다면 바로 뜨는 ‘되돌리기’를 누르거나, 목록 위 오른쪽 <b>숨긴 것만 보기</b>를 누르면 숨긴 장학만 따로 모아 보고 다시 풀 수 있어요.</p></details>
+    <details data-k="내 정보 맞춤 학과 전공 학교 초기화 리셋"><summary>내 정보로 맞춤 찾기</summary><p>‘내 정보’ 탭에 학교·학과(쳐서 찾기)·지역·소득구간·성적을 넣으면 지원 가능 여부를 표시해 줘요. 목록 위의 스위치로 맞춤 거르기를 껐다 켤 수 있고, ‘내 정보 초기화’로 지울 수 있어요. 입력한 정보는 이 기기에만 저장돼요.</p></details>
+    <details data-k="중학생 고등학생 청소년 대학원 대학원생 석사 박사"><summary>중·고등학생 · 대학원생 장학</summary><p>대학원생만 지원할 수 있는 장학은 기본으로 숨겨져 있어요. 필터 ‘대상’에서 <b>대학원생</b>을 누르거나 내 정보 신분을 대학원생으로 고르면 보여요. 중·고등학생 장학도 기본으로는 숨겨져 있어요. 필터 ‘대상’에서 <b>중·고등학생</b>을 누르면 중·고등학생 장학만, <b>+ 중·고등학생 함께 보기</b>를 누르면 대학생 장학과 함께 보여요.</p></details>
+    <details data-k="달력 마감 캘린더 일정"><summary>마감 달력</summary><p>날짜별로 마감·접수 시작 장학을 보여 줘요. ‘관심만’을 켜면 별표한 장학만, ‘작년 일정으로 예상 포함’을 켜면 다음 모집 예상까지 보여요.</p></details>
+    <details data-k="새로고침 업데이트 최신 새 공지"><summary>새로고침</summary><p>맨 위 <b>장학금헌터</b>(아이콘이나 글자)를 누르면 새로고침되고 ‘찾기’ 화면으로 돌아가요. 앱을 켜 둔 사이에 새 장학 정보가 올라오면 맨 위에 <b>새로고침</b> 버튼이 나타나요.</p></details>
+    <details data-k="출처 정확성 원문 공공데이터 면책"><summary>정보 출처와 정확성</summary><p>장학 정보는 한국장학재단·정부의 공공데이터와 대학·재단이 누구나 볼 수 있게 올린 공지에서 모아요. 공지를 모을 때는 각 사이트가 허용한 범위(robots.txt)만 읽어요. 공고 내용은 옮겨 싣지 않고 기간·대상·금액 같은 핵심만 보여 주며, 상세의 <b>출처</b>와 <b>공고 원문 보기</b>로 원래 공고를 확인할 수 있어요. 자동으로 모은 정보라 틀릴 수 있으니 지원 전에는 꼭 원문을 확인하세요.</p></details>
+    <details data-k="개인정보 저장 서버 기기 약관"><summary>개인정보</summary><p>내 정보·관심·알림 설정은 이 기기에만 저장되고 서버로 보내지 않아요. 회원가입도, 로그인도 없어요. 자세한 내용은 화면 맨 아래 <b>개인정보처리방침</b>과 <b>이용약관</b>에 있어요.</p></details>
+    <details data-k="확대 축소 크기 글자 컨트롤 휠 줌"><summary>화면 확대·축소</summary><p>컴퓨터에서는 <b>Ctrl(맥은 ⌘)을 누른 채 마우스 휠</b>을 돌리거나 Ctrl + <b>+</b>/<b>-</b>를 누르면 화면이 커지고 작아져요. <b>Ctrl + 0</b>을 누르면 원래 크기로 돌아가요. 휴대폰 앱에서는 두 손가락으로 벌리거나 오므리면 돼요. 정한 크기는 이 기기에 기억돼요.</p></details>
+    <details data-k="앱 설치 아이폰 홈 화면 웹앱"><summary>휴대폰에 앱처럼 설치</summary><p>아이폰은 Safari 공유 버튼에서 ‘홈 화면에 추가’를 누르면 앱처럼 쓸 수 있어요. 안드로이드는 Chrome 메뉴의 ‘홈 화면에 추가’ 또는 앱 설치를 쓰세요.</p></details>
+  </div>
+  <p class="note" id="helpNone" hidden>찾는 내용이 없어요. 다른 말로 쳐 보세요.</p>
+  <div class="actions"><button class="btn primary" type="button" id="helpClose">시작하기</button></div>
+</div></div>
+<aside class="drawer" id="drawer" hidden aria-modal="true" role="dialog" aria-labelledby="dTitle"></aside>
+
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const safeUrl=u=>{u=String(u||"").trim(); if(!/^https?:\/\/[^\s/]+\.[^\s]+/i.test(u)) return ""; try{const x=new URL(u);return /^https?:$/.test(x.protocol)?x.href:""}catch(e){return ""}};
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store={get(k,d){try{const v=localStorage.getItem("hunt:"+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem("hunt:"+k,JSON.stringify(v))}catch(e){}}};
+const DIST={"서울": ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구", "송파구", "양천구", "영등포구", "용산구", "은평구", "종로구", "중구", "중랑구"], "부산": ["강서구", "금정구", "기장군", "남구", "동구", "동래구", "부산진구", "북구", "사상구", "사하구", "서구", "수영구", "연제구", "영도구", "중구", "해운대구"], "대구": ["군위군", "남구", "달서구", "달성군", "동구", "북구", "서구", "수성구", "중구"], "인천": ["강화군", "계양구", "남동구", "동구", "미추홀구", "부평구", "서구", "연수구", "옹진군", "중구"], "광주": ["광산구", "남구", "동구", "북구", "서구"], "대전": ["대덕구", "동구", "서구", "유성구", "중구"], "울산": ["남구", "동구", "북구", "울주군", "중구"], "세종": [], "경기": ["가평군", "고양시", "과천시", "광명시", "광주시", "구리시", "군포시", "김포시", "남양주시", "동두천시", "부천시", "성남시", "수원시", "시흥시", "안산시", "안성시", "안양시", "양주시", "양평군", "여주시", "연천군", "오산시", "용인시", "의왕시", "의정부시", "이천시", "파주시", "평택시", "포천시", "하남시", "화성시"], "강원": ["강릉시", "고성군", "동해시", "삼척시", "속초시", "양구군", "양양군", "영월군", "원주시", "인제군", "정선군", "철원군", "춘천시", "태백시", "평창군", "홍천군", "화천군", "횡성군"], "충북": ["괴산군", "단양군", "보은군", "영동군", "옥천군", "음성군", "제천시", "증평군", "진천군", "청주시", "충주시"], "충남": ["계룡시", "공주시", "금산군", "논산시", "당진시", "보령시", "부여군", "서산시", "서천군", "아산시", "예산군", "천안시", "청양군", "태안군", "홍성군"], "전북": ["고창군", "군산시", "김제시", "남원시", "무주군", "부안군", "순창군", "완주군", "익산시", "임실군", "장수군", "전주시", "정읍시", "진안군"], "전남": ["강진군", "고흥군", "곡성군", "광양시", "구례군", "나주시", "담양군", "목포시", "무안군", "보성군", "순천시", "신안군", "여수시", "영광군", "영암군", "완도군", "장성군", "장흥군", "진도군", "함평군", "해남군", "화순군"], "경북": ["경산시", "경주시", "고령군", "구미시", "김천시", "문경시", "봉화군", "상주시", "성주군", "안동시", "영덕군", "영양군", "영주시", "영천시", "예천군", "울릉군", "울진군", "의성군", "청도군", "청송군", "칠곡군", "포항시"], "경남": ["거제시", "거창군", "김해시", "남해군", "밀양시", "사천시", "산청군", "양산시", "의령군", "진주시", "창녕군", "창원시", "통영시", "하동군", "함안군", "함양군", "합천군", "고성군"], "제주": ["서귀포시", "제주시"]};
+const UNIVS=[["한양여자대학교","서울"],["가천대학교", "경기"], ["가톨릭관동대학교", "강원"], ["가톨릭대학교", "경기"], ["강남대학교", "경기"], ["강원대학교", "강원"], ["건국대학교", "서울"], ["건양대학교", "충남"], ["경기대학교", "경기"], ["경남대학교", "경남"], ["경동대학교", "강원"], ["경북대학교", "대구"], ["경상국립대학교", "경남"], ["경성대학교", "부산"], ["경일대학교", "경북"], ["경희대학교", "서울"], ["계명대학교", "대구"], ["고려대학교", "서울"], ["광운대학교", "서울"], ["광주대학교", "광주"], ["국립경국대학교(구 안동대)", "경북"], ["국립공주대학교", "충남"], ["국립군산대학교", "전북"], ["국립목포대학교", "전남"], ["국립부경대학교", "부산"], ["국립순천대학교", "전남"], ["국립창원대학교", "경남"], ["국립한국교통대학교", "충북"], ["국립한국해양대학교", "부산"], ["국립한밭대학교", "대전"], ["국민대학교", "서울"], ["단국대학교", "경기"], ["대구가톨릭대학교", "경북"], ["대진대학교", "경기"], ["덕성여자대학교", "서울"], ["동국대학교", "서울"], ["동덕여자대학교", "서울"], ["동명대학교", "부산"], ["동서대학교", "부산"], ["동신대학교", "전남"], ["동아대학교", "부산"], ["동의대학교", "부산"], ["명지대학교", "서울"], ["목원대학교", "대전"], ["배재대학교", "대전"], ["백석대학교", "충남"], ["부산가톨릭대학교", "부산"], ["부산대학교", "부산"], ["삼육대학교", "서울"], ["상명대학교", "서울"], ["상지대학교", "강원"], ["서강대학교", "서울"], ["서경대학교", "서울"], ["서울과학기술대학교", "서울"], ["서울교육대학교", "서울"], ["서울대학교", "서울"], ["서울시립대학교", "서울"], ["서울신학대학교", "경기"], ["서울여자대학교", "서울"], ["성결대학교", "경기"], ["성공회대학교", "서울"], ["성균관대학교", "서울"], ["성신여자대학교", "서울"], ["세명대학교", "충북"], ["세종대학교", "서울"], ["수원대학교", "경기"], ["숙명여자대학교", "서울"], ["순천향대학교", "충남"], ["숭실대학교", "서울"], ["신라대학교", "부산"], ["신한대학교", "경기"], ["아주대학교", "경기"], ["안양대학교", "경기"], ["연세대학교", "서울"], ["영남대학교", "경북"], ["영산대학교(와이즈유)", "경남"], ["용인대학교", "경기"], ["울산대학교", "울산"], ["원광대학교", "전북"], ["이화여자대학교", "서울"], ["인제대학교", "경남"], ["인천대학교", "인천"], ["인하대학교", "인천"], ["전남대학교", "광주"], ["전북대학교", "전북"], ["전주대학교", "전북"], ["제주대학교", "제주"], ["조선대학교", "광주"], ["중부대학교", "충남"], ["중앙대학교", "서울"], ["차의과학대학교", "경기"], ["청주대학교", "충북"], ["춘천교육대학교", "강원"], ["충남대학교", "대전"], ["충북대학교", "충북"], ["평택대학교", "경기"], ["포항공과대학교(POSTECH)", "경북"], ["한경국립대학교", "경기"], ["한국공학대학교", "경기"], ["한국교원대학교", "충북"], ["한국기술교육대학교", "충남"], ["한국방송통신대학교", "서울"], ["한국예술종합학교", "서울"], ["한국외국어대학교", "서울"], ["한국체육대학교", "서울"], ["한국항공대학교", "경기"], ["한남대학교", "대전"], ["한동대학교", "경북"], ["한림대학교", "강원"], ["한서대학교", "충남"], ["한성대학교", "서울"], ["한신대학교", "경기"], ["한양대학교", "경기"], ["한양대학교", "서울"], ["호서대학교", "충남"], ["홍익대학교", "서울"]];
+const MAJORS={"인문계열": ["국어국문학과", "영어영문학과", "중어중문학과", "일어일문학과", "독어독문학과", "불어불문학과", "노어노문학과", "스페인어학과", "사학과", "철학과", "고고학과", "문헌정보학과", "문화인류학과", "종교학과", "신학과", "언어학과", "한문학과", "미술사학과"], "사회계열": ["경영학과", "경제학과", "경제금융학과", "회계학과", "무역학과", "행정학과", "정치외교학과", "사회학과", "심리학과", "미디어커뮤니케이션학과", "신문방송학과", "광고홍보학과", "법학과", "경찰행정학과", "사회복지학과", "관광경영학과", "부동산학과", "국제학부", "도시공학과", "지리학과", "소비자학과", "아동학과", "가족학과"], "교육계열": ["교육학과", "국어교육과", "영어교육과", "수학교육과", "과학교육과", "사회교육과", "역사교육과", "지리교육과", "윤리교육과", "체육교육과", "음악교육과", "미술교육과", "유아교육과", "초등교육과", "특수교육과", "기술교육과", "컴퓨터교육과", "교육공학과"], "공학계열": ["기계공학과", "전기공학과", "전자공학과", "컴퓨터공학과", "컴퓨터소프트웨어학부", "소프트웨어학과", "정보시스템학과", "인공지능학과", "데이터사이언스학과", "반도체공학과", "화학공학과", "신소재공학과", "건축학과", "건축공학과", "토목공학과", "건설환경공학과", "산업공학과", "원자력공학과", "자동차공학과", "항공우주공학과", "조선해양공학과", "에너지공학과", "융합전자공학부", "생명공학과", "환경공학과", "정보통신공학과", "로봇공학과", "미래자동차공학과"], "자연계열": ["수학과", "통계학과", "물리학과", "화학과", "생명과학과", "지구과학과", "천문학과", "해양학과", "식품영양학과", "의류학과", "농학과", "산림학과", "원예학과", "동물생명과학과", "수의예과", "생활과학과"], "의약계열": ["의예과", "의학과", "치의예과", "치의학과", "한의예과", "약학과", "간호학과", "보건관리학과", "물리치료학과", "작업치료학과", "임상병리학과", "방사선학과", "치위생학과", "응급구조학과", "수의학과"], "예체능계열": ["음악학과", "성악과", "작곡과", "피아노과", "관현악과", "국악과", "미술학과", "회화과", "조소과", "디자인학과", "산업디자인학과", "시각디자인학과", "패션디자인학과", "연극영화과", "영화학과", "무용학과", "체육학과", "스포츠과학과", "생활체육학과", "실용음악과", "사진학과", "만화애니메이션학과"]};
+const SIDO=["서울","부산","대구","인천","광주","대전","울산","세종","경기","강원","충북","충남","전북","전남","경북","경남","제주"];
+const FLAGS=[["multi","다자녀(3자녀 이상)"],["disab","장애"],["multicul","다문화"],["nk","북한이탈"],["vet","국가유공·보훈"],["single","한부모"],["basic","기초생활·차상위"],["farm","농어촌"],["art","예체능 특기"],["sport","체육 특기"]];
+const FLAG_RX={multi:/다자녀|셋째|3자녀|세 자녀/,disab:/장애/,multicul:/다문화/,nk:/북한이탈|탈북/,vet:/국가유공|보훈|유공자/,single:/한부모|조손/,basic:/기초생활|차상위|수급자/,farm:/농어촌|농업인|어업인|농어업/,art:/예술|예체능|음악|미술|무용/,sport:/체육|운동선수|스포츠/};
+const today=new Date(); const TODAY=iso(today);
+function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function days(a,b){return Math.round((new Date(b+"T00:00:00")-new Date(a+"T00:00:00"))/864e5)}
+function moneyOf(r){
+  const a=String(r.amount||"").replace(/\s+/g," "), t=r.title||"";
+  const nums=[...a.matchAll(/(\d[\d,]*(?:\.\d+)?)\s*(억|천만|백만|만)?\s*원/g)].map(m=>parseFloat(m[1].replace(/,/g,""))*({억:1e8,천만:1e7,백만:1e6,만:1e4}[m[2]]||1)).filter(v=>v>0);
+  const hourly=/시급|시간당|단가/.test(a)||(r.support||[]).includes("work");
+  if(hourly&&nums.length&&nums[0]<1e5) return "시급 "+Math.round(nums[0]).toLocaleString("ko-KR")+"원";
+  if((r.support||[]).includes("loan")&&/이자/.test(a+t)) return /전액/.test(a)?"이자 전액 지원":"대출 이자 지원";
+  const max=/최대|이내|까지|~/.test(a)?"최대 ":"";
+  if(r.amount_won===-1||/등록금\s*전액|수업료\s*전액|전액\s*(지원|면제|장학)|등록금\s*\(?전액/.test(a)) return "등록금 전액";
+  let v=r.amount_won>0&&r.amount_won<=5e7?r.amount_won:0;
+  if(!v&&nums.length){const ok=nums.filter(x=>x>=1e4&&x<=5e7); if(ok.length) v=Math.max(...ok)}
+  if(v) return max+(v<1e5?Math.round(v).toLocaleString("ko-KR")+"원":won(v));
+  if(/실납입|등록금|수업료/.test(a)) return "등록금 지원";
+  if(/생활비/.test(a)) return "생활비 지원";
+  if(/주거비|월세|입사|기숙사/.test(a)) return "주거 지원";
+  return "";
+}
+function won(n){if(n===-1)return"등록금 전액";if(!n)return"";if(n>=1e8)return(n/1e8).toFixed(n%1e8?1:0)+"억원";return Math.round(n/1e4).toLocaleString("ko-KR")+"만원"}
+
+let PF_ON=store.get("pfOn",true)!==false;
+const savedProfile=()=>store.get("profile",null);
+let SRC="", DATA=[], META={}, view=[], shown=0, favs=new Set(store.get("favs",[])), profile=PF_ON?store.get("profile",null):null;
+document.body.dataset.tab="find";
+const ST_DEF=["모집중","예정","마감"]; // 기본: 모집중·접수 예정·마감(내년 예상) 모두 보여 주고 목록에서 묶어서 나눈다
+const F={within:0,status:new Set(ST_DEF),level:new Set(),region:"",orgType:new Set(),kind:new Set(),match:new Set(),source:new Set(),field:new Set(),note:new Set(),ex:new Set()};
+const saved=store.get("filters",null); if(saved&&!store.get("mig_field",0)){saved.field=[]; store.set("mig_field",1)}
+if(saved&&!store.get("mig_st3",0)){ if(Array.isArray(saved.status)&&saved.status.length) saved.status=[...new Set([...saved.status,"예정","마감"])]; store.set("mig_st3",1) }
+if(saved){for(const k of["status","level","orgType","kind","match","source","field","note","ex"]) if(saved[k]) F[k]=new Set(saved[k]); F.region=saved.region||""}
+F.exw=(saved&&Array.isArray(saved.exw)?saved.exw:[]).slice(0,20);
+// 앱을 켤 때마다 모집중·접수 예정·마감(내년 예상)은 항상 켠 상태로 시작한다 (일정 미정은 고른 대로)
+F.status=new Set([...ST_DEF,...(F.status.has("상시/미정")?["상시/미정"]:[])]); // 이 말이 들어간 장학 빼기
+// 빼고 보기: 누르면 그 기관 장학을 목록에서 뺀다
+const EX={work:r=>(r.support||[]).includes("work"),loan:r=>(r.support||[]).includes("loan"),rec:r=>r._n&&r._n.includes("추천 필요"),dorm:r=>(r.support||[]).length===1&&r.support[0]==="dorm",kosaf:r=>r.org_type==="한국장학재단"||/^한국장학재단/.test(r.org||""),gov:r=>r.org_type==="정부"||r.org_type==="공공기관",local:r=>r.org_type==="지자체",inside:r=>r.org_type==="대학(교내)"||r.org_type==="대학 게시판"};
+
+/* ---------- 매칭 ---------- */
+const INC_MED={0:0,1:30,2:50,3:70,4:90,5:100,6:130,7:150,8:200,9:300,10:999};
+function match(r,p){
+  if(!p) return null;
+  const why=[]; let verdict="ok";
+  const no=m=>{why.push(["no",m]);verdict="no"}, chk=m=>{why.push(["check",m]); if(verdict!=="no") verdict="check"}, ok=m=>why.push(["ok",m]);
+  const all=[r.amount,r.income,r.gpa,r.special,r.residence,r.restriction,r.target,r.summary].join(" ");
+  // 대상
+  if(p.level){
+    const lv=r.level||"";
+    if(p.status==="pre" && lv==="고등학생") chk("고교 재학생 대상일 수 있음 — 공고 확인");
+    else if(p.level==="고등학생" && lv && lv!=="고등학생") no("고등학생 대상이 아닙니다");
+    else if(p.level!=="고등학생" && lv==="고등학생") no("고등학생 대상 장학금입니다");
+    else if(lv==="해외유학") chk("해외 대학 재학·진학자 대상");
+  }
+  // 학교 유형
+  const st=r.school_types||[];
+  if(p.school && st.length && !st.includes("제한없음")){
+    const need={"4y":["4년제(5~6년제포함)"],"2y":["전문대(2~3년제)"],"grad":["일반대학원","전문대학원","특수대학원"],"cyber":["원격대학"]}[p.school]||[];
+    const onlySpecific=st.every(s=>s==="특정대학");
+    if(need.some(n=>st.includes(n))) ok("학교 유형 일치");
+    else if(st.includes("특정대학")){
+      if(p.schoolName && all.includes(p.schoolName.replace(/학교$/,""))) ok("대상 학교에 포함");
+      else chk(onlySpecific?"특정 대학 대상 — 우리 학교 포함 여부 확인":"특정 대학 포함 — 대상 학교 확인");
+    } else no("학교 유형이 맞지 않습니다 ("+st.join(", ")+")");
+  }
+  // 학기
+  const gr=r.grades||[];
+  if(p.sem!=="" && p.sem!=null && gr.length && !gr.includes("제한없음")){
+    const s=+p.sem; let tok;
+    if(p.school==="2y") tok=s===0?"전문대신입생":"전문대"+(s>=4?"4학기이상":s+"학기");
+    else if(p.school==="grad") tok=s===0?"석사신입생(1학기)":"석사2학기이상";
+    else tok=s===0?"대학신입생":"대학"+(s>=8?"8학기이상":s+"학기");
+    const hasUniv=gr.some(g=>g.startsWith(tok.slice(0,2)) || (tok.startsWith("석사")&&g.startsWith("석사")));
+    if(gr.includes(tok)) ok("학기 조건 일치");
+    else if(!hasUniv) chk("학기 조건 확인 필요");
+    else no("학기 조건 불일치 (대상: "+gr.join(", ").replace(/대학/g,"")+")");
+  }
+  // 계열
+  const mj=r.majors||[];
+  if(p.major && mj.length && !mj.includes("제한없음")){
+    if(mj.includes(p.major)) ok("계열 일치");
+    else if(mj.includes("특정학과")) chk("특정 학과 대상 — 학과 확인");
+    else no("계열 불일치 ("+mj.join(", ")+")");
+  }
+  if(!(r.majors||[]).length){const f=majorFit(r,p); if(f&&f.rank===3) chk("다른 계열 대상일 수 있음 — 공고 확인"); else if(f&&f.rank===0) ok(f.label);}
+  // 지역 — 본인·부모·출신 고교·학교 소재지 중 하나라도 맞으면 인정
+  const rg=r.region||"";
+  const res=(r.residence||"")+" "+(r.special||"");
+  const places=[["내 주소",p.sido,p.gu],["부모님 주소",p.psido,p.pgu],["출신 고교",p.hsido,p.hgu],["학교 소재지",p.ssido,""]].filter(h=>h[1]);
+  const wantHs=/고등학교|고교|졸업/.test(res), wantSchool=/(관내|도내|시내|지역)\s*(소재\s*)?대학|소재\s*대학/.test(res);
+  const usable=places.filter(h=>h[0]==="학교 소재지"?wantSchool:h[0]==="출신 고교"?wantHs||!/주민등록|거주/.test(res):true);
+  if(rg && rg!=="전국"){
+    if(!places.length) chk(rg+" 지역 연고 장학금 — 내 정보에 지역을 입력하세요");
+    else{
+      const same=usable.filter(h=>h[1]===rg);
+      const dur=/\d+\s*(년|개월)/.test(r.residence||"");
+      if(!same.length) no(rg+(r.district?" "+r.district:"")+" 연고 필요");
+      else if(r.district){
+        const d=r.district.replace(/(시|군|구)$/,"");
+        const hit=same.find(h=>(h[2]||"").replace(/(시|군|구)$/,"")===d || (h[2]||"").includes(d));
+        if(hit) dur? chk(hit[0]+" "+r.district+" — 거주 기간 조건 확인") : ok(hit[0]+" 기준 "+r.district+" 조건 충족");
+        else if(same.some(h=>!h[2]&&h[0]!=="학교 소재지")) chk(r.district+" 대상 — 내 정보에 시·군·구를 입력하세요");
+        else no(r.district+" 연고 필요");
+      } else dur? chk(same[0][0]+" 기준 "+rg+" — 거주 기간 조건 확인") : ok(same[0][0]+" 기준 "+rg+" 조건 충족");
+    }
+  }
+  if(WOMEN.test([r.title,r.target,r.special].join(" "))){ if(p.gender==="m") no("여학생 대상"); else if(p.gender==="f") ok("여학생 대상 조건 충족"); else chk("여학생 대상 — 내 정보에 성별을 입력하세요"); }
+  // 휴학생
+  if(p.status==="leave" && /휴학/.test((r.restriction||"")+" "+(r.special||""))) no("휴학생 지원 제한");
+  // 소득
+  const inc=r.income||"";
+  if(inc){
+    let lim=null, m;
+    if((m=inc.match(/(\d{1,2})\s*구간\s*(이내|이하)/))) lim={band:+m[1]};
+    else if((m=inc.match(/(\d{1,2})\s*분위\s*(이내|이하)/))) lim={band:+m[1]};
+    else if((m=inc.match(/중위소득\s*(\d{2,3})\s*%\s*(이내|이하|미만)?/))) lim={med:+m[1]};
+    else if(/기초생활|차상위|수급/.test(inc) && !/중위|구간|분위/.test(inc)) lim={band:0};
+    if(!lim) { if(p.income==="") chk("소득 기준 있음 — 내용 확인"); else chk("소득 기준 확인 필요"); }
+    else if(p.income===""||p.income==null) chk("소득 기준 있음 — 내 학자금 지원구간을 입력하세요");
+    else{
+      const b=+p.income;
+      if(lim.band!=null) (b<=lim.band? ok("소득 "+(lim.band?lim.band+"구간 이내":"기초·차상위")+" 충족"):no("소득 기준 초과 ("+(lim.band?lim.band+"구간 이내":"기초·차상위")+")"));
+      else if(lim.med!=null) (INC_MED[b]<=lim.med? ok("중위소득 "+lim.med+"% 이하 충족(구간 환산)") : (INC_MED[b-1]??0)<lim.med? chk("중위소득 "+lim.med+"% 기준 — 구간 경계, 확인 필요"):no("소득 기준 초과 (중위소득 "+lim.med+"% 이하)"));
+    }
+  }
+  // 성적
+  const g=r.gpa||"";
+  if(g && p.gpa){
+    const m=g.match(/(\d\.\d{1,2})\s*(점)?\s*(이상)/) || g.match(/평균\s*(\d\.\d{1,2})/);
+    if(m){
+      let th=+m[1]; const pre=g.slice(0,g.indexOf(m[0]));
+      if(/4\.3\s*(만점|기준)/.test(pre.slice(-12))) th=th*4.5/4.3;
+      if(/100\s*점/.test(g) && th<5){}
+      if(th>4.5) chk("성적 기준 확인 필요");
+      else (+p.gpa>=th? ok("성적 "+m[1]+" 이상 충족"):no("성적 기준 미달 ("+m[1]+" 이상)"));
+    } else if(/\d{2,3}\s*점\s*이상/.test(g)) chk("백분위 성적 기준 — 확인 필요");
+  }
+  // 특정 자격
+  const sp=[r.special,r.kind].join(" ");
+  if(r.special || ["장애인","특기자"].includes(r.kind)){
+    const need=Object.entries(FLAG_RX).filter(([k,rx])=>rx.test(sp)).map(([k])=>k);
+    if(need.length){
+      const mine=need.filter(k=>(p.flags||[]).includes(k));
+      if(mine.length) ok("해당 자격: "+mine.map(k=>FLAGS.find(f=>f[0]===k)[1]).join(", "));
+      else if(r.kind==="장애인"||(r.kind==="특기자"&&need.some(k=>k==="art"||k==="sport"))) no("특정 자격 필요: "+need.map(k=>FLAGS.find(f=>f[0]===k)[1]).join(", "));
+      else chk("특정 자격 언급: "+need.map(k=>FLAGS.find(f=>f[0]===k)[1]).join(", ")+" — 공고 확인");
+    } else if(r.special && r.special.length>8) chk("특정 자격 조건 있음 — 공고 확인");
+  }
+  if(r.school_check) chk("대학별 추천 장학일 수 있음 — 공고에서 대상 학교 확인");
+  if(r.recommend && !/해당없음|불필요/.test(r.recommend)) chk("추천 필요: "+r.recommend.replace(/○\s*/g,"").slice(0,40));
+  if(r.source==="b"||r.source==="l"||r.kind==="공고") { if(verdict==="ok") chk("세부 조건은 공고 원문 확인"); }
+  return {verdict,why};
+}
+const FIELD_RX={"인문계열":/인문|어문|국문|사학|철학|문학|언어/,"사회계열":/사회과학|상경|경영|경제|무역|회계|금융|행정|법학|법과|정치|미디어|사회복지/,"교육계열":/교육계열|사범|교원|교사|교육학/,"공학계열":/공학|이공|공대|IT|ICT|AI|인공지능|소프트웨어|반도체|컴퓨터|전기|전자|기계|건축|토목|디지털/,"자연계열":/자연과학|이학|수학|물리|화학|생명과학|통계|농업|농학|해양|이공/,"의약계열":/의학|의대|의과|의생명|간호|약학|보건|치의|한의|의료/,"예체능계열":/예체능|예술|음악|미술|체육|무용|디자인|연극|영화|국악|운동선수/};
+function majorFit(r,p){
+  if(!p||(!p.major&&!p.dept)) return null;
+  const text=[r.title,r.target,r.special,r.restriction,r.kind].join(" ")+" "+(r.summary||"").slice(0,900);
+  const core=(p.dept||"").replace(/(학과|학부|전공|과)$/,"");
+  if(core.length>=2 && text.includes(core)) return {cls:"ok",label:"내 학과 대상",rank:0};
+  const mj=r.majors||[];
+  if(mj.length){
+    if(mj.includes("제한없음")||mj.filter(m=>m.endsWith("계열")).length>=6) return {cls:"",label:"전공 무관",rank:1};
+    if(p.major&&mj.includes(p.major)) return {cls:"ok",label:p.major.replace("계열","")+" 계열 대상",rank:0};
+    if(mj.every(m=>m==="특정학과")) return {cls:"check",label:"특정 학과 대상",rank:2};
+    return {cls:"no",label:"다른 계열 대상",rank:3};
+  }
+  const head=[r.title,r.target,r.special].join(" ");
+  const hits=Object.entries(FIELD_RX).filter(([k,rx])=>rx.test(head)).map(([k])=>k);
+  if(!hits.length) return {cls:"",label:"전공 무관",rank:1};
+  if(p.major&&hits.includes(p.major)) return {cls:"ok",label:p.major.replace("계열","")+" 계열 대상",rank:0};
+  return {cls:"no",label:"다른 계열 대상일 수 있음",rank:3};
+}
+const FIELDS=["인문계열","사회계열","교육계열","공학계열","자연계열","의약계열","예체능계열"];
+const FSHORT=f=>f==="무관"?"전공 무관":f==="특정학과"?"특정 학과":f.replace("계열","");
+function fieldsOf(r){
+  const mj=r.majors||[];
+  if(mj.length){
+    const fs=mj.filter(m=>m.endsWith("계열"));
+    if(mj.includes("제한없음")||fs.length>=6) return ["무관"];
+    return fs.length?fs:(mj.includes("특정학과")?["특정학과"]:["무관"]);
+  }
+  const head=[r.title,r.target,r.special].join(" ");
+  const hits=FIELDS.filter(k=>FIELD_RX[k].test(head));
+  return hits.length&&hits.length<6?hits:["무관"];
+}
+const WOMEN=/여학생|여대생|여성\s*(대학생|인재|과학|공학|리더)|여자\s*대학생/;
+const DUPNO=/타\s*장학(금)?\s*(과\s*)?(중복|수혜자\s*(는\s*)?제외)|중복\s*수혜\s*(불가|제한|금지)|타\s*장학.{0,30}(제외|불가)/;
+function notes(r){
+  const t=[r.title,r.target,r.special,r.restriction,r.selection,r.recommend,(r.summary||"").slice(0,1500)].join(" ");
+  const o=[];
+  if((r.recommend&&!/해당없음|불필요|없음/.test(r.recommend))||/추천서|학교장\s*추천|총장\s*추천|학과장\s*추천|지도교수\s*추천|대학\s*추천/.test(t)) o.push("추천 필요");
+  if(DUPNO.test(t)) o.push("중복 수혜 제한");
+  if(/면접|인터뷰/.test(t)) o.push("면접 있음");
+  if(/자기소개서|에세이|학업계획서|활동계획서/.test(t)) o.push("자기소개서");
+  if(/봉사|멘토링\s*활동|활동\s*의무|의무\s*복무|근무/.test([r.title,r.target,r.special].join(" "))) o.push("활동 조건");
+  if(WOMEN.test(t)) o.push("여학생 대상");
+  if(/(회원|직원|조합원|임직원|종사자|근로자|교직원|선원|군인|경찰|소방)의?\s*(자녀|자제)/.test([r.title,r.target,r.special].join(" "))) o.push("특정 직군 자녀 대상");
+  return o;
+}
+const APPLY=["준비 중","제출 완료","합격","불합격"];
+let applyState=store.get("apply",{});
+const VLABEL={ok:"지원 가능",check:"확인 필요",no:"지원 불가"};
+const SUP=[["tuition","등록금"],["living","생활비"],["dorm","기숙사·주거"],["loan","학자금 대출·이자"],["work","교내·교외 근로"]];
+const SUPL=Object.fromEntries(SUP);
+// 불러온 자료 검사: 번호·날짜·종류 값이 정해진 모양이 아니면 버리거나 비운다 (화면에 그대로 넣는 값이라 이상한 글자가 끼면 안 된다)
+const RE_ID=/^[\w가-힣|.-]{1,120}$/, RE_D=/^\d{4}-\d{2}(-\d{2})?$/;
+function cleanRec(r){
+  if(!r||typeof r!=="object"||!RE_ID.test(String(r.id||""))) return null;
+  for(const k of ["start","end","posted","next"]) if(r[k]&&!RE_D.test(String(r[k]))) r[k]="";
+  r.support=(Array.isArray(r.support)?r.support:[]).filter(k=>k in SUPL);
+  for(const k of ["school_types","grades","majors","files","images","for","hy","aka","variants"]) if(r[k]!=null&&!Array.isArray(r[k])) r[k]=[];
+  if(r.variants) r.variants=r.variants.filter(v=>v&&typeof v==="object"&&typeof v.n==="string").slice(0,12).map(v=>({n:String(v.n).slice(0,40),a:String(v.a||"").slice(0,200),t:String(v.t||"").slice(0,300),e:/^\d{4}-\d\d-\d\d$/.test(v.e||"")?v.e:""}));
+  if(r.aka) r.aka=r.aka.filter(x=>typeof x==="string").slice(0,30);
+  r.images=(r.images||[]).filter(u=>/^https:\/\/[^\s"'<>]+$/.test(String(u)));
+  r.links=(Array.isArray(r.links)?r.links:[]).filter(l=>l&&/^https?:\/\/[^\s"'<>]+$/.test(String(l.url||"")));
+  for(const k of ["url","apply_url"]) if(r[k]&&!/^https?:\/\/[^\s"'<>]+$/.test(String(r[k]))) r[k]="";
+  return r;
+}
+const PAGES="https://lussion629-creator.github.io/JangHakGeum-Hunter";
+/* ---------- 알림 설정 (이 기기에만 저장) ---------- */
+let AL=store.get("alerts",{kw:[],cats:[],before:[3,1]})||{kw:[],cats:[],before:[3,1]};
+function pushAlerts(){
+  try{ if(!(window.AndroidBridge&&window.AndroidBridge.setAlerts)) return;
+    const fav=DATA.filter(r=>favs.has(r.id)&&r.end&&r.end>=TODAY).map(r=>({id:r.id,t:r.title.slice(0,80),e:r.end}));
+    const rv=store.get("remote",null)??PAGES;
+    const wk=(AL.watch||[]).map(w=>[...(w.k||[])].sort((a,b)=>b.length-a.length)[0]).filter(Boolean);
+    window.AndroidBridge.setAlerts(JSON.stringify({kw:[...new Set([...(AL.kw||[]),...wk])].slice(0,60),cats:AL.cats||[],before:AL.before||[],fav,school:myGroup(),remote:/^https:\/\//.test(rv||"")?rv.replace(/\/*$/,"/"):PAGES+"/"}));
+  }catch(e){}
+}
+// 비슷한 장학 알림: 제목에서 해·학기·모집 같은 말을 빼고 남은 핵심 이름으로 같은·비슷한 장학을 찾는다
+const STOPW=/^(장학금?|장학생|장학|모집|선발|공고|안내|신청|접수|추가|재공고|대상자?|지원|사업|프로그램|및|의|년도?|학년도|학기|상반기|하반기|정기|수시|차|기|회|제|교외|교내|국가|신규|계속|대학생|대학원생|학부생|재학생|신입생|희망|모집안내|선발안내|신청안내)$/;
+function coreTokens(t){
+  t=String(t||"").replace(/\[[^\]]*\]|\([^)]*\)|<[^>]*>|【[^】]*】/g," ").replace(/20\d\d\s*(년도?|학년도)?|\d+\s*(학기|차|기|회|학년|기수)|제\s*\d+/g," ").replace(/[^\w가-힣]+/g," ");
+  return [...new Set(t.split(/\s+/).map(w=>w.replace(/(장학생|장학금|모집|선발|공고|안내)$/,"")).filter(w=>w.length>=2&&!STOPW.test(w)&&!/^\d+$/.test(w)))].slice(0,4);
+}
+const nsp=x=>String(x||"").toLowerCase().replace(/\s+/g,"");
+function watchHitW(w,r){ if(r.id===w.id||!w.k||!w.k.length) return false; const h=nsp(r.title+" "+(r.org||"")); return w.k.every(k=>h.includes(nsp(k))) }
+function watchHits(r){ return (AL.watch||[]).filter(w=>watchHitW(w,r)) }
+const isWatched=id=>(AL.watch||[]).some(w=>w.id===id);
+function toggleWatch(id){
+  const r=BYID[id]; if(!r) return; AL.watch=AL.watch||[];
+  if(isWatched(id)){ AL.watch=AL.watch.filter(w=>w.id!==id); toast("비슷한 장학 알림을 껐어요."); }
+  else{
+    const k=coreTokens(r.title); if(!k.length){ toast("이 장학은 이름이 짧아 비슷한 장학을 찾기 어려워요. ‘알림’ 탭에서 키워드로 정해 주세요."); return }
+    AL.watch.unshift({id,t:r.title.slice(0,80),k,at:TODAY}); AL.watch=AL.watch.slice(0,50);
+    const seen=new Set(store.get("watchSeen",[])||[]); DATA.forEach(x=>{ if(watchHitW(AL.watch[0],x)) seen.add(x.id) }); store.set("watchSeen",[...seen].slice(-3000));
+    toast("‘"+k.join(" ")+"’ 장학이 새로 올라오면 알려 드릴게요.");
+    try{ if(!IN_APP&&"Notification" in window&&Notification.permission==="default") Notification.requestPermission().catch(()=>{}) }catch(e){}
+  }
+  store.set("alerts",AL); pushAlerts(); $$(`[data-bell="${id}"]`).forEach(b=>{b.setAttribute("aria-pressed",isWatched(id)); if(b.classList.contains("btn")) b.textContent=isWatched(id)?"🔔 비슷한 장학 알림 끄기":"🔔 비슷한 장학 알림 받기"});
+  $("#watchCount").textContent=(AL.watch||[]).length||""; if(!$("#view-alert").hidden) renderAlerts();
+}
+// 새로 올라온 것 중 종을 누른 장학과 같거나 비슷한 것 (웹: 열 때 맨 위에 알려 줌)
+function renderWatchHits(){
+  const box=$("#watchHits"); if(!box) return; const seen=new Set(store.get("watchSeen",[])||[]);
+  const l=DATA.filter(r=>!seen.has(r.id)&&r._s.key!=="마감"&&watchHits(r).length).slice(0,8);
+  if(!l.length){box.hidden=true; return}
+  box.hidden=false;
+  box.innerHTML=`<h2>🔔 알림 · 종을 누른 장학과 비슷한 장학이 새로 올라왔어요<button class="btn" type="button" id="watchOk">확인</button></h2><ul>${l.map(r=>`<li data-id="${esc(r.id)}" tabindex="0">${esc(r.title)} <span class="note" style="display:inline">· ${esc(r._s.label)} · ‘${esc(watchHits(r)[0].t.slice(0,30))}’와 비슷</span></li>`).join("")}</ul>`;
+  try{ if(!IN_APP&&"Notification" in window&&Notification.permission==="granted"&&store.get("watchNotified","")!==l.map(r=>r.id).join(",")){
+    store.set("watchNotified",l.map(r=>r.id).join(","));
+    const body=l.slice(0,3).map(r=>r.title).join("\n");
+    navigator.serviceWorker&&navigator.serviceWorker.getRegistration?navigator.serviceWorker.getRegistration().then(g=>g?g.showNotification("비슷한 장학이 새로 올라왔어요",{body}):new Notification("비슷한 장학이 새로 올라왔어요",{body})).catch(()=>{}):new Notification("비슷한 장학이 새로 올라왔어요",{body});
+  }}catch(e){}
+}
+$("#watchHits").addEventListener("click",e=>{
+  if(e.target.id==="watchOk"){ const seen=new Set(store.get("watchSeen",[])||[]); DATA.forEach(r=>{ if(watchHits(r).length) seen.add(r.id) }); store.set("watchSeen",[...seen].slice(-3000)); $("#watchHits").hidden=true; return }
+  const li=e.target.closest("li[data-id]"); if(li) openDetail(li.dataset.id);
+});
+function alertHit(r){ const t=(r.title+" "+(r.org||"")).toLowerCase(); return (AL.kw||[]).some(w=>w&&t.includes(w.toLowerCase()))||(r.support||[]).some(k=>(AL.cats||[]).includes(k)) }
+document.addEventListener("click",e=>{ const u=e.target.closest("[data-unwatch]"); if(u){ toggleWatch(u.dataset.unwatch); renderAlerts(); return } const b=e.target.closest("[data-bell]"); if(b){ e.stopPropagation(); toggleWatch(b.dataset.bell) } },true);
+function renderAlerts(){
+  const box=$("#alertBox"); if(!box) return; const app=!!(window.AndroidBridge&&window.AndroidBridge.setAlerts);
+  const hits=DATA.filter(r=>(r._s.key==="모집중"||r._s.key==="예정")&&alertHit(r)).length;
+  box.innerHTML=`<p class="note">${app?"조건에 맞는 장학이 새로 올라오면 휴대폰 알림을 보내요(몇 시간마다 확인). 관심 등록한 장학은 마감 전에 알려 드려요.":(IS_IOS?"아이폰 웹앱에서는 휴대폰 알림을 보낼 수 없어요. 대신 ‘관심’ 탭에서 마감일을 아이폰 캘린더에 넣으면 마감 하루 전에 캘린더 알림이 울려요. 아래에 정한 조건은 이 기기에만 저장돼요.":"알림은 휴대폰 앱에서 받을 수 있어요. 여기서 정한 조건은 이 기기에만 저장돼요.")}</p>
+  <div class="form" style="margin-top:10px">
+    <label class="full">키워드 <span class="note" style="display:inline">(쉼표로 구분 · 제목이나 운영기관에 들어 있으면 알림)</span><input type="text" id="al_kw" placeholder="예: 기숙사, 아산, 이공계, 성동구" value="${esc((AL.kw||[]).join(", "))}"></label>
+    <div class="full"><span class="flabel">지원 종류</span><div class="chips">${SUP.map(([k,l])=>`<label class="chip"><input type="checkbox" value="${k}" ${(AL.cats||[]).includes(k)?"checked":""}> ${l}</label>`).join("")}</div></div>
+    <label>관심 장학 마감 알림<select id="al_before"><option value="">끄기</option><option value="3,1" ${String(AL.before)==="3,1"?"selected":""}>3일 전 · 1일 전</option><option value="3" ${String(AL.before)==="3"?"selected":""}>3일 전</option><option value="1" ${String(AL.before)==="1"?"selected":""}>1일 전</option><option value="7,3,1" ${String(AL.before)==="7,3,1"?"selected":""}>7일 · 3일 · 1일 전</option></select></label>
+  </div>
+  <div class="actions"><button class="btn primary" type="button" id="al_save">알림 저장</button><span class="note" id="al_msg" role="status">${(AL.kw||[]).length||(AL.cats||[]).length?`지금 조건에 맞는 모집 중 장학 ${hits}건`:""}</span></div>`;
+  $("#al_save").onclick=()=>{
+    AL={watch:AL.watch||[],kw:$("#al_kw").value.split(/[,，]/).map(x=>x.trim()).filter(Boolean).slice(0,20),cats:$$("#alertBox .chips input:checked").map(c=>c.value),before:$("#al_before").value?$("#al_before").value.split(",").map(Number):[]};
+    store.set("alerts",AL); pushAlerts(); renderAlerts(); $("#al_msg").textContent="저장했어요. "+$("#al_msg").textContent;
+  };
+  const wl=$("#watchList"); if(wl) wl.innerHTML=(AL.watch||[]).length?(AL.watch||[]).map(w=>`<li><span>${esc(w.t)}<small>찾는 말: ${esc((w.k||[]).join(" "))} · ${esc(w.at||"")} 등록 · 지금 비슷한 장학 ${DATA.filter(r=>r._s.key!=="마감"&&watchHitW(w,r)).length}건 모집중·예정</small></span><button class="btn" type="button" data-unwatch="${esc(w.id)}">끄기</button></li>`).join(""):`<li><span class="note">아직 없어요. 목록에서 별 아래 종을 눌러 보세요.</span></li>`;
+}
+// 화면 크기: Ctrl(맥은 ⌘) + 마우스 휠, Ctrl + '+'/'-'/'0' 으로 확대·축소 (웹·휴대폰 앱 모두 같은 방식, 이 기기에 기억)
+let ZOOM=+store.get("zoom",1)||1;
+function setZoom(z,quiet){ ZOOM=Math.min(2,Math.max(0.6,Math.round(z*10)/10)); try{document.documentElement.style.zoom=ZOOM===1?"":String(ZOOM)}catch(e){} store.set("zoom",ZOOM); if(!quiet) try{toast("화면 크기 "+Math.round(ZOOM*100)+"% · Ctrl+0 으로 원래대로")}catch(e){} }
+setZoom(ZOOM,true);
+window.addEventListener("wheel",e=>{ if(!(e.ctrlKey||e.metaKey)) return; e.preventDefault(); setZoom(ZOOM+(e.deltaY<0?0.1:-0.1)) },{passive:false});
+window.addEventListener("keydown",e=>{ if(!(e.ctrlKey||e.metaKey)) return; const k=e.key;
+  if(k==="+"||k==="="){e.preventDefault(); setZoom(ZOOM+0.1)} else if(k==="-"||k==="_"){e.preventDefault(); setZoom(ZOOM-0.1)} else if(k==="0"){e.preventDefault(); setZoom(1)} });
+// 화면 밝기: 자동(휴대폰 설정 따라감) → 밝게 → 어둡게
+const THEME_L={auto:"자동",light:"밝게",dark:"어둡게"};
+function sysDark(){ try{ if(window.AndroidBridge&&window.AndroidBridge.isDark) return !!window.AndroidBridge.isDark() }catch(e){} return !!(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches) }
+function applyTheme(){ const m=store.get("theme","auto"); const dark=m==="dark"||(m==="auto"&&sysDark());
+  document.documentElement.dataset.theme=dark?"dark":"light"; const l=$("#themeLbl"); if(l) l.textContent=THEME_L[m]||"자동";
+  try{ window.AndroidBridge&&window.AndroidBridge.setDark&&window.AndroidBridge.setDark(dark) }catch(e){} }
+applyTheme();
+try{ matchMedia("(prefers-color-scheme: dark)").addEventListener("change",applyTheme) }catch(e){}
+$("#themeBtn").addEventListener("click",()=>{const order=["auto","light","dark"]; const m=store.get("theme","auto"); store.set("theme",order[(order.indexOf(m)+1)%3]); applyTheme()});
+window.__sysTheme=applyTheme;
+// 웹앱: 오프라인 저장(서비스 워커)과 아이폰 '홈 화면에 추가' 안내 (휴대폰 앱 안에서는 쓰지 않음)
+const IN_APP=!!window.AndroidBridge;
+const IS_IOS=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+const STANDALONE=window.navigator.standalone===true||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches);
+if(!IN_APP&&"serviceWorker" in navigator&&location.protocol==="https:"){ window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})}) }
+try{ const tip=document.getElementById("installTip"); if(tip&&!IN_APP&&IS_IOS&&!STANDALONE&&!store.get("installTipOff",false)){ tip.hidden=false; document.getElementById("installTipClose").addEventListener("click",()=>{tip.hidden=true; store.set("installTipOff",true)}) } }catch(e){}
+const APP_ONLY=IS_IOS?"이 기능은 안드로이드 앱에서만 쓸 수 있어요. 아이폰 웹앱은 보안상 다른 사이트(학교 포털)에 대신 로그인해 내용을 읽을 수 없어요.":"휴대폰 앱에서 쓸 수 있어요.";
+// 학교 전용 공고: 그 학교 학생만 지원할 수 있는 공고. 학교별로 켜고 끈다.
+const SCHOOLS=[["hyu","한양대",/^한양대학교/],["hywu","한양여대",/^한양여자대학교/],["kwsc","강원대 삼척",/^강원대학교/],["sg","서강대",/^서강대학교/],["kku","건국대",/^건국대학교/]];
+const GROUP={hyu:"hy",hywu:"hy",kwsc:"kw",sg:"sg",kku:"kk"};
+// 그 학교 학생만 지원할 수 있는 장학의 학교 열쇠들 (미리 맞춘 5개 학교는 짧은 열쇠, 다른 학교는 "u:학교이름")
+const schoolKey=n=>{ n=String(n||"").trim(); const t=SCHOOLS.find(x=>x[2].test(n)); return t?(t[0]==="hyu"&&/ERICA/.test(n)?"erica":t[0]):(n?"u:"+n.replace(/\s.*$/,""):"") };
+function ownKeys(r){
+  if(r._ok!==undefined) return r._ok;
+  const k=ownSchool0(r); const out=k?[k]:[];
+  if(Array.isArray(r.own)) for(const n of r.own){ const x=schoolKey(n); if(x&&!out.includes(x)) out.push(x) }
+  return r._ok=out;
+}
+function ownSchool(r){ return ownKeys(r)[0]||"" }
+function ownLabel(k){ return OWNL[k]||(k&&k.startsWith("u:")?k.slice(2)+" 전용":"") }
+function ownSchool0(r){
+  if(Array.isArray(r.only)&&r.only.length===1) return r.only[0];
+  const o=String(r.org||"");
+  if(r.source==="u2"||(/한양여자대학교/.test(o)&&r.org_type==="대학(교내)")) return "hywu";
+  if(r.source==="u3"||r.source==="kcloud"||(r.org_type==="대학(교내)"&&/^강원대학교/.test(o))) return "kwsc";
+  if(r.source==="u4"||r.source==="saint"||(r.org_type==="대학(교내)"&&/^서강대학교/.test(o))) return "sg";
+  if(r.source==="u5"||r.source==="kuis"||(r.org_type==="대학(교내)"&&/^건국대학교/.test(o))) return "kku";
+  if(r.org_type==="대학(교내)"&&/^한양대학교/.test(o)) return /ERICA/.test(o)?"erica":"hyu";
+  return "";
+}
+function mySchool(){const n=(profile&&profile.schoolName)||""; return schoolKey(n)}
+// 학교 전용 공고를 볼지 (직접 고르지 않았으면 내 학교 것만, 학교를 안 골랐으면 모두)
+function showOnly(){
+  const v=store.get("only",null), me=mySchool();
+  const o={}; SCHOOLS.forEach(([k])=>o[k]=v&&k in v?!!v[k]:(!me||k===me)); return o;
+}
+function myGroup(){return GROUP[mySchool()]||""}
+// 중·고등학생 장학: 기본은 숨기고, 필터에서 켜거나 내 정보 신분을 고등학생으로 골랐을 때만 보여 준다
+let TEEN_ON=store.get("teen",false)===true;
+const isTeen=r=>r.level==="고등학생"||(Array.isArray(r.for)&&r.for[0]==="hs");
+const teenShown=()=>TEEN_ON||!!(profile&&profile.status==="hs")||F.level.has("고등학생"); // '중·고등학생'을 고르면 그것만, '함께 보기'를 켜면 대학생 장학과 함께
+// 대학원생만 지원할 수 있는 장학: 기본은 숨기고, 대상에서 '대학원생'을 고르거나 내 정보 신분이 대학원생일 때만 보여 준다
+const isGradOnly=r=>{ if(r.level==="고등학생") return false; if(r.level==="대학원생") return true; const t=String(r.title||"").replace(/\[[^\]]*\]/g," "); return /대학원생?\s*(전용|대상|장학|과정|프로그램)|석·?박사|석사|박사/.test(t)&&!/학부|대학생|학사/.test(t) };
+const gradShown=()=>F.level.has("대학원생")||!!(profile&&profile.status==="grad");
+function teenOK(r){ return (!isTeen(r)||teenShown())&&(!isGradOnly(r)||gradShown()) }
+function schoolOK(r){
+  if(isTeen(r)) return teenShown();
+  if(isGradOnly(r)&&!gradShown()) return false;
+  const g=myGroup(); if(g&&Array.isArray(r.for)&&r.for.length&&!r.for.includes(g)) return false; // 내 학교 학생은 지원할 수 없는 장학
+  const own=ownSchool(r); if(!own) return true;
+  return false; // 학교 전용 공고는 기본 목록에서 빼고, 왼쪽 아래 '학교 전용' 칸에서 학교를 골라야 보여 준다
+}
+const OWNL={hywu:"한양여대 전용",erica:"한양대 전용 · ERICA",hyu:"한양대 전용",kwsc:"강원대 삼척 전용",sg:"서강대 전용",kku:"건국대 전용"};
+// 지원 종류: 여러 개를 골라 보고 싶은 것만 본다 (아무것도 안 고르면 전체)
+const CATS=new Set((()=>{const v=store.get("cats",null); if(Array.isArray(v)) return v; const old=store.get("cat",""); return old?[old]:[]})());
+const catOf=r=>(r.support&&r.support.length)?r.support:["etc"];
+// 학교 전용 공고 고르기: 누르면 그 학교 전용 공고'만' 보여 준다 (여러 개 고를 수 있음)
+const ONLY_SEL=new Set((store.get("onlySel",[])||[]).filter(k=>typeof k==="string"&&(SCHOOLS.some(([x])=>x===k)||k.startsWith("u:"))));
+// 숫자는 '눌렀을 때 실제로 보이게 될 개수' (지금 고른 다른 조건·검색까지 반영)
+function countWith(cats,only){
+  const c0=new Set(CATS), o0=new Set(ONLY_SEL);
+  CATS.clear(); cats.forEach(k=>CATS.add(k)); ONLY_SEL.clear(); only.forEach(k=>ONLY_SEL.add(k));
+  const q=($("#q")&&$("#q").value||"").trim().toLowerCase().split(/\s+/).filter(Boolean);
+  let n=0; for(const r of DATA) if(passes(r,q)) n++;
+  CATS.clear(); c0.forEach(k=>CATS.add(k)); ONLY_SEL.clear(); o0.forEach(k=>ONLY_SEL.add(k));
+  return n;
+}
+// 학교별 '학교 전용' 개수 (지금 고른 다른 조건·검색 반영) — 한 번에 센다
+function ownCounts(){
+  const c0=new Set(ONLY_SEL); ONLY_SEL.clear(); ONLY_SEL.add("*");
+  const q=($("#q")&&$("#q").value||"").trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const cnt={}; for(const r of DATA) if(passes(r,q)) for(const k of ownKeys(r)) cnt[k]=(cnt[k]||0)+1;
+  ONLY_SEL.clear(); c0.forEach(k=>ONLY_SEL.add(k)); return cnt;
+}
+function renderOnly(){
+  const box=$("#onlyBox"); if(!box) return;
+  const cnt=ownCounts(), me=mySchool();
+  // 보여 줄 학교: 고른 학교 → 내 학교 → 공고가 많은 학교 순 (나머지는 찾기 칸으로)
+  const keys=[...new Set([...ONLY_SEL,...(me&&cnt[me]?[me]:[]),...Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).slice(0,6)])];
+  const all=Object.keys(cnt).sort((a,b)=>ownLabel(a).localeCompare(ownLabel(b),"ko"));
+  const nm=k=>ownLabel(k).replace(/ 전용$/,"");
+  box.innerHTML=`<h3>학교 전용${ONLY_SEL.size?`<button type="button" class="linkbtn" data-cat-reset="1">모두 보기</button>`:""}</h3><div class="chips">${keys.map(k=>`<button type="button" class="chip" data-only="${esc(k)}" aria-pressed="${ONLY_SEL.has(k)}">${esc(nm(k))} <b>${cnt[k]||0}</b></button>`).join("")}</div>`
+    +`<input type="search" id="onlyFind" list="onlyList" placeholder="다른 학교 찾기 (${all.length}곳)" aria-label="학교 전용 공고를 볼 학교 찾기" style="margin-top:6px;font-size:13px;padding:6px 10px"><datalist id="onlyList">${all.map(k=>`<option value="${esc(nm(k))}">${cnt[k]}건</option>`).join("")}</datalist>`
+    +`<p class="note">${ONLY_SEL.size?"고른 학교 학생만 지원할 수 있는 공고만 보는 중":"그 학교 학생만 지원할 수 있는 공고는 처음 목록에서 빼 두었어요. 학교를 고르면 그것만 보여요."}</p>`;
+  const f=$("#onlyFind"); if(f) f.onchange=()=>{ const v=f.value.trim(); const k=all.find(x=>nm(x)===v); if(k){ ONLY_SEL.add(k); store.set("onlySel",[...ONLY_SEL]); if($("#view-find").hidden) tab("find"); apply() } };
+}
+function renderCats(){ renderOnly();
+  const n=k=>countWith(k?[k]:[],[...ONLY_SEL]);
+  const o=showOnly(), me=mySchool(), others=SCHOOLS.filter(([k])=>k!==me), anyOther=others.some(([k])=>o[k]);
+  $("#cats").innerHTML=[["","전체"],...SUP,["etc","그 밖의 장학"]].map(([k,l])=>`<button type="button" class="cat ${k||"all"}" data-cat="${k}" aria-pressed="${k?CATS.has(k):!CATS.size}"><i></i>${l}<span class="n">${n(k)}</span></button>`).join("")
+    +(CATS.size||ONLY_SEL.size?`<p class="cats-hint">`:"")+`${CATS.size||ONLY_SEL.size?`${[...[...CATS].map(k=>SUPL[k]||"그 밖의 장학"),...[...ONLY_SEL].map(k=>ownLabel(k))].join(" · ")}만 보는 중 · <button type="button" class="linkbtn" data-cat-reset="1">모두 보기</button></p>`:""}`;
+}
+function onCatsClick(e){
+  const oo=e.target.closest("[data-only-others]"); if(oo){const me=mySchool(), on=oo.dataset.onlyOthers==="on", o={}; SCHOOLS.forEach(([k])=>o[k]=k===me||on); store.set("only",o); renderKpis(); apply(); return}
+  const ob=e.target.closest("[data-only]"); if(ob){const k=ob.dataset.only; ONLY_SEL.has(k)?ONLY_SEL.delete(k):ONLY_SEL.add(k); store.set("onlySel",[...ONLY_SEL]); if($("#view-find").hidden) tab("find"); apply(); return}
+  if(e.target.closest("[data-cat-reset]")){CATS.clear(); ONLY_SEL.clear(); store.set("cats",[]); store.set("onlySel",[]); apply(); return}
+  const b=e.target.closest("[data-cat]"); if(!b) return; const k=b.dataset.cat;
+  if(!k) CATS.clear(); else if(CATS.has(k)) CATS.delete(k); else CATS.add(k);
+  store.set("cats",[...CATS]); if($("#view-find").hidden) tab("find"); apply()}
+$("#cats").addEventListener("click",onCatsClick); $("#onlyBox").addEventListener("click",onCatsClick);
+
+/* ---------- 상태 ---------- */
+function stat(r){
+  if(r.status==="모집중"){const d=r.end?days(TODAY,r.end):null; return {key:"모집중",d,label:d==null?(r.posted&&!r.start?"마감일 확인":"모집중"):d===0?"오늘 마감":"D-"+d,hot:d!=null&&d<=7}}
+  if(r.status==="예정") return {key:"예정",d:days(TODAY,r.start),label:"D-"+days(TODAY,r.start)+" 시작"};
+  if(r.status==="마감"){ if(!r.next) return {key:"마감",label:"마감"}; const [y,m]=r.next.split("-"); return {key:"마감",label:(y===TODAY.slice(0,4)?"":"’"+y.slice(2)+" ")+(+m)+"월 예상",ny:y,nm:+m} }
+  return {key:"상시/미정",label:"일정 확인"};
+}
+function cache(){for(const r of DATA){r._s=stat(r); r._fields=fieldsOf(r); r._n=notes(r); r._m=match(r,profile); r._f=majorFit(r,profile); r._q=[r.title,(r.majors||[]).join(" "),ownKeys(r).map(ownLabel).join(" "),r._fields.map(FSHORT).join(" "),r._n.join(" "),(r.support||[]).map(k=>SUPL[k]).join(" "),r.target,r.org,r.region,r.district,r.kind,r.org_type,r.level,r.amount,r.special,r.residence,r.income].join(" ").toLowerCase()}}
+
+/* ---------- 필터 UI ---------- */
+function chipGroup(title,key,opts){
+  return `<div class="fgroup" data-g="${key}"><h3>${title}</h3><div class="chips">${opts.map(([v,l])=>`<button type="button" class="chip" data-f="${key}" data-v="${esc(v)}" aria-pressed="${F[key].has(v)}">${esc(l)}</button>`).join("")}</div></div>`;
+}
+function buildFilters(){
+  const cnt=k=>{const c={};DATA.forEach(r=>{const v=r[k]||"기타";c[v]=(c[v]||0)+1});return c};
+  const kinds=cnt("kind"), kindOpts=["지역연고","성적우수","소득구분","특기자","장애인","기타","공고"].filter(k=>kinds[k]);
+  const orgs=["한국장학재단","정부","공공기관","지자체","민간·기업·대학","대학(교내)","대학 게시판"].filter(o=>cnt("org_type")[o]);
+  const OL={"대학 게시판":"대학 공고","대학(교내)":"교내 장학"};
+  const more=F.region||F.orgType.size||F.field.size||F.note.size||F.kind.size||store.get("fmore",false);
+  $("#filters").innerHTML=
+    chipGroup("모집 상태","status",[["모집중","모집중"],["예정","접수 예정"],["마감","마감·내년 예상"],["상시/미정","일정 미정"]])+
+    `<div class="fgroup" data-g="level"><h3>대상</h3><div class="chips">${[["대학생","대학생"],["대학원생","대학원생"],["고등학생","중·고등학생"],["해외유학","해외유학"],["학점은행제","학점은행제"]].map(([v,l])=>`<button type="button" class="chip" data-f="level" data-v="${esc(v)}" aria-pressed="${F.level.has(v)}">${esc(l)}</button>`).join("")}<button type="button" class="chip" id="teenSw" aria-pressed="${TEEN_ON}">+ 중·고등학생 함께 보기</button></div></div>`+
+    (profile?chipGroup("나에게 맞는지","match",[["ok","지원 가능"],["check","확인 필요"],["no","지원 불가"]]):"")+
+    `<div class="fgroup" data-g="ex"><h3>빼고 보기</h3><div class="chips">${[["kosaf","한국장학재단"],["gov","정부·공공기관"],["local","지자체"],["inside","교내 장학"],["work","근로장학"],["loan","학자금 대출"],["rec","추천 필요"]].map(([v,l])=>`<button type="button" class="chip ex" data-f="ex" data-v="${v}" aria-pressed="${F.ex.has(v)}">${l}</button>`).join("")}</div>
+      <input type="search" id="fExw" placeholder="이 말이 들어간 장학 빼기" value="${esc(F.exw.join(", "))}" style="margin-top:6px;font-size:13px;padding:6px 10px" aria-label="뺄 낱말 (쉼표로 구분)"></div>`+
+    `<details class="fmore" id="fMore" ${more?"open":""}><summary>필터 더 보기</summary>`+
+    `<div class="fgroup"><h3>지역</h3><select id="fRegion"><option value="">전체</option><option value="전국">전국 단위만</option>${SIDO.map(s=>`<option ${F.region===s?"selected":""}>${s}</option>`).join("")}</select></div>`+
+    chipGroup("운영 기관","orgType",orgs.map(o=>[o,OL[o]||o]))+
+    chipGroup("계열"+(profile&&profile.major?` <span style="font-weight:500">· 내 계열: ${FSHORT(profile.major)}</span>`:""),"field",[["무관","전공 무관"],...FIELDS.map(f=>[f,FSHORT(f)]),["특정학과","특정 학과"]])+
+    chipGroup("조건","note",[["no-rec","추천 없이 지원"],["no-dup","중복 수혜 허용"],["no-int","면접 없음"]])+
+    chipGroup("유형","kind",kindOpts.map(k=>[k,k==="공고"?"모집 공고":k]))+
+    `</details><button class="linkbtn" type="button" id="fReset" style="align-self:flex-start">필터 초기화</button>`;
+  {const d=$("#fMore"); if(d) d.addEventListener("toggle",()=>store.set("fmore",d.open))}
+  if($("#fRegion")) $("#fRegion").value=F.region;
+}
+document.addEventListener("click",e=>{
+  const c=e.target.closest(".chip[data-f]");
+  if(c){F.within=0;const s=F[c.dataset.f]; s.has(c.dataset.v)?s.delete(c.dataset.v):s.add(c.dataset.v); c.setAttribute("aria-pressed",s.has(c.dataset.v)); apply(); if(c.dataset.v==="대학원생"||c.dataset.v==="고등학생"){ renderKpis(); try{ if(!$("#view-cal").hidden) renderCal() }catch(x){} } return}
+  if(e.target.id==="fReset"){F.within=0;F.status=new Set(ST_DEF);for(const k of["level","orgType","kind","match","source","field","note","ex"])F[k]=new Set();F.exw=[];F.region="";buildFilters();apply()}
+  const qx=e.target.closest("[data-qex]"); if(qx){const k=qx.dataset.qex, l=qx.dataset.l; F.ex.has(k)?F.ex.delete(k):F.ex.add(k); buildFilters(); apply(); toast(F.ex.has(k)?l+" 장학을 빼고 보여요.":l+" 장학도 다시 보여요."); return}
+  if(e.target.closest("#qHidden")){SHOW_HIDDEN=!SHOW_HIDDEN; apply(); renderHideBar(); return}
+});
+document.addEventListener("change",e=>{if(e.target.id==="fRegion"){F.region=e.target.value;apply()}});
+document.addEventListener("input",e=>{ if(e.target.id!=="fExw") return; clearTimeout(window.__exw); window.__exw=setTimeout(()=>{F.exw=e.target.value.split(/[,，]/).map(x=>x.trim().toLowerCase()).filter(Boolean).slice(0,20); apply()},250) });
+document.addEventListener("click",e=>{ if(e.target.id!=="teenSw") return;
+  TEEN_ON=!TEEN_ON; store.set("teen",TEEN_ON);
+  buildFilters(); apply(); renderKpis(); try{ if(!$("#view-cal").hidden) renderCal() }catch(x){}
+  toast(TEEN_ON?"중·고등학생 장학도 함께 보여요.":"중·고등학생 장학을 다시 숨겼어요.");
+});
+$("#goMe").addEventListener("click",()=>{tab("me");window.scrollTo({top:0})});
+$("#toggleFilters").addEventListener("click",()=>$("#filters").classList.toggle("open"));
+
+/* ---------- 숨긴 장학 (이 기기에만 저장) ---------- */
+const HIDDEN=new Set(store.get("hidden",[])||[]); let SHOW_HIDDEN=false;
+const isHidden=r=>HIDDEN.has(r.id);
+function setHidden(id,on){ on?HIDDEN.add(id):HIDDEN.delete(id); store.set("hidden",[...HIDDEN]); }
+function renderHideBar(){
+  const n=DATA.filter(isHidden).length, b=$("#hideBar"); if(!b) return; renderQuickEx(); b.hidden=true; return; // 숨긴 장학은 목록 위 '숨긴 것만 보기'에서 본다
+  if(!n&&!SHOW_HIDDEN){b.hidden=true; return}
+  b.hidden=false;
+  b.innerHTML=SHOW_HIDDEN?`<span>숨긴 장학 ${n}건을 보고 있어요.</span><button class="linkbtn2" type="button" id="hideBack">목록으로 돌아가기</button>`
+    :`<span>숨긴 장학 ${n}건은 목록·달력·새 소식에서 빠져 있어요.</span><button class="linkbtn2" type="button" id="hideShow">숨긴 장학 보기</button>`;
+}
+let toastT;
+function toast(msg,undo){
+  const t=$("#toast"); t.innerHTML=`<span>${esc(msg)}</span>${undo?`<button type="button" id="toastUndo">되돌리기</button>`:""}`; t.hidden=false;
+  clearTimeout(toastT); toastT=setTimeout(()=>{t.hidden=true},4500);
+  const u=$("#toastUndo"); if(u) u.onclick=()=>{t.hidden=true; undo()};
+}
+function toggleHide(id){
+  const r=BYID[id]; if(!r) return; const on=!isHidden(r); setHidden(id,on);
+  refreshAfterHide();
+  if(on) toast("숨겼어요. 목록에 다시 나오지 않아요.",()=>{setHidden(id,false); refreshAfterHide()});
+  else toast("숨김을 풀었어요.");
+}
+function refreshAfterHide(){ apply(); renderKpis(); renderHideBar(); try{ if(!$("#view-cal").hidden) renderCal() }catch(e){} try{ if(!$("#view-fav").hidden) renderFav() }catch(e){} }
+document.addEventListener("click",e=>{
+  const h=e.target.closest("[data-hide]"); if(h){e.stopPropagation(); toggleHide(h.dataset.hide); if(h.closest("#drawer")) closeDetail(); return}
+  if(e.target.id==="hideShow"){SHOW_HIDDEN=true; apply(); renderHideBar(); window.scrollTo({top:$("#hideBar").offsetTop-80}); return}
+  if(e.target.id==="hideBack"){SHOW_HIDDEN=false; apply(); renderHideBar(); return}
+},true);
+
+/* ---------- 목록 ---------- */
+// 대학원생도 지원할 수 있는 장학 (대상·학교 유형·학년에 대학원·석사·박사가 있으면)
+function gradOK(r){ if(r.level==="대학원생") return true; if(r.level==="고등학생") return false;
+  const t=[r.title,r.target,(r.school_types||[]).join(" "),(r.grades||[]).join(" ")].join(" ");
+  return /대학원|석사|박사/.test(t)&&!/대학원(생)?\s*(은|는|생은)?\s*(제외|불가|지원\s*불가)/.test(t) }
+function passes(r,q){
+  if(SHOW_HIDDEN) return isHidden(r)&&(!q||!q.length||q.every(t=>r._q.includes(t)));
+  if(isHidden(r)) return false;
+  const schoolQ=q&&q.some(t=>SCHOOL_Q.some(([rx])=>rx.test(t))||(t.length>=3&&/대$|대학$|대학교$/.test(t)&&ownKeys(r).some(k=>k.startsWith("u:")&&k.slice(2).startsWith(t.replace(/학교$|학$/,""))))); // 학교 이름을 검색하면 그 학교 전용 공고도 보여 준다
+  if(CATS.size && !catOf(r).some(k=>CATS.has(k))) return false;
+  if(!teenOK(r)) return false;
+  if(ONLY_SEL.size){ const ks=ownKeys(r); if(ONLY_SEL.has("*")?!ks.length:!ks.some(k=>ONLY_SEL.has(k))) return false }
+  else if(!schoolQ&&!schoolOK(r)) return false;
+  if(F.within && !(r._s.key==="모집중"&&r._s.d!=null&&r._s.d<=F.within)) return false;
+  if(F.status.size && !F.status.has(r._s.key)) return false;
+  if(F.level.size && !F.level.has(r.level==="대학생"||!r.level?"대학생":r.level) && !(F.level.has("대학원생")&&gradOK(r))) return false;
+  if(F.region){ if(F.region==="전국"? r.region!=="전국" : r.region!==F.region) return false }
+  if(F.orgType.size && !F.orgType.has(r.org_type)) return false;
+  if(F.ex.size){ for(const k of F.ex) if(EX[k]&&EX[k](r)) return false }
+  if(F.exw.length){ const h=(r.title+" "+(r.org||"")+" "+(r.target||"")).toLowerCase(); if(F.exw.some(w=>h.includes(w))) return false }
+  if(F.kind.size && !F.kind.has(r.kind||"기타")) return false;
+  if(F.source.size && !F.source.has(r.source)) return false;
+  if(F.match.size && r._m && !F.match.has(r._m.verdict)) return false;
+  if(F.field.size && !r._fields.some(f=>F.field.has(f))) return false;
+  if(F.note.has("no-rec") && r._n.includes("추천 필요")) return false;
+  if(F.note.has("no-dup") && r._n.includes("중복 수혜 제한")) return false;
+  if(F.note.has("no-int") && r._n.includes("면접 있음")) return false;
+  if(q && !q.every(t=>qMatch(r,t))) return false;
+  return true;
+}
+// 검색: 글자가 그대로 들어 있거나, 학교 이름이면 그 학교 공고·전용 장학, 학과 이름이면 그 계열 장학
+const SCHOOL_Q=[[/^(한양대(학교)?|한대|hyu)$/i,"hyu"],[/^(한양여대|한양여자대(학교)?|한여대|hywu)$/i,"hywu"],[/^(강원대(학교)?|강대|강원대삼척|삼척캠퍼스|도계캠퍼스|knu)$/i,"kwsc"],[/^(서강대(학교)?|서강|sogang)$/i,"sg"],[/^(건국대(학교)?|건대|건국|konkuk)$/i,"kku"]];
+const SRC_SCHOOL={u1:"hyu",p:"hyu",u2:"hywu",u3:"kwsc",kcloud:"kwsc",u4:"sg",saint:"sg",u5:"kku",kuis:"kku"};
+let MAJOR_IDX=null;
+function majorField(t){
+  if(t.length<2||/^(학과|전공|학부|과|계열|대학|대학교)$/.test(t)) return null;
+  if(!MAJOR_IDX){ MAJOR_IDX=[]; for(const [g,l] of Object.entries(MAJORS)) for(const n of l) MAJOR_IDX.push([n.toLowerCase().replace(/\s/g,""),g]) }
+  const hits=new Set(MAJOR_IDX.filter(([n])=>n.includes(t)||(t.length>=3&&t.includes(n.replace(/(학과|학부|전공)$/,"")))).map(([,g])=>g));
+  return hits.size?hits:null;
+}
+function qMatch(r,t){
+  if(r._q.includes(t)) return true;
+  for(const [rx,k] of SCHOOL_Q) if(rx.test(t)) return ownKeys(r).includes(k)||SRC_SCHOOL[r.source]===k;
+  if(t.length>=3&&/대$|대학$|대학교$/.test(t)){ const c=t.replace(/학교$|학$/,""); if(ownKeys(r).some(k=>k.startsWith("u:")&&k.slice(2).startsWith(c))) return true }
+  const f=majorField(t); if(f) return r._fields.some(x=>f.has(x));
+  return false;
+}
+const GRANK={"모집중":0,"예정":1,"상시/미정":2,"마감":3};
+function sorter(){ const f=sorter0(); return (a,b)=>GRANK[a._s.key]-GRANK[b._s.key]||f(a,b) }
+function sorter0(){
+  const s=$("#sort").value==="fit"&&!profile?"due":$("#sort").value;
+  if(s==="fit"){const V={ok:0,check:1,no:2}; const rank={"모집중":0,"예정":1,"상시/미정":2,"마감":3};
+    return (a,b)=>rank[a._s.key]-rank[b._s.key] || (V[a._m?.verdict]??1)-(V[b._m?.verdict]??1) || (a._f?.rank??1)-(b._f?.rank??1) || (a.end||a.start||"9999").localeCompare(b.end||b.start||"9999");}
+  if(s==="amount") return (a,b)=>(b.amount_won||0)-(a.amount_won||0);
+  if(s==="new") return (a,b)=>(b.posted||b.first_seen||"").localeCompare(a.posted||a.first_seen||"");
+  if(s==="next") return (a,b)=>(a.next||a.start||"9999").localeCompare(b.next||b.start||"9999");
+  const rank={"모집중":0,"예정":1,"상시/미정":2,"마감":3};
+  return (a,b)=>rank[a._s.key]-rank[b._s.key] || (a._s.key==="마감"?(a.next||"9").localeCompare(b.next||"9"):(a.end||a.start||"9999").localeCompare(b.end||b.start||"9999")) || (b.amount_won||0)-(a.amount_won||0);
+}
+// 목록 바로 위: 자주 빼는 것 한 번에 빼기 + 숨긴 장학만 보기
+const QEX=[["kosaf","한국장학재단"],["gov","정부·공공기관"],["local","지자체"],["inside","교내 장학"],["work","근로장학"],["loan","학자금 대출"],["rec","추천 필요"]];
+function renderQuickEx(){
+  const b=$("#quickEx"); if(!b) return; const nh=DATA.filter(isHidden).length;
+  b.innerHTML=SHOW_HIDDEN?`<span class="lab">숨긴 장학만 보는 중</span><span class="sp"></span><button type="button" class="chip hid" id="qHidden" aria-pressed="true">목록으로 돌아가기</button>`
+    :`<span class="lab">빼고 보기</span>${QEX.map(([k,l])=>`<button type="button" class="chip ex" data-qex="${k}" data-l="${l}" aria-pressed="${F.ex.has(k)}">${l}</button>`).join("")}<span class="sp"></span><button type="button" class="chip hid" id="qHidden" aria-pressed="false">숨긴 것만 보기${nh?` <b>${nh}</b>`:""}</button>`;
+}
+function apply(){
+  store.set("filters",{status:[...F.status],level:[...F.level],region:F.region,orgType:[...F.orgType],kind:[...F.kind],match:[...F.match],source:[...F.source],field:[...F.field],note:[...F.note],ex:[...F.ex],exw:F.exw});
+  renderQuickEx();
+  const q=$("#q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if(q.length===1&&/^(도움말|사용법|help)$/.test(q[0])&&!$("#helpWrap").dataset.fromq){ $("#helpWrap").dataset.fromq="1"; openHelp(); } else if(!(q.length===1&&/^(도움말|사용법|help)$/.test(q[0]))) delete $("#helpWrap").dataset.fromq;
+  view=DATA.filter(r=>passes(r,q)).sort(sorter());
+  shown=0; LASTG=""; GCNT={}; view.forEach(r=>GCNT[r._s.key]=(GCNT[r._s.key]||0)+1); $("#list").innerHTML=""; $("#resultCount").innerHTML="<b>"+view.length.toLocaleString("ko-KR")+"</b>건";
+  renderMore(); renderCats();
+}
+function kindLabel(r){const k=(r.kind||"").replace(/\s*·.*$/,""); return !k||k==="해당없음"||k==="기타"||k==="공고"?"":k}
+function mainUrl(r){const pub=(r.links||[]).map(l=>safeUrl(l.url)).find(u=>u&&!/portal\.hanyang\.ac\.kr/.test(u)); const own=safeUrl(r.url); if(own&&!/portal\.hanyang\.ac\.kr/.test(own)) return own; return pub||safeUrl(r.apply_url)||own}
+function card(r){
+  const s=r._s, m=r._m;
+  const ymd=d=>d?(d.slice(0,4)===TODAY.slice(0,4)?d.slice(5):d.slice(2)).replace(/-/g,"."):"";
+  const due=s.key==="마감"
+    ?`<div class="due st-마감 closed"><span class="d">${s.nm?(s.ny===TODAY.slice(0,4)?"":"’"+esc(s.ny.slice(2))+" ")+s.nm+"월":"마감"}</span><span class="d2">${s.nm?"모집 예상":"지난 회차"}</span><span title="${r.end?"지난 회차 마감 "+esc(r.end):""}">${r.end?"지난 "+esc(r.end.slice(2,7).replace("-",".")):r.posted?esc(ymd(r.posted))+" 공고":""}</span></div>`
+    :`<div class="due st-${s.key} ${s.hot?"hot":""}"><span class="d">${esc(s.label==="오늘 마감"?"오늘":s.label)}</span><span>${r.end?esc(ymd(r.end))+" 마감":r.start?esc(ymd(r.start))+" 시작":r.posted?esc(ymd(r.posted))+" 공고":""}</span></div>`;
+  const amt=moneyOf(r);
+  const pills=(r.support||[]).map(k=>`<span class="pill ${esc(k)}">${SUPL[k]}</span>`);
+  if(m) pills.push(`<span class="pill ${m.verdict}">${VLABEL[m.verdict]}</span>`);
+  {const own=ownSchool(r); if(own) pills.push(`<span class="pill only">${esc(ownLabel(own))}${ownKeys(r).length>1?" 외":""}</span>`)}
+  if(r._f&&r._f.label==="내 학과 대상") pills.push(`<span class="pill ok">내 학과 대상</span>`);
+  const mine=profile&&profile.major;
+  pills.push(`<span class="pill ${mine&&r._fields.includes(mine)?"ok":mine&&!r._fields.includes("무관")&&!r._fields.includes("특정학과")?"no":"fld"}">${r._fields.map(FSHORT).join("·")}${r._fields[0]==="무관"||r._fields[0]==="특정학과"?"":" 계열"}</span>`);
+  if(applyState[r.id]) pills.unshift(`<span class="pill state">${esc(applyState[r.id])}</span>`);
+  if((r.variants||[]).length>1) pills.push(`<span class="pill kind">세부 ${r.variants.length}개</span>`);
+  if(r._n.includes("추천 필요")) pills.push(`<span class="pill rec">추천 필요</span>`);
+  if(r.region) pills.push(`<span class="pill reg">${esc(r.region)}${r.district?" "+esc(r.district):""}</span>`);
+  const kd=kindLabel(r); if(kd) pills.push(`<span class="pill kind">${esc(kd)}</span>`);
+  if(isGradOnly(r)&&r.level==="대학생") pills.push(`<span class="pill lvl">대학원생</span>`);
+  if(r.level && r.level!=="대학생") pills.push(`<span class="pill lvl">${esc(r.level==="고등학생"?(r.mid?"중·고등학생":"고등학생"):r.level)}</span>`);
+  const fr=freshKind(r);
+  const tag=fr==="new"?`<span class="newtag">새 장학</span>`:fr==="updated"?`<span class="newtag upd">바뀜</span>`:"";
+  return `<article class="item ${r.support&&r.support[0]?"sup-"+r.support[0]:""} ${fr==="new"?"is-new":fr==="updated"?"is-upd":""}" data-id="${esc(r.id)}" tabindex="0">${due}<div style="min-width:0"><p class="t">${tag}${esc(r.title)}${amt?`<span class="money">${esc(amt)}</span>`:""}</p><div class="meta">${r.org&&r.org!==r.title?`<span>${esc(r.org)}</span>`:""}</div><div class="pills">${pills.slice(0,5).join("")}</div></div><div class="acts"><button class="star" type="button" data-star="${esc(r.id)}" aria-pressed="${favs.has(r.id)}" aria-label="관심 등록"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></button><button class="bell" type="button" data-bell="${esc(r.id)}" aria-pressed="${isWatched(r.id)}" aria-label="비슷한 장학 알림" title="같거나 비슷한 장학이 새로 올라오면 알림"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0" stroke-linecap="round"/></svg></button>${isHidden(r)?`<button class="hide" type="button" data-hide="${esc(r.id)}" aria-label="숨김 풀기" title="숨김 풀기">풀기</button>`:`<button class="hide" type="button" data-hide="${esc(r.id)}" aria-label="숨기기" title="숨기기 (목록에서 안 보이게)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 3l18 18M10.6 6.1A9.9 9.9 0 0 1 12 6c5 0 9 4.5 10 6-.4.7-1.4 2-2.8 3.3M6.4 7.6C4.4 8.9 2.9 10.8 2 12c1 1.5 5 6 10 6 1.6 0 3.1-.5 4.4-1.2M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></button>`}</div></article>`;
+}
+let LASTG="", GCNT={};
+const GLABEL={"모집중":["지금 모집중",""],"예정":["접수 예정","곧 접수가 시작돼요"],"상시/미정":["일정 미정","공고에서 일정을 확인하세요"],"마감":["마감·내년 예상","지난 회차 · 작년 일정으로 다음 모집 시기를 예상했어요"]};
+// 모집중 · 접수 예정 · 마감·내년 예상을 칸으로 나눠 따로 보여 준다 (칸마다 '더 보기')
+let GSHOWN={};
+function renderMore(){
+  const multi=Object.keys(GCNT).length>1&&!SHOW_HIDDEN;
+  if(!view.length&&SHOW_HIDDEN){ $("#list").innerHTML=`<div class="empty">숨긴 장학이 없어요. 카드 오른쪽 눈 모양을 누르면 여기로 모여요.</div>`; $("#more").hidden=true; return }
+  if(!view.length){ $("#list").innerHTML=`<div class="empty">조건에 맞는 장학금이 없습니다.${PF_ON&&savedProfile()?" 위의 ‘내 정보 맞춤’을 끄면 내 조건과 맞지 않는 장학까지 모두 볼 수 있어요.":""} 모집 상태에 ‘마감·내년 예상’을 켜면 정기 장학금의 다음 모집 시기도 볼 수 있습니다.</div>`; $("#more").hidden=true; return }
+  if(!multi){ const next=view.slice(shown,shown+60); shown+=next.length; $("#list").insertAdjacentHTML("beforeend",next.map(card).join("")); $("#more").hidden=shown>=view.length; return }
+  $("#more").hidden=true; GSHOWN={};
+  $("#list").innerHTML=Object.keys(GLABEL).filter(k=>GCNT[k]).map(k=>{const [l,sub]=GLABEL[k];
+    return `<section class="gsec" data-gsec="${esc(k)}"><div class="grouphead g-${k} ${k==="마감"?"closed":""}">${l}<span class="n">${GCNT[k].toLocaleString("ko-KR")}건</span>${sub?`<small>${sub}</small>`:""}</div><div class="list"></div><button class="more" type="button" data-gmore="${esc(k)}" hidden>더 보기</button></section>`}).join("");
+  Object.keys(GLABEL).filter(k=>GCNT[k]).forEach(k=>gMore(k,k==="마감"?20:40));
+}
+function gMore(k,n){
+  const sec=$(`[data-gsec="${k}"]`); if(!sec) return; const all=view.filter(r=>r._s.key===k), from=GSHOWN[k]||0, next=all.slice(from,from+(n||60));
+  GSHOWN[k]=from+next.length; sec.querySelector(".list").insertAdjacentHTML("beforeend",next.map(card).join(""));
+  const b=sec.querySelector("[data-gmore]"); b.hidden=GSHOWN[k]>=all.length; b.textContent=`${GLABEL[k][0]} 더 보기 (${(all.length-GSHOWN[k]).toLocaleString("ko-KR")}건 남음)`;
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-gmore]"); if(b) gMore(b.dataset.gmore,60)});
+$("#more").addEventListener("click",renderMore);
+let qt; $("#q").addEventListener("input",()=>{clearTimeout(qt);qt=setTimeout(apply,160)});
+$("#sort").addEventListener("change",()=>{store.set("sort",$("#sort").value);apply()});
+document.addEventListener("click",e=>{
+  const st=e.target.closest("[data-star]"); if(st){e.stopPropagation(); toggleFav(st.dataset.star); return}
+  const it=e.target.closest(".item[data-id]"); if(it) openDetail(it.dataset.id);
+});
+document.addEventListener("keydown",e=>{ if(e.key==="Enter"){const it=e.target.closest&&e.target.closest(".item[data-id]"); if(it) openDetail(it.dataset.id)} if(e.key==="Escape") closeDetail() });
+function toggleFav(id){favs.has(id)?favs.delete(id):favs.add(id); store.set("favs",[...favs]); pushAlerts(); $$(`[data-star="${id}"]`).forEach(b=>{b.setAttribute("aria-pressed",favs.has(id)); if(!b.classList.contains("star")) b.textContent=favs.has(id)?"★ 관심 해제":"☆ 관심 등록"}); $("#favCount").textContent=favs.size||""; if(!$("#view-fav").hidden) renderFav()}
+
+/* ---------- 상세 ---------- */
+const BYID={};
+function gcal(r){
+  const d=(r.end||r.start||"").replace(/-/g,""); if(!d) return "";
+  const n=new Date(r.end||r.start); n.setDate(n.getDate()+1);
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("[장학 마감] "+r.title)+"&dates="+d+"/"+iso(n).replace(/-/g,"")+"&details="+encodeURIComponent((r.org||"")+"\n장학금헌터에서 공고 원문 확인");
+}
+// '새 장학'·'바뀜' 표시: 상세를 한 번 열어 보면 없앤다. 학교·기관 공고는 공고일로부터 이틀이 지나면 없앤다
+// (장학 DB 에서 새로 들어온 장학은 공고일이 없으므로 이틀 규칙에서 빼고, 서버의 '최근 7일' 기준을 따른다)
+const SEEN=store.get("seenCnt",{})||{};
+const DB_SRC=/^k[a-z]?$/;
+function freshKind(r){
+  if(!r.fresh||r._s.key==="마감") return "";
+  if((SEEN[r.id]||0)>=1) return "";
+  if(r.fresh.kind==="new"&&!DB_SRC.test(r.source||"")){ const p=r.posted||r.fresh.at||""; if(/^\d{4}-\d\d-\d\d/.test(p)&&days(p.slice(0,10),TODAY)>2) return "" }
+  return r.fresh.kind;
+}
+function markSeen(id){ SEEN[id]=(SEEN[id]||0)+1; const ks=Object.keys(SEEN); if(ks.length>800) ks.slice(0,ks.length-800).forEach(k=>delete SEEN[k]); store.set("seenCnt",SEEN); if(SEEN[id]===1) setTimeout(()=>{ try{ refreshCard(id); renderFresh() }catch(e){} },0) }
+function openDetail(id){ markSeen(id);
+  const r=BYID[id]; if(!r) return;
+  const m=r._m, s=r._s;
+  const rows=[["운영기관",r.org],["모집 기간",(r.start||"?")+" ~ "+(r.end||"?")+(r.next?"\n다음 모집 예상: "+r.next.replace("-","년 ")+"월 (작년 일정 기준)":"")],["지원 종류",(r.support||[]).map(k=>SUPL[k]).join(", ")],["계열",r._fields.map(FSHORT).join(", ")],["알아둘 점",r._n.join(" · ")],["지원 내용",r.amount],["세부 분야",(r.variants||[]).map(v=>"· "+v.n+(v.e?" ("+v.e.slice(5).replace("-",".")+" 마감)":"")+(v.a?" — "+v.a.slice(0,80):"")).join("\n")],["선발 인원",r.quota],["지원 대상",r.target||((r.source==="p"||r.source==="u1")&&(r.images||[]).length?"공고 이미지에 있음 — 아래 ‘공고 이미지’에서 확인":"")],["대상 학교",(r.school_types||[]).join(", ")],["학년·학기",(r.grades||[]).join(", ")],["지역",[r.region,r.district].filter(Boolean).join(" ")],["거주 조건",r.residence],["소득 기준",r.income],["성적 기준",r.gpa],["특정 자격",r.special],["자격 제한",r.restriction],["추천",r.recommend],["선발 방법",r.selection],["제출 서류",r.documents],["첨부파일",(r.files||[]).join("\n")],["처음 등록",(r.posted||r.first_seen||"").slice(0,10)]].filter(x=>x[1]&&String(x[1]).trim());
+  const links=[];
+  const mu=mainUrl(r);
+  if(mu) links.push(`<a class="btn primary" href="${esc(mu)}" target="_blank" rel="noopener noreferrer">공고 원문 보기</a>`);
+  const sq="https://www.google.com/search?q="+encodeURIComponent(((r.org&&!r.title.includes(r.org.replace(/\(.*?\)|재단법인|사단법인/g,"").trim())?r.org+" ":"")+r.title.replace(/\[[^\]]*\]|\([^)]*\)/g," ").trim()+" 모집 공고").slice(0,80));
+  links.push(`<a class="btn${mu?"":" primary"}" href="${esc(sq)}" target="_blank" rel="noopener noreferrer">${mu?"최신 공고 검색":"공고 검색하기"}</a>`);
+  if(safeUrl(r.apply_url) && safeUrl(r.apply_url)!==mu) links.push(`<a class="btn" href="${esc(safeUrl(r.apply_url))}" target="_blank" rel="noopener noreferrer">신청하러 가기</a>`);
+  const gc=gcal(r);
+  const addr=""; if(gc && s.key!=="마감") links.push(`<a class="btn" href="${esc(gc)}" target="_blank" rel="noopener">구글 캘린더에 추가</a>`);
+  links.push(`<button class="btn" type="button" data-star="${esc(r.id)}" aria-pressed="${favs.has(r.id)}">${favs.has(r.id)?"★ 관심 해제":"☆ 관심 등록"}</button>`);
+  links.push(`<button class="btn" type="button" data-bell="${esc(r.id)}" aria-pressed="${isWatched(r.id)}">${isWatched(r.id)?"🔔 비슷한 장학 알림 끄기":"🔔 비슷한 장학 알림 받기"}</button>`);
+  links.push(`<button class="btn" type="button" id="dShare">내용 복사</button>`);
+  links.push(`<button class="btn" type="button" data-hide="${esc(r.id)}">${isHidden(r)?"숨김 풀기":"이 장학 숨기기"}</button>`);
+  if(s.key!=="마감") links.push(`<button class="btn" type="button" data-write="${esc(r.id)}">추천서·자소서 쓰기</button>`);
+  const docs=(r.documents||"").split(/\n|○/).map(x=>x.replace(/^[\s\-·•※]+/,"").trim()).filter(x=>x.length>1&&!/자세한 사항|첨부파일 또는/.test(x)).slice(0,14);
+  const checked=new Set(store.get("docs:"+r.id,[]));
+  const tracker=`<div class="track"><span>신청 상태</span>${APPLY.map(a=>`<button type="button" class="seg" data-apply="${a}" aria-pressed="${applyState[r.id]===a}">${a}</button>`).join("")}</div>`;
+  const checklist=docs.length?`<h3>제출 서류 체크리스트 <span class="note" id="docProg">${[...checked].filter(i=>i<docs.length).length}/${docs.length}</span></h3><div class="docs">${docs.map((d,i)=>`<label class="doc"><input type="checkbox" data-doc="${i}" ${checked.has(i)?"checked":""}> <span>${esc(d)}</span></label>`).join("")}</div>`:"";
+  $("#drawer").innerHTML=`<button class="close" type="button" id="dClose" aria-label="닫기"><svg width="16" height="16" viewBox="0 0 16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3l10 10M13 3 3 13"/></svg></button>
+    <div class="pills"><span class="pill ${s.hot?"seal":s.key==="모집중"?"live":""}">${esc(s.label)}</span>${r.region?`<span class="pill">${esc(r.region)}${r.district?" "+esc(r.district):""}</span>`:""}${kindLabel(r)?`<span class="pill">${esc(kindLabel(r))}</span>`:""}</div>
+    <h2 id="dTitle">${esc(r.title)}${moneyOf(r)?`<span class="money big">${esc(moneyOf(r))}</span>`:""}</h2><div class="meta">${r.org&&r.org!==r.title?`<span>${esc(r.org)}</span>`:""}</div>
+    ${m?`<div class="reasons ${m.verdict}"><b>${VLABEL[m.verdict]}</b> — 내 정보 기준 자동 판단<ul>${m.why.map(([k,t])=>`<li>${k==="ok"?"✓":k==="no"?"✕":"·"} ${esc(t)}</li>`).join("")||"<li>판단할 조건이 없습니다</li>"}</ul></div>`:`<p class="note" style="margin-top:12px">‘내 정보’를 입력하면 지원 가능 여부를 자동으로 판단해 드립니다.</p>`}
+    <div class="actions">${links.join("")}</div>${addr}${tracker}
+    <dl class="facts">${rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>${checklist}
+    ${r.summary?`<h3>핵심 내용</h3><div class="summary">${esc(r.summary)}</div>`:""}
+    <p class="note src-note">${r.origin?`출처: <b>${esc(r.origin)}</b>. `:""}자동으로 모은 정보라 틀리거나 바뀌었을 수 있어요. 지원하기 전에 반드시 공고 원문에서 기간·자격·서류를 확인하세요.</p>
+`;
+  $("#drawer").hidden=false; $("#scrim").hidden=false; $("#dClose").focus();
+  $("#drawer").dataset.id=r.id;
+}
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-apply]"); const id=$("#drawer").dataset.id;
+  if(a&&id){ const v=a.dataset.apply; if(applyState[id]===v) delete applyState[id]; else {applyState[id]=v; if(!favs.has(id)) toggleFav(id)} store.set("applyState",0); store.set("apply",applyState);
+    $$("[data-apply]").forEach(b=>b.setAttribute("aria-pressed",applyState[id]===b.dataset.apply)); refreshCard(id); return }
+  if(e.target.id==="dShare"&&id){ const r=BYID[id]; const t=[r.title,r.org,r.end?"마감 "+r.end:"",moneyOf(r)?"지원 "+moneyOf(r):"","장학금헌터에서 확인"].filter(Boolean).join("\n");
+    const done=()=>{e.target.textContent="복사했습니다"}; try{navigator.clipboard.writeText(t).then(done,()=>{e.target.textContent="복사가 막혀 있어요"})}catch(err){e.target.textContent="복사가 막혀 있어요"} }
+});
+document.addEventListener("change",e=>{
+  const c=e.target.closest("[data-doc]"); const id=$("#drawer").dataset.id; if(!c||!id) return;
+  const set=new Set(store.get("docs:"+id,[])); const i=+c.dataset.doc; c.checked?set.add(i):set.delete(i); store.set("docs:"+id,[...set]);
+  const n=$$("[data-doc]").length; $("#docProg").textContent=[...set].filter(x=>x<n).length+"/"+n;
+});
+function refreshCard(id){const r=BYID[id]; if(!r) return; $$(`.item[data-id="${id}"]`).forEach(el=>{el.outerHTML=card(r)}); if(!$("#view-fav").hidden) renderFav()}
+function closeDetail(){$("#drawer").hidden=true;$("#scrim").hidden=true}
+$("#scrim").addEventListener("click",closeDetail);
+document.addEventListener("click",e=>{
+  if(e.target.closest("#dClose"))closeDetail();
+  if(e.target.id==="dCopy"){const t=$("#dUrl").textContent; const done=()=>{e.target.textContent="복사했습니다"}; try{navigator.clipboard.writeText(t).then(done,()=>{selectUrl()})}catch(err){selectUrl()}}
+});
+function selectUrl(){const r=document.createRange(); r.selectNodeContents($("#dUrl")); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); $("#dCopy").textContent="선택됨 — 길게 눌러 복사"}
+
+/* ---------- 탭 ---------- */
+function tab(name){
+  document.body.dataset.tab=name;
+  $$("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===name));
+  for(const v of["find","cal","fav","alert","me","doc","src"]) $("#view-"+v).hidden=v!==name;
+  $("#cats").hidden=name!=="find";
+  if(name==="cal") renderCal(); if(name==="fav") renderFav(); if(name==="alert") renderAlerts(); if(name==="src") renderSrc(); if(name==="doc") renderDoc();
+  store.set("tab",name);
+}
+$$("nav.tabs button").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.tab)));
+
+/* ---------- 달력 ---------- */
+let calY=today.getFullYear(), calM=today.getMonth(), calSel=TODAY;
+function calItems(){
+  const useNext=$("#calNextYear").checked;
+  const out=[];
+  for(const r of DATA){
+    if(isHidden(r)||!teenOK(r)) continue;
+    if(profile && r._m && r._m.verdict==="no") continue;
+    if($("#calFav").checked && !favs.has(r.id)) continue;
+    if(r.status!=="마감"){ if(r.end) out.push({d:r.end,t:"end",r}); if(r.start&&r.start>=TODAY) out.push({d:r.start,t:"start",r}); }
+    else if(useNext && r.next && r.end){ const y=+r.next.slice(0,4), dd=r.end.slice(4); const s=r.start?r.next.slice(0,4)+r.start.slice(4):""; const e=(r.end.slice(5,7)<r.next.slice(5,7)?y+1:y)+dd; out.push({d:e,t:"end",r,guess:1}); if(s) out.push({d:s,t:"start",r,guess:1}) }
+  }
+  return out;
+}
+function renderCal(){
+  const items=calItems(), map={};
+  items.forEach(x=>{(map[x.d]=map[x.d]||{end:[],start:[]})[x.t].push(x)});
+  $("#calTitle").textContent=calY+"년 "+(calM+1)+"월";
+  const first=new Date(calY,calM,1), startDow=first.getDay(), dim=new Date(calY,calM+1,0).getDate();
+  let h=["일","월","화","수","목","금","토"].map(d=>`<div class="dow">${d}</div>`).join("");
+  for(let i=0;i<startDow;i++) h+=`<div class="off"></div>`;
+  for(let d=1;d<=dim;d++){const k=calY+"-"+String(calM+1).padStart(2,"0")+"-"+String(d).padStart(2,"0"); const v=map[k];
+    const ev=v?[...v.end,...v.start]:[], max=innerWidth<640?2:3;
+    h+=`<div data-day="${k}" class="${k===TODAY?"today":""} ${k===calSel?"sel":""}"><span class="num">${d}</span>${ev.slice(0,max).map(x=>`<span class="ev ${x.t==="start"?"s":""} ${x.guess?"g":""}" data-ev="${esc(x.r.id)}" title="${esc(x.r.title)} ${x.t==="end"?"마감":"시작"}${x.guess?"(예상)":""}">${esc(shortName(x.r))}</span>`).join("")}${ev.length>max?`<span class="evmore">외 ${ev.length-max}건</span>`:""}</div>`}
+  $("#cal").innerHTML=h;
+  const sel=map[calSel]; const list=sel?[...sel.end,...sel.start]:[];
+  $("#calList").innerHTML=`<p class="note">${calSel} · ${list.length}건${profile?" (지원 불가 제외)":""}</p>`+(list.map(x=>{ const h=card(x.r);
+    // 마감일 칸은 카드에 이미 'D-n · 마감'이 있으므로 그대로 두고, 시작일 칸만 '접수 시작'으로 바꾼다
+    if(x.t==="start") return h.replace(/<span class="d">[^<]*<\/span>/,`<span class="d">접수 시작${x.guess?" (예상)":""}</span>`);
+    return x.guess?h.replace('<span class="d">','<span class="d">(예상) '):h;
+  }).join("")||"");
+}
+$("#cal").addEventListener("click",e=>{const v=e.target.closest("[data-ev]"); if(v){openDetail(v.dataset.ev); return} const d=e.target.closest("[data-day]"); if(d){calSel=d.dataset.day; renderCal()}});
+function shortName(r){
+  let t=(r.title||"").replace(/\[[^\]]*\]|\(?(재단|사단|사회복지|학교)\s*법인\)?|\((재|사|주)\)/g," ")
+    .replace(/20\d\d\s*(년도?|학년도)?|(상|하)반기|\d\s*학기|\d\s*차|제\s*\d+\s*기|선발|모집|신청|안내|공고|대상자?|\([^)]*\)/g," ").replace(/\s+/g," ").trim();
+  return t||r.title||"";
+}
+$("#calPrev").addEventListener("click",()=>{calM--; if(calM<0){calM=11;calY--} renderCal()});
+$("#calNext").addEventListener("click",()=>{calM++; if(calM>11){calM=0;calY++} renderCal()});
+$("#calNextYear").addEventListener("change",renderCal);
+$("#calFav").addEventListener("change",renderCal);
+
+function icsExport(){
+  const l=DATA.filter(r=>favs.has(r.id)&&r.end&&r.end>=TODAY); if(!l.length) return alert("마감일이 남은 관심 장학금이 없어요.");
+  const esc2=t=>String(t||"").replace(/[\\;,]/g,m=>"\\"+m).replace(/\n/g,"\\n");
+  const d=x=>x.replace(/-/g,""), nx=x=>{const t=new Date(x+"T00:00:00"); t.setDate(t.getDate()+1); return iso(t).replace(/-/g,"")};
+  const stamp=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d+Z$/,"Z");
+  const ev=l.map(r=>["BEGIN:VEVENT","UID:"+r.id+"@jangak-alimi","DTSTAMP:"+stamp,"DTSTART;VALUE=DATE:"+d(r.end),"DTEND;VALUE=DATE:"+nx(r.end),
+    "SUMMARY:"+esc2("[마감] "+r.title),"DESCRIPTION:"+esc2((r.org||"")+"\n장학금헌터에서 자세히 보기"),
+    "BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:"+esc2("내일 마감 · "+r.title),"TRIGGER:-PT15H","END:VALARM","END:VEVENT"].join("\r\n"));
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//jangak-alimi//KO","CALSCALE:GREGORIAN","X-WR-CALNAME:장학 마감",...ev,"END:VCALENDAR"].join("\r\n");
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar;charset=utf-8"})); a.download="jangak-deadlines.ics"; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove()},2000);
+}
+function renderFav(){
+  const ib=$("#icsBox"); if(ib){ ib.hidden=!!window.AndroidBridge||!DATA.some(r=>favs.has(r.id)&&r.end&&r.end>=TODAY); const b=$("#icsBtn"); if(b) b.onclick=icsExport }
+  const l=DATA.filter(r=>favs.has(r.id)).sort(sorter());
+  if(!l.length){$("#favList").innerHTML=`<div class="empty">아직 관심 장학금이 없습니다. 목록에서 ☆을 누르세요. 장학금 상세에서 ‘신청 상태’를 고르면 준비 중·제출 완료·합격으로 나눠 관리할 수 있습니다.</div>`;return}
+  const groups=[["관심",l.filter(r=>!applyState[r.id])],...APPLY.map(a=>[a,l.filter(r=>applyState[r.id]===a)])].filter(g=>g[1].length);
+  $("#favList").innerHTML=groups.map(([g,rs])=>`<div class="favgroup">${g}<span class="n">${rs.length}</span></div>`+rs.map(card).join("")).join("");
+}
+
+/* ---------- 내 조건 ---------- */
+function fillProfile(){
+  const opt='<option value="">선택 안 함</option>'+SIDO.map(s=>`<option>${s}</option>`).join("");
+  for(const id of["p_sido","p_psido","p_hsido","p_ssido"]) $("#"+id).innerHTML=opt;
+  // 학교: 한양대·한양여대를 맨 위에, 나머지는 가나다순
+  // 학교: 어느 학교도 따로 앞에 두지 않고 가나다순 (캠퍼스가 나뉜 학교는 캠퍼스 이름도 함께)
+  const TOP=[];
+  const rest=[...new Map([...UNIVS,["강원대학교 삼척캠퍼스","강원"],...UNIV_PORTALS.map(([n])=>[n,""])].map(u=>[u[0],u])).values()].sort((a,b)=>a[0].localeCompare(b[0],"ko"));
+  // 학교·학과는 쳐서 찾는다 (목록에서 고르거나, 목록에 없으면 그대로 입력)
+  $("#schoolList").innerHTML=TOP.map(([v,,l])=>`<option value="${esc(v)}">${esc(l)}</option>`).join("")+rest.map(([n])=>`<option value="${esc(n)}"></option>`).join("");
+  $("#deptList").innerHTML=Object.entries(MAJORS).map(([g,l])=>l.map(n=>`<option value="${esc(n)}">${esc(g)}</option>`).join("")).join("");
+  const onSchool=()=>{const v=$("#p_schoolName").value.trim(); const t=[...TOP,...UNIVS].find(u=>u[0]===v); if(t&&t[1]) $("#p_ssido").value=t[1]; if(/한양여자/.test(v)&&!$("#p_school").value) $("#p_school").value="2y"; if(/^(한양대학교|강원대학교|서강대학교|건국대학교)/.test(v)&&!$("#p_school").value) $("#p_school").value="4y"};
+  $("#p_schoolName").onchange=onSchool;
+  const onDept=()=>{const v=$("#p_dept").value.trim(), h=$("#p_deptHint"); if(!v){h.textContent="";return}
+    let k=Object.keys(MAJORS).find(k=>MAJORS[k].includes(v));
+    if(!k){ const f=majorField(v.toLowerCase().replace(/\s/g,"")); if(f&&f.size===1) k=[...f][0] }
+    if(k){ $("#p_major").value=k; h.textContent=k+"로 맞췄어요"; } else h.textContent="목록에 없는 학과면 아래 ‘계열’을 직접 골라 주세요";
+  };
+  $("#p_dept").oninput=onDept; $("#p_dept").onchange=onDept;
+  const fillGu=(sel,keep)=>{const g=$("#"+sel.dataset.gu), list=DIST[sel.value]||[]; g.innerHTML=sel.value?`<option value="">선택 안 함</option>`+list.map(x=>`<option>${x}</option>`).join(""):`<option value="">시·도를 먼저 고르세요</option>`; if(keep&&list.includes(keep)) g.value=keep};
+  $$("#profile select[data-gu]").forEach(sel=>{sel.onchange=()=>fillGu(sel)});
+  $("#p_flags").innerHTML=FLAGS.map(([k,l])=>`<label class="chip"><input type="checkbox" value="${k}" id="pf_${k}"> ${l}</label>`).join("");
+  const p=savedProfile()||{};
+  if(!p.status && p.level) p.status={"고등학생":"hs","대학원생":"grad","대학생":"univ"}[p.level]||"";
+  for(const k of ["status","gender","school","ssido","sem","major","income","gpa","sido","hsido","psido"]) if($("#p_"+k)) $("#p_"+k).value=p[k]??"";
+  $("#p_schoolName").value=p.schoolName||""; $("#p_dept").value=p.dept||"";
+  fillGu($("#p_sido"),p.gu); fillGu($("#p_hsido"),p.hgu); fillGu($("#p_psido"),p.pgu);
+  (p.flags||[]).forEach(k=>{const c=$("#pf_"+k); if(c) c.checked=true});
+}
+$("#profile").addEventListener("submit",e=>{
+  e.preventDefault();
+  const p={}; for(const k of ["status","gender","school","schoolName","ssido","sem","dept","major","income","gpa","sido","gu","hsido","hgu","psido","pgu"]) p[k]=$("#p_"+k).value.trim();
+  p.level={hs:"고등학생",pre:"대학생",univ:"대학생",leave:"대학생",grad:"대학원생"}[p.status]||"";
+  if(p.status==="pre"&&p.sem==="") p.sem="0";
+  if(p.status==="grad"&&!p.school) p.school="grad";
+  p.flags=$$("#p_flags input:checked").map(c=>c.value);
+  if(((profile&&profile.schoolName)||"")!==(p.schoolName||"")) store.set("only",null); // 학교를 바꾸면 전용 공고 보기도 새 학교에 맞춤
+  PF_ON=true; store.set("pfOn",true);
+  profile=p; store.set("profile",p); cache(); buildFilters(); apply(); renderKpis(); renderCats(); pushAlerts(); renderPfBar();
+  $("#p_saved").textContent="저장했습니다. 이 기기에만 보관됩니다.";
+  F.match=new Set(["ok","check"]); F.field=new Set(); $("#sort").value="fit"; store.set("sort","fit"); buildFilters(); apply(); tab("find"); window.scrollTo({top:0,behavior:"smooth"});
+});
+$("#p_clear").addEventListener("click",()=>{resetProfile(); $("#p_saved").textContent="내 정보를 초기화했습니다."});
+// 내 정보로 거르기 켜기·끄기 (끄면 저장된 내 정보는 그대로 두고, 모든 장학을 보여 준다)
+function refreshProfileViews(){ cache(); buildFilters(); apply(); renderKpis(); renderCats(); pushAlerts(); renderPfBar(); try{ if(!$("#view-cal").hidden) renderCal() }catch(e){} }
+function setProfileOn(on){
+  PF_ON=on; store.set("pfOn",on);
+  profile=on?savedProfile():null;
+  F.match=on&&profile?new Set(["ok","check"]):new Set(); F.field=new Set();
+  if(!on) store.set("only",null);
+  refreshProfileViews();
+}
+function resetProfile(){
+  const old=savedProfile(); if(!old) return;
+  store.set("profile",null); store.set("only",null); profile=null; F.match=new Set(); F.field=new Set();
+  fillProfile(); refreshProfileViews();
+  toast("내 정보를 초기화했어요.",()=>{store.set("profile",old); PF_ON=true; store.set("pfOn",true); profile=old; F.match=new Set(["ok","check"]); fillProfile(); refreshProfileViews()});
+}
+function renderPfBar(){
+  const b=$("#pfBar"); if(!b) return; const sp=savedProfile();
+  if(!sp){b.hidden=true; return}
+  b.hidden=false;
+  const who=[sp.schoolName,sp.dept].filter(Boolean).join(" · ");
+  b.innerHTML=`<button type="button" class="sw" id="pfSw" aria-pressed="${PF_ON}"><i></i>내 정보 맞춤 ${PF_ON?"켜짐":"꺼짐"}</button><span></span><span class="grow">${PF_ON?(who?esc(who)+" 기준으로 맞는 장학만 보여요.":"내 조건에 맞는 장학만 보여요."):"모든 장학을 보여요. 내 정보는 그대로 저장돼 있어요."}</span><button type="button" class="lk" id="pfEdit">고치기</button><button type="button" class="lk" id="pfReset">초기화</button>`;
+}
+document.addEventListener("click",e=>{
+  if(e.target.closest("#pfSw")){setProfileOn(!PF_ON); return}
+  if(e.target.id==="pfEdit"){tab("me"); window.scrollTo({top:0}); return}
+  if(e.target.id==="pfReset"){resetProfile(); return}
+});
+
+/* ---------- 새 소식 ---------- */
+function renderSrc(){
+
+  const when=(META.finishedAt||"").replace("T"," ").slice(0,16);
+  $("#srcReport").textContent=`마지막 갱신 ${when} · 전체 ${(META.total||DATA.length).toLocaleString("ko-KR")}건 · 이번에 새로 ${META.new||0}건, 바뀜 ${META.changed||0}건`;
+  const ch=freshList(false);
+  $("#changes").innerHTML=ch.map(card).join("")||`<div class="empty">최근 7일 안에 새로 올라오거나 바뀐 장학금이 없습니다.</div>`;
+  if($("#remoteForm")) $("#remoteForm").innerHTML=`<label class="full">갱신 서버 주소<input type="text" id="remoteUrl" placeholder="https://…" value="${esc(store.get("remote",""))}"></label><div class="full actions" style="margin-top:0;align-items:center"><button class="btn primary" type="button" id="remoteSave">저장하고 다시 불러오기</button><span class="note">${esc(SRC)}</span></div><p class="note full">주소를 넣으면 앱을 열 때마다 최신 장학금 목록을 받아 옵니다. 비워 두면 이 기기에 저장된 목록을 씁니다.</p>`;
+  if($("#remoteSave")) $("#remoteSave").onclick=()=>{const v=$("#remoteUrl").value.trim(); if(v && !/^https:\/\/[^\s/]+/.test(v)){$("#remoteUrl").setCustomValidity("https:// 로 시작하는 주소만 쓸 수 있습니다");$("#remoteUrl").reportValidity();return} store.set("remote",v); location.reload()};
+}
+
+/* ---------- KPI ---------- */
+function renderKpis(){
+  const D=DATA.filter(r=>schoolOK(r)&&!isHidden(r)); // 내 학교 학생이 지원할 수 없는 장학·끈 학교 전용 공고는 세지 않는다
+  const live=D.filter(r=>r._s.key==="모집중"), week=live.filter(r=>r._s.d!=null&&r._s.d<=7);
+  const ym=TODAY.slice(0,7), nm=iso(new Date(today.getFullYear(),today.getMonth()+1,1)).slice(0,7);
+  const soon=D.filter(r=>r._s.key==="예정"||(r.next&&(r.next===ym||r.next===nm)));
+  const okc=profile?D.filter(r=>r._m&&r._m.verdict!=="no"&&(r._s.key==="모집중"||r._s.key==="예정")).length:null;
+  $("#meCallout").hidden=!!profile;
+  const k=[["live",live.length,"지금 모집중",""],["week",week.length,"7일 안에 마감","hot"],["soon",soon.length,"이번·다음 달 모집 예상",""],["mine",okc==null?D.length:okc,okc==null?"전체 장학금":"나에게 맞는 장학금",""]];
+  $("#kpis").innerHTML=k.map(([id,n,l,c])=>`<button class="kpi ${c}" type="button" data-k="${id}"><span class="n">${n.toLocaleString("ko-KR")}</span><span class="l">${l}</span></button>`).join("");
+  renderFresh();
+}
+function freshList(openOnly){
+  const rank={"모집중":0,"예정":1,"상시/미정":2,"마감":3};
+  return DATA.filter(r=>freshKind(r)&&!isHidden(r)&&schoolOK(r)&&!(profile&&r._m&&r._m.verdict==="no")&&(!openOnly||r._s.key!=="마감"))
+    .sort((a,b)=>(freshKind(a)==="new"?0:1)-(freshKind(b)==="new"?0:1)||rank[a._s.key]-rank[b._s.key]||(b.fresh.at||"").localeCompare(a.fresh.at||""));
+}
+function renderFresh(){
+  const l=freshList(true), show=l.slice(0,5), box=$("#fresh");
+  {const c=$("#newCount"); if(c) c.textContent=l.length||""}
+  box.hidden=true; return; // 맨 위에는 띄우지 않고 '새 소식' 탭에서 본다
+  box.hidden=false;
+  box.innerHTML=`<h2>새로 올라오거나 바뀐 장학금<small>최근 7일 · ${l.length}건</small></h2><ul>${show.map(r=>`<li data-id="${esc(r.id)}" tabindex="0"><span class="fb ${r.fresh.kind==="new"?"":"u"}">${r.fresh.kind==="new"?"새로":"바뀜"}</span><span class="ft">${esc(r.title)}</span><span class="fd ${r._s.hot?"hot":""}">${esc(r._s.label)}</span></li>`).join("")}</ul>${l.length>show.length?`<button class="more" type="button" id="freshMore">${l.length-show.length}건 더 보기</button>`:""}`;
+}
+$("#fresh").addEventListener("click",e=>{ if(e.target.closest("#freshMore")){tab("src");return} const li=e.target.closest("li[data-id]"); if(li) openDetail(li.dataset.id) });
+$("#fresh").addEventListener("keydown",e=>{ const li=e.key==="Enter"&&e.target.closest("li[data-id]"); if(li) openDetail(li.dataset.id) });
+$("#kpis").addEventListener("click",e=>{const b=e.target.closest("[data-k]"); if(!b) return; tab("find");
+  for(const k of["level","orgType","kind","match","source"]) F[k]=new Set(); F.region="";
+  const k=b.dataset.k; F.within=k==="week"?7:0; F.status=new Set(k==="soon"?["예정","마감"]:k==="mine"&&!profile?["모집중","예정","마감","상시/미정"]:["모집중","예정"].slice(0,k==="live"||k==="week"?1:2));
+  if(k==="mine"&&profile) F.match=new Set(["ok","check"]);
+  $("#sort").value=k==="soon"?"next":"due"; buildFilters(); apply();});
+
+/* ---------- 도움말 (처음 켜면 한 번 보여 주고, 위쪽 '도움말' 버튼·검색으로 다시 연다) ---------- */
+function openHelp(){ $("#helpWrap").hidden=false; $("#helpQ").value=""; filterHelp(); setTimeout(()=>{try{$("#helpClose").focus()}catch(e){}},0) }
+function closeHelp(){ $("#helpWrap").hidden=true; store.set("helpSeen",true) }
+function filterHelp(){ const q=$("#helpQ").value.trim().toLowerCase(); let n=0;
+  $$("#helpList details").forEach(d=>{ const hit=!q||(d.dataset.k+" "+d.textContent).toLowerCase().includes(q); d.hidden=!hit; if(hit){n++; if(q) d.open=true} });
+  $("#helpNone").hidden=n>0 }
+$("#helpBtn").addEventListener("click",openHelp);
+$("#helpClose").addEventListener("click",closeHelp);
+$("#helpQ").addEventListener("input",filterHelp);
+$("#helpWrap").addEventListener("click",e=>{ if(e.target.id==="helpWrap") closeHelp() });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!$("#helpWrap").hidden) closeHelp() });
+
+/* ---------- 새로고침: 위쪽 '장학금헌터'(아이콘·글자)를 누르면 새로고침, 새 장학 정보가 올라오면 알려 준다 ---------- */
+let DATA_BASE="", LOADED_AT="";
+function reloadApp(home){ try{ store.set("tab",home?"find":(document.body.dataset.tab||"find")); if(home){ history.scrollRestoration="manual"; window.scrollTo(0,0) } }catch(e){} location.reload() }
+// 위쪽 '장학금헌터'를 누르면 새로고침하고 '찾기' 화면 맨 위로 돌아간다
+$("#brandBtn").addEventListener("click",()=>reloadApp(true));
+$("#brandBtn").addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); reloadApp(true) } });
+document.addEventListener("click",e=>{ if(e.target.closest("#updReload")) reloadApp(); if(e.target.closest("#updLater")) $("#updBar").hidden=true });
+async function checkUpdate(){
+  if(!LOADED_AT||document.hidden) return;
+  try{ const m=await fetch(DATA_BASE+"data/meta.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null);
+    const at=m&&String(m.finishedAt||""); if(!at||at<=LOADED_AT) return;
+    const known=new Set(DATA.map(r=>r.id)), fresh=(m.open||[]).filter(o=>o&&!known.has(o.id)).length;
+    const b=$("#updBar"); b.hidden=false;
+    b.innerHTML=`<span>🔔 <b>${fresh?"새 장학 "+fresh+"건이":"새 장학 정보가"}</b> 올라왔어요.</span><span><button class="btn primary" type="button" id="updReload">새로고침</button> <button class="btn" type="button" id="updLater">나중에</button></span>`;
+  }catch(e){}
+}
+setInterval(checkUpdate,10*60*1000);
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden) checkUpdate() });
+
+/* ---------- 시작 ---------- */
+async function boot(){
+  try{
+    const rv=store.get("remote",null)??(window.AndroidBridge?PAGES:"");
+    const remote=/^https:\/\//.test(rv||"")?rv.replace(/\/+$/,""):"";
+    const get=(base,t)=>{const c=new AbortController(); const id=setTimeout(()=>c.abort(),t); return Promise.all([fetch(base+"data/scholarships.json",{signal:c.signal,cache:"no-store"}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),fetch(base+"data/meta.json",{signal:c.signal,cache:"no-store"}).then(r=>r.json()).catch(()=>({}))]).finally(()=>clearTimeout(id))};
+    let d,m; SRC="지금: 기기에 저장된 목록";
+    if(remote){ try{[d,m]=await get(remote+"/",12000); SRC="지금: 서버의 최신 목록"; DATA_BASE=remote+"/"}catch(e){SRC="서버에 연결하지 못해 저장된 목록을 보여 줍니다"} }
+    if(!d){[d,m]=await get("",30000); DATA_BASE=""}
+    LOADED_AT=String(d.generatedAt||"");
+    DATA=(Array.isArray(d.items)?d.items:[]).map(cleanRec).filter(Boolean); META=m&&typeof m==="object"?m:{}; DATA.forEach(r=>BYID[r.id]=r);
+    // 합쳐진 장학(지난 회차·세부 분야)의 예전 번호로 저장된 관심·숨김·알림도 새 줄로 옮긴다
+    {let ch=false; for(const r of DATA) for(const a of (r.aka||[])){ if(!BYID[a]) BYID[a]=r; if(favs.has(a)){favs.delete(a); favs.add(r.id); ch=true} if(HIDDEN.has(a)){HIDDEN.delete(a); HIDDEN.add(r.id); store.set("hidden",[...HIDDEN])} }
+     if(ch) store.set("favs",[...favs]); }
+    const g=new Date(d.generatedAt||Date.now()); $("#stamp").innerHTML=`장학금 <b>${DATA.length.toLocaleString("ko-KR")}</b>건<br>${g.getMonth()+1}월 ${g.getDate()}일 ${String(g.getHours()).padStart(2,"0")}:${String(g.getMinutes()).padStart(2,"0")} 업데이트`;
+  }catch(e){ $("#stamp").textContent="자료를 불러오지 못했습니다. 페이지를 새로고침하세요."; return }
+  $("#sort").value=store.get("sort",profile?"fit":"due");
+  fillProfile(); cache(); buildFilters(); renderKpis(); renderCats(); apply(); renderHideBar(); renderPfBar(); $("#favCount").textContent=favs.size||""; $("#watchCount").textContent=(AL.watch||[]).length||""; renderWatchHits();
+  if(!store.get("helpSeen",false)) openHelp();
+  const t=store.get("tab","find"); if(t!=="find") tab(t);
+  // 안드로이드 앱: 관심 장학금 마감 3일 전 알림 (하루 한 번)
+  try{ if(window.AndroidBridge && store.get("notified","")!==TODAY){
+    const soon=DATA.filter(r=>favs.has(r.id)&&r._s.key==="모집중"&&r._s.d!=null&&r._s.d<=3).map(r=>({id:r.id,title:r.title,org:r.org,label:r._s.label}));
+    if(soon.length) window.AndroidBridge.notifyDeadlines(JSON.stringify(soon)); store.set("notified",TODAY);
+  }}catch(e){}
+  pushAlerts(); setTimeout(checkUpdate,8000);
+}
+/* ---------- 학교 포털 연결 기능은 넣지 않는다 (장학금헌터는 공개된 정보만 다룬다) ---------- */
+const UNIV_PORTALS=[["가야대학교","kaya.ac.kr","https://www.kaya.ac.kr/"],["가천대학교","gachon.ac.kr","https://www.gachon.ac.kr/"],["가톨릭관동대학교","cku.ac.kr","https://www.cku.ac.kr/"],["가톨릭꽃동네대학교","kkot.ac.kr","https://www.kkot.ac.kr/"],["가톨릭대학교","cuk.ac.kr","https://www.cuk.ac.kr/"],["가톨릭상지대학교","csangji.ac.kr","https://www.csangji.ac.kr/"],["감리교신학대학교","mtu.ac.kr","https://www.mtu.ac.kr/"],["강남대학교","kangnam.ac.kr","https://www.kangnam.ac.kr/"],["강동대학교","gangdong.ac.kr","https://www.gangdong.ac.kr/"],["강릉영동대학교","gyc.ac.kr","https://www.gyc.ac.kr/"],["강서대학교","gangseo.ac.kr","https://www.gangseo.ac.kr/"],["강원대학교","kangwon.ac.kr","https://www.kangwon.ac.kr/"],["강원도립대학교","gw.ac.kr","https://www.gw.ac.kr/"],["개신대학원대학교","rts.ac.kr","https://www.rts.ac.kr/"],["거제대학교","koje.ac.kr","https://www.koje.ac.kr/"],["건국대학교","konkuk.ac.kr","https://www.konkuk.ac.kr/"],["건신대학원대학교","alu.ac.kr","https://www.alu.ac.kr/"],["건양대학교","konyang.ac.kr","https://www.konyang.ac.kr/"],["건양사이버대학교","kycu.ac.kr","https://www.kycu.ac.kr/"],["경기과학기술대학교","gtec.ac.kr","https://www.gtec.ac.kr/"],["경기대학교","kyonggi.ac.kr","https://www.kyonggi.ac.kr/"],["경남대학교","kyungnam.ac.kr","https://www.kyungnam.ac.kr/"],["경남정보대학교","kit.ac.kr","https://www.kit.ac.kr/"],["경동대학교","kduniv.ac.kr","https://www.kduniv.ac.kr/"],["경민대학교","kyungmin.ac.kr","https://www.kyungmin.ac.kr/"],["경복대학교","kbu.ac.kr","https://www.kbu.ac.kr/"],["경북과학대학교","kbsu.ac.kr","https://www.kbsu.ac.kr/"],["경북대학교","knu.ac.kr","https://www.knu.ac.kr/"],["경북도립대학","gpc.ac.kr","https://www.gpc.ac.kr/"],["경북전문대학교","kbc.ac.kr","https://www.kbc.ac.kr/"],["경상국립대학교","gnu.ac.kr","https://www.gnu.ac.kr/"],["경성대학교","ks.ac.kr","https://kscms.ks.ac.kr/"],["경운대학교","ikw.ac.kr","https://www.ikw.ac.kr/"],["경인교육대학교","ginue.ac.kr","https://www.ginue.ac.kr/"],["경인여자대학교","kiwu.ac.kr","https://www.kiwu.ac.kr/"],["경일대학교","kiu.ac.kr","https://www.kiu.ac.kr/"],["경찰대학","police.ac.kr","https://www.police.ac.kr/"],["경희대학교","khu.ac.kr","https://www.khu.ac.kr/"],["계명대학교","kmu.ac.kr","https://www.kmu.ac.kr/"],["계명문화대학교","kmcu.ac.kr","https://www.kmcu.ac.kr/"],["계원예술대학교","kaywon.ac.kr","https://www.kaywon.ac.kr/"],["고구려대학교","kgrc.ac.kr","https://www.kgrc.ac.kr/"],["고려대학교","korea.ac.kr","https://www.korea.ac.kr/"],["고려사이버대학교","cuk.edu","https://www.cuk.edu/"],["고신대학교","kosin.ac.kr","https://www.kosin.ac.kr/"],["공주교육대학교","gjue.ac.kr","https://www.gjue.ac.kr/"],["과학기술연합대학원대학교","ust.ac.kr","https://www.ust.ac.kr/"],["광신대학교","kwangshin.ac.kr","https://www.kwangshin.ac.kr/"],["광운대학교","kw.ac.kr","https://www.kw.ac.kr/"],["광주가톨릭대학교","gjcatholic.ac.kr","https://www.gjcatholic.ac.kr/"],["광주과학기술원","gist.ac.kr","https://www.gist.ac.kr/"],["광주교육대학교","gnue.ac.kr","https://www.gnue.ac.kr/"],["광주대학교","gwangju.ac.kr","https://www.gwangju.ac.kr/"],["광주보건대학교","ghu.ac.kr","https://www.ghu.ac.kr/"],["광주여자대학교","kwu.ac.kr","https://www.kwu.ac.kr/"],["구미대학교","gumi.ac.kr","https://www.gumi.ac.kr/"],["구세군사관대학원대학교","gufot.ac.kr","https://www.gufot.ac.kr/"],["국립강릉원주대학교","gwnu.ac.kr","https://www.gwnu.ac.kr/"],["국립경국대학교","andong.ac.kr","https://www.andong.ac.kr/"],["국립공주대학교","kongju.ac.kr","https://www.kongju.ac.kr/"],["국립군산대학교","kunsan.ac.kr","https://www.kunsan.ac.kr/"],["국립금오공과대학교","kumoh.ac.kr","https://www.kumoh.ac.kr/"],["국립목포대학교","mokpo.ac.kr","https://www.mokpo.ac.kr/"],["국립목포해양대학교","mmu.ac.kr","https://www.mmu.ac.kr/"],["국립부경대학교","pknu.ac.kr","https://www.pknu.ac.kr/"],["국립순천대학교","sunchon.ac.kr","https://www.sunchon.ac.kr/"],["국립암센터국제암대학원대학교","ncc-gcsp.ac.kr","https://www.ncc-gcsp.ac.kr/"],["국립창원대학교","changwon.ac.kr","https://www.changwon.ac.kr/"],["국립한국교통대학교","ut.ac.kr","https://www.ut.ac.kr/"],["국립한국해양대학교","kmou.ac.kr","https://www.kmou.ac.kr/"],["국립한밭대학교","hanbat.ac.kr","https://www.hanbat.ac.kr/"],["국민대학교","kookmin.ac.kr","https://www.kookmin.ac.kr/"],["국방대학교","kndu.ac.kr","https://www.kndu.ac.kr/"],["국제뇌교육종합대학원대학교","ube.ac.kr","https://www.ube.ac.kr/"],["국제대학교","kookje.ac.kr","https://www.kookje.ac.kr/"],["국제영어대학원대학교","igse.ac.kr","https://www.igse.ac.kr/"],["국제예술대학교","kua.ac.kr","https://www.kua.ac.kr/"],["국제원자력대학원대학교","kings.ac.kr","https://www.kings.ac.kr/"],["극동대학교","kdu.ac.kr","https://www.kdu.ac.kr/"],["글로벌사이버대학교","global.ac.kr","https://www.global.ac.kr/"],["금강대학교","ggu.ac.kr","https://www.ggu.ac.kr/"],["기독간호대학교","ccn.ac.kr","https://www.ccn.ac.kr/"],["김천과학대학교","gch.ac.kr","https://www.gch.ac.kr/"],["김천대학교","gimcheon.ac.kr","https://www.gimcheon.ac.kr/"],["김포대학교","ukp.ac.kr","https://ukp.ac.kr/"],["나사렛대학교","kornu.ac.kr","https://www.kornu.ac.kr/"],["남서울대학교","nsu.ac.kr","https://www.nsu.ac.kr/"],["농협대학교","nonghyup.ac.kr","https://www.nonghyup.ac.kr/"],["능인대학원대학교","niu.ac.kr","https://www.niu.ac.kr/"],["단국대학교","dankook.ac.kr","https://www.dankook.ac.kr/"],["대경대학교","tk.ac.kr","https://www.tk.ac.kr/"],["대구가톨릭대학교","cu.ac.kr","https://www.cu.ac.kr/"],["대구경북과학기술원","dgist.ac.kr","https://www.dgist.ac.kr/"],["대구공업대학교","ttc.ac.kr","https://www.ttc.ac.kr/"],["대구과학대학교","tsu.ac.kr","https://www.tsu.ac.kr/"],["대구교육대학교","dnue.ac.kr","https://www.dnue.ac.kr/"],["대구대학교","daegu.ac.kr","https://www.daegu.ac.kr/"],["대구보건대학교","dhc.ac.kr","https://www.dhc.ac.kr/"],["대구예술대학교","dgau.ac.kr","https://www.dgau.ac.kr/"],["대구한의대학교","dhu.ac.kr","https://www.dhu.ac.kr/"],["대덕대학교","ddu.ac.kr","https://www.ddu.ac.kr/"],["대동대학교","daedong.ac.kr","https://www.daedong.ac.kr/"],["대림대학교","daelim.ac.kr","https://www.daelim.ac.kr/"],["대신대학교","daeshin.ac.kr","https://www.daeshin.ac.kr/"],["대원대학교","daewon.ac.kr","https://www.daewon.ac.kr/"],["대전가톨릭대학교","dcatholic.ac.kr","https://www.dcatholic.ac.kr/"],["대전과학기술대학교","dst.ac.kr","https://www.dst.ac.kr/"],["대전대학교","dju.ac.kr","https://www.dju.ac.kr/"],["대전보건대학교","hit.ac.kr","https://www.hit.ac.kr/"],["대전신학대학교","daejeon.ac.kr","https://www.daejeon.ac.kr/"],["대진대학교","daejin.ac.kr","https://www.daejin.ac.kr/"],["대한신학대학원대학교","dtu.ac.kr","https://www.dtu.ac.kr/"],["덕성여자대학교","duksung.ac.kr","https://www.duksung.ac.kr/"],["동강대학교","dkc.ac.kr","https://www.dkc.ac.kr/"],["동국대학교","dongguk.edu","https://www.dongguk.edu/"],["동남보건대학교","dongnam.ac.kr","https://www.dongnam.ac.kr/"],["동덕여자대학교","dongduk.ac.kr","https://www.dongduk.ac.kr/"],["동명대학교","tu.ac.kr","https://www.tu.ac.kr/"],["동방문화대학원대학교","dongbang.ac.kr","https://www.dongbang.ac.kr/"],["동서대학교","dongseo.ac.kr","https://www.dongseo.ac.kr/"],["동서울대학교","dsc.ac.kr","https://www.dsc.ac.kr/"],["동신대학교","dsu.ac.kr","https://www.dsu.ac.kr/"],["동아대학교","donga.ac.kr","https://www.donga.ac.kr/"],["동아방송예술대학교","dima.ac.kr","https://www.dima.ac.kr/"],["동아보건대학교","dongac.ac.kr","https://www.dongac.ac.kr/"],["동양대학교","dyu.ac.kr","https://www.dyu.ac.kr/"],["동양미래대학교","dongyang.ac.kr","https://www.dongyang.ac.kr/"],["동원과학기술대학교","dist.ac.kr","https://www.dist.ac.kr/"],["동원대학교","tw.ac.kr","https://www.tw.ac.kr/"],["동의과학대학교","dit.ac.kr","https://www.dit.ac.kr/"],["동의대학교","deu.ac.kr","https://www.deu.ac.kr/"],["동주대학교","dongju.ac.kr","https://www.dongju.ac.kr/"],["두원공과대학교","doowon.ac.kr","https://www.doowon.ac.kr/"],["디지털서울문화예술대학교","scau.ac.kr","https://www.scau.ac.kr/"],["루터대학교","ltu.ac.kr","https://www.ltu.ac.kr/"],["명지대학교","mju.ac.kr","https://www.mju.ac.kr/"],["명지전문대학","mjc.ac.kr","https://www.mjc.ac.kr/"],["목원대학교","mokwon.ac.kr","https://mokwon.ac.kr/"],["목포가톨릭대학교","mcu.ac.kr","https://www.mcu.ac.kr/"],["목포과학대학교","msu.ac.kr","https://www.msu.ac.kr/"],["문경대학교","mkc.ac.kr","https://www.mkc.ac.kr/"],["배재대학교","pcu.ac.kr","https://www.pcu.ac.kr/"],["배화여자대학교","baewha.ac.kr","https://www.baewha.ac.kr/"],["백석대학교","bu.ac.kr","https://www.bu.ac.kr/"],["백석문화대학교","bscu.ac.kr","https://www.bscu.ac.kr/"],["백석예술대학교","bau.ac.kr","https://www.bau.ac.kr/"],["백제예술대학교","paekche.ac.kr","https://www.paekche.ac.kr/"],["베뢰아국제대학원대학교","berea.ac.kr","https://berea.ac.kr/"],["부산가톨릭대학교","cup.ac.kr","https://www.cup.ac.kr/"],["부산경상대학교","bsks.ac.kr","https://www.bsks.ac.kr/"],["부산과학기술대학교","bit.ac.kr","https://www.bit.ac.kr/"],["부산교육대학교","bnue.ac.kr","https://www.bnue.ac.kr/"],["부산대학교","pusan.ac.kr","https://www.pusan.ac.kr/"],["부산디지털대학교","bdu.ac.kr","https://www.bdu.ac.kr/"],["부산여자대학교","bwc.ac.kr","https://www.bwc.ac.kr/"],["부산외국어대학교","bufs.ac.kr","https://landing.bufs.ac.kr/"],["부산장신대학교","bjc.ac.kr","https://www.bjc.ac.kr/"],["부천대학교","bc.ac.kr","https://www.bc.ac.kr/"],["삼육대학교","syu.ac.kr","https://www.syu.ac.kr/"],["삼육보건대학교","shu.ac.kr","https://www.shu.ac.kr/"],["상명대학교","smu.ac.kr","https://www.smu.ac.kr/"],["상지대학교","sangji.ac.kr","https://www.sangji.ac.kr/"],["상지영서대학교","sy.ac.kr","https://www.sy.ac.kr/"],["서강대학교","sogang.ac.kr","https://www.sogang.ac.kr/"],["서경대학교","seokyeong.ac.kr","https://www.seokyeong.ac.kr/"],["서영대학교","seoyeong.ac.kr","https://www.seoyeong.ac.kr/"],["서울과학기술대학교","seoultech.ac.kr","https://www.seoultech.ac.kr/"],["서울과학종합대학원대학교","assist.ac.kr","https://intro.assist.ac.kr/"],["서울교육대학교","snue.ac.kr","https://www.snue.ac.kr/"],["서울기독대학교","scu.ac.kr","https://www.scu.ac.kr/"],["서울대학교","snu.ac.kr","https://www.snu.ac.kr/"],["서울디지털대학교","sdu.ac.kr","https://www.sdu.ac.kr/"],["서울미디어대학원대학교","smit.ac.kr","https://www.smit.ac.kr/"],["서울불교대학원대학교","sub.ac.kr","https://www.sub.ac.kr/"],["서울사회복지대학원대학교","ssgu.ac.kr","https://www.ssgu.ac.kr/"],["서울상담심리대학원대학교","yongmoon.ac.kr","https://www.yongmoon.ac.kr/"],["서울시립대학교","uos.ac.kr","https://www.uos.ac.kr/"],["서울신학대학교","stu.ac.kr","https://www.stu.ac.kr/"],["서울여자간호대학","snjc.ac.kr","https://www.snjc.ac.kr/"],["서울여자대학교","swu.ac.kr","https://www.swu.ac.kr/"],["서울예술대학교","seoularts.ac.kr","https://www.seoularts.ac.kr/"],["서울장신대학교","sjs.ac.kr","https://www.sjs.ac.kr/"],["서울한영대학교","hytu.ac.kr","https://www.hytu.ac.kr/"],["서원대학교","seowon.ac.kr","https://www.seowon.ac.kr/"],["서일대학교","seoil.ac.kr","https://www.seoil.ac.kr/"],["서정대학교","seojeong.ac.kr","https://www.seojeong.ac.kr/"],["선린대학교","sunlin.ac.kr","https://www.sunlin.ac.kr/"],["선문대학교","sunmoon.ac.kr","https://www.sunmoon.ac.kr/"],["선학유피대학원대학교","sunhakup.ac.kr","https://www.sunhakup.ac.kr/"],["성결대학교","sungkyul.ac.kr","https://www.sungkyul.ac.kr/"],["성공회대학교","skhu.ac.kr","https://www.skhu.ac.kr/"],["성균관대학교","skku.edu","https://www.skku.edu/"],["성산효대학원대학교","hyo.ac.kr","https://www.hyo.ac.kr/"],["성서침례대학원대학교","bbts.ac.kr","https://www.bbts.ac.kr/"],["성신여자대학교","sungshin.ac.kr","https://www.sungshin.ac.kr/"],["성운대학교","sdc.ac.kr","https://www.sdc.ac.kr/"],["세경대학교","saekyung.ac.kr","https://www.saekyung.ac.kr/"],["세명대학교","semyung.ac.kr","https://www.semyung.ac.kr/"],["세종대학교","sejong.ac.kr","https://www.sejong.ac.kr/"],["세종사이버대학교","sjcu.ac.kr","https://home.sjcu.ac.kr/"],["세한대학교","sehan.ac.kr","https://www.sehan.ac.kr/"],["송곡대학교","songgok.ac.kr","https://www.songgok.ac.kr/"],["송원대학교","songwon.ac.kr","https://www.songwon.ac.kr/"],["송호대학교","songho.ac.kr","https://www.songho.ac.kr/"],["수성대학교","sc.ac.kr","https://www.sc.ac.kr/"],["수원가톨릭대학교","suwoncatholic.ac.kr","https://www.suwoncatholic.ac.kr/"],["수원과학대학교","ssc.ac.kr","https://www.ssc.ac.kr/"],["수원대학교","suwon.ac.kr","https://www.suwon.ac.kr/"],["수원여자대학교","swwu.ac.kr","https://www.swwu.ac.kr/"],["숙명여자대학교","sookmyung.ac.kr","https://www.sookmyung.ac.kr/"],["순천제일대학교","suncheon.ac.kr","https://web.suncheon.ac.kr/"],["순천향대학교","sch.ac.kr","https://www.sch.ac.kr/"],["숭실대학교","ssu.ac.kr","https://ssu.ac.kr/"],["숭실사이버대학교","kcu.ac","https://www.kcu.ac/"],["숭의여자대학교","sewc.ac.kr","https://www.sewc.ac.kr/"],["신경주대학교","sgu.ac.kr","https://www.sgu.ac.kr/"],["신구대학교","shingu.ac.kr","https://www.shingu.ac.kr/"],["신라대학교","silla.ac.kr","https://www.silla.ac.kr/"],["신안산대학교","sau.ac.kr","https://www.sau.ac.kr/"],["신한대학교","shinhan.ac.kr","https://www.shinhan.ac.kr/"],["실천신학대학원대학교","gspt.ac.kr","https://www.gspt.ac.kr/"],["아신대학교","acts.ac.kr","https://www.acts.ac.kr/"],["아주대학교","ajou.ac.kr","https://www.ajou.ac.kr/"],["아주자동차대학","motor.ac.kr","https://www.motor.ac.kr/"],["안동과학대학교","asc.ac.kr","https://www.asc.ac.kr/"],["안산대학교","ansan.ac.kr","https://www.ansan.ac.kr/"],["안양대학교","anyang.ac.kr","https://www.anyang.ac.kr/"],["에스라성경대학원대학교","ezra.ac.kr","https://www.ezra.ac.kr/"],["여주대학교","yit.ac.kr","https://www.yit.ac.kr/"],["연성대학교","yeonsung.ac.kr","https://www.yeonsung.ac.kr/"],["연세대학교","yonsei.ac.kr","https://www.yonsei.ac.kr/"],["연암공과대학교","yc.ac.kr","https://www.yc.ac.kr/"],["연암대학교","yonam.ac.kr","https://www.yonam.ac.kr/"],["영남대학교","yu.ac.kr","https://www.yu.ac.kr/"],["영남신학대학교","yntcs.ac.kr","https://www.yntcs.ac.kr/"],["영남외국어대학","yflc.ac.kr","https://www.yflc.ac.kr/"],["영남이공대학교","ync.ac.kr","https://www.ync.ac.kr/"],["영산대학교","ysu.ac.kr","https://www.ysu.ac.kr/"],["영산선학대학교","youngsan.ac.kr","https://www.youngsan.ac.kr/"],["영진전문대학교","yju.ac.kr","https://www.yju.ac.kr/"],["예명대학원대학교","ygu.ac.kr","https://www.ygu.ac.kr/"],["예원예술대학교","yewon.ac.kr","https://www.yewon.ac.kr/"],["오산대학교","osan.ac.kr","https://www.osan.ac.kr/"],["용인대학교","yongin.ac.kr","https://www.yongin.ac.kr/"],["용인예술과학대학교","ysc.ac.kr","https://www.ysc.ac.kr/"],["우석대학교","woosuk.ac.kr","https://www.woosuk.ac.kr/"],["우송대학교","wsu.ac.kr","https://www.wsu.ac.kr/"],["울산과학기술원","unist.ac.kr","https://www.unist.ac.kr/"],["울산과학대학교","uc.ac.kr","https://www.uc.ac.kr/"],["울산대학교","ulsan.ac.kr","https://www.ulsan.ac.kr/"],["웅지세무대학교","wat.ac.kr","https://www.wat.ac.kr/"],["원광대학교","wku.ac.kr","https://www.wku.ac.kr/"],["원광디지털대학교","wdu.ac.kr","https://www.wdu.ac.kr/"],["원불교대학원대학교","wonbuddhism.ac.kr","https://www.wonbuddhism.ac.kr/"],["웨스트민스터신학대학원대학교","wgst.ac.kr","https://www.wgst.ac.kr/"],["위덕대학교","uu.ac.kr","https://www.uu.ac.kr/"],["유원대학교","u1.ac.kr","https://www.u1.ac.kr/"],["유한대학교","yuhan.ac.kr","https://sky.yuhan.ac.kr/"],["을지대학교","eu.ac.kr","https://www.eu.ac.kr/"],["이화여자대학교","ewha.ac.kr","https://www.ewha.ac.kr/"],["인덕대학교","induk.ac.kr","https://www.induk.ac.kr/"],["인제대학교","inje.ac.kr","https://www.inje.ac.kr/"],["인천가톨릭대학교","iccu.ac.kr","https://www.iccu.ac.kr/"],["인천대학교","inu.ac.kr","https://www.inu.ac.kr/"],["인천재능대학교","jeiu.ac.kr","https://jeiu.ac.kr/"],["인하공업전문대학","inhatc.ac.kr","https://www.inhatc.ac.kr/"],["인하대학교","inha.ac.kr","https://www.inha.ac.kr/"],["장로회신학대학교","pcts.ac.kr","https://www.pcts.ac.kr/"],["장안대학교","jangan.ac.kr","https://www.jangan.ac.kr/"],["재능대학교","jeiu.ac.kr","https://jeiu.ac.kr/"],["전남과학대학교","chunnam-c.ac.kr","https://www.chunnam-c.ac.kr/"],["전남대학교","jnu.ac.kr","https://www.jnu.ac.kr/"],["전북과학대학교","jbsc.ac.kr","https://www.jbsc.ac.kr/"],["전북대학교","jbnu.ac.kr","https://www.jbnu.ac.kr/"],["전주교육대학교","jnue.ac.kr","https://www.jnue.ac.kr/"],["전주기전대학","kijeon.ac.kr","https://www.kijeon.ac.kr/"],["전주대학교","jj.ac.kr","https://www.jj.ac.kr/"],["정화예술대학교","jb.ac.kr","https://www.jb.ac.kr/"],["제네바신학대학원대학교","gts.ac.kr","https://www.gts.ac.kr/"],["제주관광대학교","cjtour.ac.kr","https://www.cjtour.ac.kr/"],["제주국제대학교","jeju.ac.kr","https://www.jeju.ac.kr/"],["제주대학교","jejunu.ac.kr","https://www.jejunu.ac.kr/"],["제주한라대학교","chu.ac.kr","https://www.chu.ac.kr/"],["조선대학교","chosun.ac.kr","https://www3.chosun.ac.kr/"],["조선이공대학교","cst.ac.kr","https://www.cst.ac.kr/"],["주안대학원대학교","jiu.ac.kr","https://www.jiu.ac.kr/"],["중부대학교","joongbu.ac.kr","https://www.joongbu.ac.kr/"],["중앙대학교","cau.ac.kr","https://www.cau.ac.kr/"],["중앙승가대학교","sangha.ac.kr","https://www.sangha.ac.kr/"],["중원대학교","jwu.ac.kr","https://www.jwu.ac.kr/"],["진주교육대학교","cue.ac.kr","https://www.cue.ac.kr/"],["진주보건대학교","jhc.ac.kr","https://www.jhc.ac.kr/"],["차의과학대학교","cha.ac.kr","https://www.cha.ac.kr/"],["창신대학교","cs.ac.kr","https://www.cs.ac.kr/"],["창원문성대학교","cmu.ac.kr","https://www.cmu.ac.kr/"],["청강문화산업대학교","chungkang.ac.kr","https://www.chungkang.ac.kr/"],["청암대학교","scjc.ac.kr","https://www.scjc.ac.kr/"],["청운대학교","cwunet.ac.kr","https://www.cwunet.ac.kr/"],["청주교육대학교","cje.ac.kr","https://www.cje.ac.kr/"],["청주대학교","cju.ac.kr","https://www.cju.ac.kr/"],["초당대학교","chodang.ac.kr","https://www.chodang.ac.kr/"],["총신대학교","chongshin.ac.kr","https://www.chongshin.ac.kr/"],["추계예술대학교","chugye.ac.kr","https://www.chugye.ac.kr/"],["춘천교육대학교","cnue.ac.kr","https://www.cnue.ac.kr/"],["충남대학교","cnu.ac.kr","https://www.cnu.ac.kr/"],["충남도립청양대학","cyc.ac.kr","https://www.cyc.ac.kr/"],["충북대학교","cbnu.ac.kr","https://www.cbnu.ac.kr/"],["충북도립대학교","cpu.ac.kr","https://www.cpu.ac.kr/"],["충청대학교","ok.ac.kr","https://www.ok.ac.kr/"],["칼빈대학교","calvin.ac.kr","https://www.calvin.ac.kr/"],["태재대학교","taejae.ac.kr","https://www.taejae.ac.kr/"],["평택대학교","ptu.ac.kr","https://www.ptu.ac.kr/"],["포항공과대학교","postech.ac.kr","https://www.postech.ac.kr/"],["한경국립대학교","hknu.ac.kr","https://www.hknu.ac.kr/"],["한국골프대학교","kg.ac.kr","https://www.kg.ac.kr/"],["한국공학대학교","tukorea.ac.kr","https://www.tukorea.ac.kr/"],["한국과학기술원","kaist.ac.kr","https://www.kaist.ac.kr/"],["한국관광대학교","ktc.ac.kr","https://www.ktc.ac.kr/"],["한국교원대학교","knue.ac.kr","https://www.knue.ac.kr/"],["한국기술교육대학교","koreatech.ac.kr","https://www.koreatech.ac.kr/"],["한국농수산대학교","af.ac.kr","https://www.af.ac.kr/"],["한국뉴욕주립대학교","sunykorea.ac.kr","https://www.sunykorea.ac.kr/"],["한국방송통신대학교","knou.ac.kr","https://www.knou.ac.kr/"],["한국상담대학원대학교","kcgu.ac.kr","https://www.kcgu.ac.kr/"],["한국성서대학교","bible.ac.kr","https://www.bible.ac.kr/"],["한국승강기대학교","kcpc.ac.kr","https://www.kcpc.ac.kr/"],["한국에너지공과대학교","kentech.ac.kr","https://www.kentech.ac.kr/"],["한국영상대학교","pro.ac.kr","https://www.pro.ac.kr/"],["한국예술종합학교","karts.ac.kr","https://www.karts.ac.kr/"],["한국외국어대학교","hufs.ac.kr","https://www.hufs.ac.kr/"],["한국전통문화대학교","nuch.ac.kr","https://www.nuch.ac.kr/"],["ICT폴리텍대학","ict.ac.kr","https://www.ict.ac.kr/"],["한국체육대학교","knsu.ac.kr","https://www.knsu.ac.kr/"],["한국침례신학대학교","kbtus.ac.kr","https://www.kbtus.ac.kr/"],["한국폴리텍대학","kopo.ac.kr","https://www.kopo.ac.kr/"],["한국항공대학교","kau.ac.kr","https://www.kau.ac.kr/"],["한남대학교","hannam.ac.kr","https://www.hannam.ac.kr/"],["한동대학교","handong.edu","https://www.handong.edu/"],["한라대학교","halla.ac.kr","https://www.halla.ac.kr/"],["한림국제대학원대학교","hugs.ac.kr","https://www.hugs.ac.kr/"],["한림대학교","hallym.ac.kr","https://www.hallym.ac.kr/"],["한림성심대학교","hsc.ac.kr","https://www.hsc.ac.kr/"],["한반도국제대학원대학교","kuis.ac.kr","https://www.kuis.ac.kr/"],["한서대학교","hanseo.ac.kr","https://www.hanseo.ac.kr/"],["한성대학교","hansung.ac.kr","https://www.hansung.ac.kr/"],["한세대학교","hansei.ac.kr","https://www.hansei.ac.kr/"],["한신대학교","hs.ac.kr","https://www.hs.ac.kr/"],["한양대학교","hanyang.ac.kr","https://www.hanyang.ac.kr/"],["한양사이버대학교","hycu.ac.kr","https://www.hycu.ac.kr/"],["한양여자대학교","hywoman.ac.kr","https://www.hywoman.ac.kr/"],["한일장신대학교","hanil.ac.kr","https://www.hanil.ac.kr/"],["합동군사대학교","jfmu.ac.kr","https://www.jfmu.ac.kr/"],["합동신학대학원대학교","hapdong.ac.kr","https://www.hapdong.ac.kr/"],["협성대학교","uhs.ac.kr","https://www.uhs.ac.kr/"],["혜전대학교","hyejeon.ac.kr","https://www.hyejeon.ac.kr/"],["호남대학교","honam.ac.kr","https://www.honam.ac.kr/"],["호남신학대학교","htus.ac.kr","https://www.htus.ac.kr/"],["호산대학교","hosan.ac.kr","https://www.hosan.ac.kr/"],["호서대학교","hoseo.ac.kr","https://www.hoseo.ac.kr/"],["호원대학교","howon.ac.kr","https://www.howon.ac.kr/"],["홍익대학교","hongik.ac.kr","https://www.hongik.ac.kr/"],["화성의과학대학교","hsmu.ac.kr","https://www.hsmu.ac.kr/"],["화신사이버대학교","hscu.ac.kr","https://www.hscu.ac.kr/"],["횃불트리니티신학대학원대학교","ttgu.ac.kr","https://www.ttgu.ac.kr/"]];
+function chosenSchool(){ return (store.get("mySchoolPick",null)||{}).name||(profile&&profile.schoolName)||"" }
+function cacheAll(){cache(); buildFilters(); renderKpis(); renderCats(); apply()}
+/* ---------- 서류 쓰기: 추천서 부탁 메일 · 추천서/자소서 프롬프트 ---------- */
+const WF=["sch","name","affil","gpa","need","exp","plan","prof","rel","q","len","tone"];
+let W=store.get("writer",{})||{};
+const clip=t=>String(t||"").replace(/\s+/g," ").trim();
+function schFacts(r){
+  if(!r) return null;
+  const cut=(t,n)=>{t=String(t||"").replace(/[ \t]+/g," ").trim(); return t.length>n?t.slice(0,n)+"…":t};
+  let nm=r.title.replace(/^(\s*(\[[^\]]*\]|\([^)]*\)|공통|장학|홍보)\s*)+/,"").replace(/^20\d\d\s*(학년도|년도|년)?\s*/,"").replace(/\s*(\(~?[^)]*\)|\})\s*$/,"").replace(/\s*(선발|모집)?\s*(안내|공고|알림)\s*$/,"").trim()||r.title;
+  const org=r.org&&r.org!==r.title&&!nm.includes(String(r.org).replace(/\(.*$/,"").replace(/^(재단법인|\(재\)|\(재단법인\))\s*/,"").slice(0,4))?r.org:"";
+  return {name:nm,org,money:moneyOf(r)||cut(r.amount,80),due:r.end?r.end.replace(/-/g,".")+" 마감":"",
+    target:cut([r.target,r.special,r.residence].filter(Boolean).join("\n"),420),gpa:cut(r.gpa,120),income:cut(r.income,120),
+    sel:cut(r.selection,200),docs:cut(r.documents,200),rec:cut(r.recommend,120)};
+}
+function renderDoc(){
+  const opts=DATA.filter(r=>favs.has(r.id)||r._s.key==="모집중"||r._s.key==="예정"||r.id===W.sch)
+    .sort((a,b)=>(favs.has(b.id)-favs.has(a.id))||((a.end||"9")>(b.end||"9")?1:-1));
+  $("#w_sch").innerHTML=`<option value="">장학금을 고르세요</option>`+opts.map(r=>`<option value="${esc(r.id)}" ${r.id===W.sch?"selected":""}>${favs.has(r.id)?"★ ":""}${esc(r.title.slice(0,60))}${r.end?" · "+r.end.slice(5).replace("-",".")+" 마감":""}</option>`).join("");
+  for(const k of WF) if(k!=="sch"&&$("#w_"+k)) $("#w_"+k).value=W[k]||"";
+  buildDoc();
+}
+function readDoc(){ for(const k of WF) W[k]=($("#w_"+k).value||"").trim(); store.set("writer",W) }
+function buildDoc(){
+  const r=BYID[W.sch], f=schFacts(r);
+  $("#w_schInfo").textContent=f?[f.name,f.org&&"운영기관: "+f.org,f.money&&"지원 내용: "+f.money,f.due,f.target&&"대상·자격: "+f.target].filter(Boolean).join("\n"):"관심 등록한 장학금과 지금 모집 중인 장학금 중에서 고를 수 있어요. 장학금 상세의 ‘추천서·자소서 쓰기’ 버튼으로도 바로 올 수 있어요.";
+  const v=k=>W[k]||"", or=(k,ph)=>v(k)||`[${ph}]`;
+  const name=or("name","이름"), affil=or("affil","학교·학과·학년"), prof=or("prof","교수님 성함");
+  const sname=f?f.name:"[장학금 이름]", exps=v("exp").split("\n").map(x=>x.trim()).filter(Boolean);
+  const schBlock=f?[`- 장학금: ${f.name}`,f.org&&`- 운영기관: ${f.org}`,f.money&&`- 지원 내용: ${f.money}`,f.due&&`- 마감: ${f.due}`,f.target&&`- 대상·자격:\n${f.target.split("\n").map(x=>"  "+x).join("\n")}`,f.gpa&&`- 성적 기준: ${clip(f.gpa)}`,f.income&&`- 소득 기준: ${clip(f.income)}`,f.sel&&`- 선발 방법: ${clip(f.sel)}`,f.docs&&`- 제출 서류: ${clip(f.docs)}`].filter(Boolean).join("\n"):"- 장학금: [장학금 이름]\n- 운영기관·지원 내용·자격: [공고에서 복사해 넣기]";
+  const meBlock=[`- 이름: ${name}`,`- 소속: ${affil}`,`- 성적: ${or("gpa","성적")}`,`- 추천인과의 관계: ${prof} 교수님 / ${or("rel","수업·연구실 등 인연")}`,`- 강점과 경험:\n${exps.length?exps.map(x=>"  · "+x).join("\n"):"  · [경험 1: 무엇을·어떻게·결과]\n  · [경험 2]"}`,`- 진로·학업 계획: ${or("plan","진로 계획")}`,v("need")&&`- 장학금이 필요한 이유: ${v("need")}`].filter(Boolean).join("\n");
+  const mail=`너는 한국 대학생이 교수님께 보내는 이메일 작성을 돕는 조수야. 아래 정보로 ${prof} 교수님께 장학금 추천서를 부탁드리는 이메일을 써 줘.
+
+[장학금 정보]
+${schBlock}
+
+[나와 교수님]
+- 이름: ${name}
+- 소속: ${affil}
+- 교수님: ${prof} 교수님
+- 교수님과의 인연: ${or("rel","수업·연구실 등 인연")}
+- 지원 이유·진로 계획: ${or("plan","한두 문장")}
+${v("need")?`- 장학금이 필요한 이유: ${v("need")}\n`:""}- 성적: ${or("gpa","성적")}
+
+[작성 조건]
+1. 이메일 제목 한 줄과 본문을 써 줘. 본문은 공손한 존댓말로, 읽는 데 1분이 넘지 않게 간결하게.
+2. 본문에 ① 인사와 자기소개(교수님과의 인연 포함) ② 어떤 장학금에 지원하는지와 마감일 ③ 추천서를 부탁드리는 이유 ④ 교수님 수고를 덜어 드릴 자료(공고문, 성적표, 활동 요약, 참고용 추천서 초안)를 보내 드리겠다는 제안 ⑤ 감사 인사를 넣어 줘.
+3. 위에 적은 사실만 쓰고, 모르는 내용(추천서 제출 방법, 연락처 등)은 [ ]로 비워 둬.
+4. 같은 내용으로 세 가지를 써 줘: (가) 처음 부탁드리는 메일 (나) 이미 승낙하신 뒤 자료를 보내 드리는 메일 (다) 마감 3~4일 전 정중히 다시 여쭙는 메일.${v("tone")?`\n5. 말투: ${v("tone")}.`:""}`;
+  const len=+v("len")||0;
+  const rec=`너는 한국 대학 교수님의 장학금 추천서 작성을 돕는 조수야. 아래 장학금 정보와 학생 정보를 바탕으로, 교수님이 검토하고 고쳐 쓰실 수 있는 추천서 초안을 써 줘.
+
+[장학금 정보]
+${schBlock}
+
+[학생 정보]
+${meBlock}
+
+[작성 조건]
+1. 추천인(${prof} 교수님)의 1인칭 시점으로, 격식 있는 한국어 추천서 문체로 써.
+2. 구성: ① 추천인 소개와 학생과의 관계 ② 학업 역량(구체적 근거) ③ 성실성·인성 ④ 이 장학금의 취지와 학생이 맞는 이유 ⑤ 추천 맺음말.
+3. 위에 적힌 사실만 써. 없는 경험·수치·수상은 절대 만들지 말고, 근거가 부족한 곳은 [교수님 확인: …]으로 남겨 둬.
+4. 분량은 공백 포함 1,200~1,500자(A4 한 쪽 안팎).
+5. 초안 뒤에 ‘교수님께 드릴 참고 자료’로 학생 핵심 정보 5줄 요약을 따로 붙여 줘.
+6. 마지막에 초안을 더 좋게 만들려면 내가 보충해야 할 정보를 질문 3개로 물어봐.`;
+  const qs=v("q")||"1) 성장 과정과 가치관\n2) 학업·활동 경험과 성과\n3) 장학금이 필요한 이유와 활용 계획\n4) 졸업 후 진로와 사회 기여 계획";
+  const sop=`너는 장학금 자기소개서 코치야. 아래 정보로 ‘${sname}’ 지원용 자기소개서 초안을 써 줘.
+
+[장학금 정보]
+${schBlock}
+
+[자기소개서 문항]
+${qs}
+
+[내 정보]
+${meBlock}
+
+[작성 조건]
+1. 문항별로 나눠서 쓰고, 각 문항은 ${len?`공백 포함 ${len}자 이내`:"공백 포함 700~900자"}로 맞춰. 문항 끝에 글자 수를 적어 줘.
+2. 두괄식으로, 경험은 ‘상황 → 내가 한 행동 → 결과(숫자)’ 순서로 구체적으로 써.
+3. 장학금 취지와 대상 요건에 내 경험과 계획을 자연스럽게 연결해.
+4. 내가 적은 사실만 써. 없는 경험이나 수치는 만들지 말고, 부족한 곳은 [보충 필요: …]으로 표시해.
+5. ${v("tone")?v("tone")+".":"과장 없이 진솔하고 담백한 문체로 써."}
+6. 마지막에 글을 더 좋게 만들 질문 3개를 해 줘.`;
+  const card=(id,title,sub,text,ai)=>`<div class="out"><header><h3>${title}<small>${sub}</small></h3><div class="acts"><button class="btn primary" type="button" data-copy="${id}">복사</button>${ai?`<a class="btn" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">Claude 열기</a><a class="btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT 열기</a>`:""}</div></header><pre id="${id}">${esc(text)}</pre></div>`;
+  $("#w_out").innerHTML=(f?"":`<p class="note" style="margin-top:14px">장학금을 고르면 공고 정보가 자동으로 들어갑니다. 지금은 [ ] 자리를 직접 채워 쓰면 돼요.</p>`)+
+    card("o_mail","① 추천서 부탁 메일 만들기 (AI에 붙여 넣기)","복사 → Claude나 ChatGPT에 붙여 넣으면 부탁 메일·자료 보내는 메일·다시 여쭙는 메일을 써 줘요.",mail,true)+
+    card("o_rec","② 추천서 초안 만들기 (AI에 붙여 넣기)","복사 → Claude나 ChatGPT 열기 → 붙여 넣기. 나온 초안은 교수님께 ‘참고 자료’로 드리세요.",rec,true)+
+    card("o_sop","③ 자기소개서 초안 만들기 (AI에 붙여 넣기)","복사 → Claude나 ChatGPT에 붙여 넣기. 초안은 꼭 내 말로 고쳐 쓰세요.",sop,true);
+}
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); return true }catch(e){}
+  try{ const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); const ok=document.execCommand("copy"); ta.remove(); return ok }catch(e){ return false }
+}
+$("#docForm").addEventListener("input",()=>{readDoc(); buildDoc(); $("#w_saved").textContent="이 기기에 저장됨"});
+$("#docForm").addEventListener("change",()=>{readDoc(); buildDoc()});
+$("#w_out").addEventListener("click",async e=>{const b=e.target.closest("[data-copy]"); if(!b) return; const ok=await copyText($("#"+b.dataset.copy).textContent); b.textContent=ok?"복사됨 ✓":"길게 눌러 복사하세요"; setTimeout(()=>b.textContent="복사",1800)});
+$("#w_fill").addEventListener("click",()=>{const p=profile||{}; const sem=+p.sem; const yr=p.sem===""||p.sem==null?"":(sem===0?"1학년":Math.min(4,Math.ceil(sem/2))+"학년");
+  if(!W.affil) W.affil=[p.schoolName,p.dept,yr].filter(Boolean).join(" "); if(!W.gpa&&p.gpa) W.gpa=`직전 학기 ${p.gpa} (4.5 만점)`;
+  store.set("writer",W); renderDoc(); $("#w_saved").textContent=profile?"내 정보에서 학교·학과·성적을 가져왔어요":"먼저 ‘내 정보’를 저장해 주세요"});
+$("#w_clear").addEventListener("click",()=>{W={}; store.set("writer",W); renderDoc(); $("#w_saved").textContent="지웠어요"});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-write]"); if(!b) return; W.sch=b.dataset.write; store.set("writer",W); closeDetail(); tab("doc"); window.scrollTo({top:0})});
+window.__back=function(){ if(!$("#drawer").hidden){closeDetail();return true} if($("#view-find").hidden){tab("find");return true} return false };
+try{ if(window.FontFace) fetch("fonts/pretendard.woff2").then(r=>r.ok?r.arrayBuffer():Promise.reject()).then(b=>new FontFace("Pretendard",b,{weight:"100 900",display:"swap"}).load()).then(f=>document.fonts.add(f)).catch(()=>{}) }catch(e){}
+boot();
+})();
+</script>
