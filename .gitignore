@@ -37,3 +37,4 @@ data/seed/konkuk.json
 data/seed/hywoman.json
 data/seed/kangwon.json
 data/seed/hanyang_public.json
+web/app.codeql.js

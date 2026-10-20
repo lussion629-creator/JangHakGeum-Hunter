@@ -13,7 +13,11 @@ SITE = ROOT / "site"
 REMOTE = "https://lussion629-creator.github.io"
 shutil.rmtree(SITE, ignore_errors=True)
 shutil.copytree(ROOT / "web", SITE, ignore=shutil.ignore_patterns("tools"))
-from server.app import HEAD  # noqa: E402
+HEAD = """<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2d6a3e"><link rel="icon" href="icon.svg"></head><body>"""
 
 html = (ROOT / "web" / "index.html").read_text()
 scripts = re.findall(r"<script>(.*?)</script>", html, re.S)

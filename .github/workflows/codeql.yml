@@ -1,0 +1,33 @@
+# 코드 보안 검사 (GitHub CodeQL): 자바스크립트·파이썬·자바(안드로이드) 코드의 알려진 취약 패턴을 찾는다.
+name: codeql
+on:
+  push: { branches: [main], paths: ["web/**", "server/**", "scripts/**", "android/src/**", ".github/workflows/**"] }
+  schedule: [{ cron: "41 3 * * 1" }]
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript-typescript, python, actions]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with: { persist-credentials: false }
+      - name: index.html 안의 스크립트를 따로 빼서 검사 대상에 넣기
+        if: matrix.language == 'javascript-typescript'
+        run: python3 - <<'PY'
+          import re, pathlib
+          h = pathlib.Path("web/index.html").read_text()
+          pathlib.Path("web/app.codeql.js").write_text(re.findall(r"<script>(.*?)</script>", h, re.S)[0])
+          PY
+      - uses: github/codeql-action/init@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
+        with: { languages: "${{ matrix.language }}" }
+      - uses: github/codeql-action/analyze@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
+        with: { category: "/language:${{ matrix.language }}" }

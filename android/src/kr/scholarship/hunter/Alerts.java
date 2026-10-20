@@ -74,8 +74,7 @@ final class Alerts {
         // 2) 조건에 맞는 새 장학 (서버의 최신 목록과 비교)
         JSONArray kw = cfg.optJSONArray("kw"), cats = cfg.optJSONArray("cats");
         if ((kw == null || kw.length() == 0) && (cats == null || cats.length() == 0)) return;
-        String base = cfg.optString("remote", DEFAULT_REMOTE);
-        if (!base.startsWith("https://")) base = DEFAULT_REMOTE;
+        String base = DEFAULT_REMOTE; // 알림용 목록은 장학금헌터 주소에서만 받는다 (페이지가 다른 주소를 넣을 수 없게)
         if (!base.endsWith("/")) base += "/";
         JSONArray open = new JSONObject(get(base)).optJSONArray("open");
         if (open == null) return;
