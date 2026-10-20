@@ -1,0 +1,789 @@
+"""여러 출처에 같은 장학금이 올라온 경우 하나로 합친다.
+
+같은 공고 판단
+  - 운영기관 핵심 이름(예: '고속도로', '송화', '아산사회복지')이 같거나 한쪽 제목에 다른 쪽 기관 이름이 들어 있고
+  - 모집 시기가 가깝다 (마감일 10일 이내, 날짜가 하나뿐이면 75일 이내)
+  - 한국장학재단 DB끼리, HY-in 끼리는 서로 다른 프로그램이므로 합치지 않는다
+  - '한국장학재단', 'OO대학교' 처럼 여러 프로그램을 운영하는 기관은 제목 핵심어까지 같아야 합친다
+대표 항목은 정보가 가장 많은 것을 고르고, 비어 있는 칸은 나머지에서 채운다.
+"""
+from __future__ import annotations
+
+import re
+from datetime import date
+
+FAMILY = {"kosaf_univ": "kosaf", "kosaf_high": "kosaf", "kosaf_abroad": "kosaf", "kosaf_creditbank": "kosaf", "kosaf_hist": "kosaf", "hyin": "hyin", "hywoman": "hywoman", "hanyang": "hanyang", "kangwon": "kangwon", "sogang": "sogang", "konkuk": "konkuk"}
+RANK = {"kosaf_univ": 0, "kosaf_high": 0, "kosaf_abroad": 0, "kosaf_creditbank": 0, "kosaf_hist": 0, "hyin": 1, "legacy": 2, "hanyang": 3, "hywoman": 3, "kangwon": 3, "sogang": 3, "konkuk": 3, "board": 4, "dreamspon": 5}
+STOP = r"(20\d\d|\d+학년도|\d+년도?|\d학기|[1-4]학기|상반기|하반기|신규|정기|추가|재공고|연장|모집|선발|공고|안내|신청|접수|계획|장학생|장학금|장학|학생|대학생|대학원생|교외|교내|외부|홍보|기간|의|및|제\d+기|\d+기)"
+SUFFIX = r"(사회복지재단|복지재단|문화재단|장학재단|육영재단|교육재단|학술재단|인재육성재단|장학문화재단|장학회|육영회|재단|공제회|협회|센터|진흥원)$"
+GENERIC_T = re.compile(r"국가근로|교내근로|근로장학|국가장학금|학자금\s*대출|교내\s*장학|가계곤란|성적우수\s*장학")
+GENERIC = re.compile(r"한국장학재단|대학교|대학$|^교육부|^국가")
+FILL = ("amount", "target", "income", "gpa", "special", "residence", "selection", "quota", "restriction", "recommend",
+        "documents", "summary", "apply_url", "url", "start", "end", "posted")
+
+
+def _hangul(s: str) -> str:
+    return re.sub(r"[^가-힣A-Za-z0-9]", "", s or "")
+
+
+def org_core(org: str) -> str:
+    o = re.sub(r"\(.*?\)|（.*?）|재단법인|사단법인|주식회사|\(재\)|\(사\)", "", org or "")
+    o = _hangul(o)
+    return re.sub(SUFFIX, "", o)
+
+
+def title_core(title: str) -> str:
+    t = re.sub(r"\[[^\]]*\]|\([^)]*\)|（[^）]*）|<[^>]*>|~[^ ]*", " ", title or "")
+    t = re.sub(STOP, " ", t)
+    return _hangul(t)
+
+
+def _d(s: str):
+    try:
+        return date.fromisoformat(s[:10]) if s else None
+    except ValueError:
+        return None
+
+
+def _near(a: dict, b: dict) -> bool:
+    ea, eb = _d(a.get("end")), _d(b.get("end"))
+    if ea and eb:
+        return abs((ea - eb).days) <= 10
+    da = ea or _d(a.get("start")) or _d(a.get("posted"))
+    db = eb or _d(b.get("start")) or _d(b.get("posted"))
+    if da and db:
+        return abs((da - db).days) <= 75
+    return True
+
+
+def _richness(r: dict) -> int:
+    return sum(1 for k in FILL if r.get(k)) * 10 - RANK.get(r.get("source"), 5)
+
+
+PROG_COMMON = re.compile(r"^(대학|대학원|일반|지원|사업|지원사업|특별|우수|성적|성적우수|학업|장려|학업장려|프로그램|재학|신입|신입생|재학생|국가|지역|인재|인재육성|육성|희망|미래|청년|연수|국외연수|해외|대상|모집|선발|안내|공고|하반기|상반기|차|년|학기|추가|정기|기타|기명|까지|석사|박사|석박사|학부|과정|대학원생|사전|사전공고|본공고|변경|수정|재공고)$")
+
+
+def _prog_tokens(r: dict) -> set:
+    """같은 기관의 서로 다른 장학 프로그램(예: 우양 '동행' vs '늘품')을 가르는 이름 조각."""
+    org = r.get("org") or ""
+    same = _hangul(org) == _hangul(r.get("title", ""))
+    out = set()
+    t = re.sub(r"^\s*(\([^)]*\)\s*)+", " ", re.sub(r"\[[^\]]*\]", " ", r.get("title", "")))
+    t = re.sub(r"\([^)]*(\d|마감|까지|만원)[^)]*\)?", " ", t)  # '(10/11 마감, 생활비 500만원)' 같은 일정·금액 설명은 프로그램 이름이 아니다
+    for w in re.findall(r"[가-힣A-Za-z]{2,}", t):
+        if re.search(SUFFIX, w) or w in ("재단법인", "사단법인", "사회복지법인"):
+            continue
+        w = re.sub(STOP, "", w)
+        if len(w) < 2 or PROG_COMMON.match(w) or re.search(r"[시군구도]$", w) and len(w) <= 4 or re.search(r"(특별자치도|특별자치시|광역시|특별시)$", w):
+            continue
+        if not same and org and (w in org or w in re.sub(r"\s", "", org)):
+            continue
+        out.add(w)
+    return out
+
+
+def _prog_overlap(a: set, b: set) -> bool:
+    for x in a:
+        for y in b:
+            if x in y or y in x:
+                return True
+            gx, gy = {x[k:k + 2] for k in range(len(x) - 1)}, {y[k:k + 2] for k in range(len(y) - 1)}
+            if gx and gy and len(gx & gy) / len(gx | gy) >= 0.5:
+                return True
+    return False
+
+
+def _root_chain(parent: list, i: int, target: int) -> bool:
+    """i 에서 부모를 따라 올라가다 target(지난 회차 묶음의 옛 뿌리)을 지나면 True."""
+    seen = 0
+    while seen < 64:
+        if i == target:
+            return True
+        if parent[i] == i:
+            return False
+        i = parent[i]
+        seen += 1
+    return False
+
+
+def merge(rows: list[dict]) -> list[dict]:
+    n = len(rows)
+    parent = list(range(n))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    info = []
+    for r in rows:
+        oc = org_core(r.get("org", ""))
+        tc = title_core(r.get("title", ""))
+        generic = bool(GENERIC.search(r.get("org", ""))) or len(oc) < 2
+        info.append((oc, tc, generic))
+
+    def can(i, j):
+        a, b = rows[i], rows[j]
+        fa, fb = FAMILY.get(a["source"]), FAMILY.get(b["source"])
+        if fa and fa == fb:
+            return False
+        if a.get("level") and b.get("level") and a["level"] != b["level"] and "고등학생" in (a["level"], b["level"]):
+            return False
+        return _near(a, b)
+
+    by_org: dict[str, list[int]] = {}
+    for i, (oc, tc, generic) in enumerate(info):
+        if not generic:
+            by_org.setdefault(oc, []).append(i)
+    by_title: dict[str, list[int]] = {}
+    for i, (oc, tc, generic) in enumerate(info):
+        if len(tc) >= 4:
+            by_title.setdefault(tc, []).append(i)
+
+    # 묶음(그룹)마다 출처 계열·운영기관·날짜 범위를 기억해 두고, 서로 충돌하면 합치지 않는다.
+    # (한 공고가 두 기관을 동시에 가리켜 엉뚱한 공고끼리 연쇄로 묶이는 것을 막는다)
+    def _key_date(r):
+        return _d(r.get("end")) or _d(r.get("start")) or _d(r.get("posted"))
+    meta = {}
+    for i, r in enumerate(rows):
+        oc = info[i][0]
+        org_is_title = _hangul(r.get("org", "")) == _hangul(r.get("title", ""))  # HY-in 처럼 제목을 기관명으로 쓴 경우
+        anchor = oc if (len(oc) >= 2 and not info[i][2] and not org_is_title and not re.search(r"대학교?$|대$", r.get("org", ""))) else ""
+        d = _key_date(r)
+        meta[i] = {"fam": {FAMILY.get(r["source"])} - {None}, "orgs": {anchor} - {""}, "lo": d, "hi": d, "prog": _prog_tokens(r)}
+
+    # 한국장학재단 DB에 이름 없는 기본 장학과 이름 있는 다른 장학이 함께 있는 기관 (예: 고속도로 '장학금' / '원거리 진학 주거장학금')
+    multi = {}
+    for i, r in enumerate(rows):
+        if FAMILY.get(r["source"]) == "kosaf" and info[i][0] and not info[i][2]:
+            multi.setdefault(info[i][0], set()).add(bool(_prog_tokens(r)))
+    multi = {k for k, v in multi.items() if v == {True, False}}
+
+    def compatible(a, b):
+        if a["fam"] & b["fam"]:
+            return False
+        anchors = a["orgs"] | b["orgs"]
+        pa = {w for w in a["prog"] if not any(w in o or o in w for o in anchors)}
+        pb = {w for w in b["prog"] if not any(w in o or o in w for o in anchors)}
+        if pa and pb and not _prog_overlap(pa, pb):
+            return False  # 같은 기관의 다른 프로그램
+        if bool(pa) != bool(pb) and anchors & multi:
+            return False  # 이름 없는 공고는 그 기관의 기본 장학과만 합친다
+        for x in a["orgs"]:
+            for y in b["orgs"]:
+                if not (x in y or y in x):
+                    return False
+        lo = min([d for d in (a["lo"], b["lo"]) if d] or [None]) if (a["lo"] or b["lo"]) else None
+        hi = max([d for d in (a["hi"], b["hi"]) if d] or [None]) if (a["hi"] or b["hi"]) else None
+        return not (lo and hi and (hi - lo).days > 120)
+
+    def union(i, j):
+        pi, pj = find(i), find(j)
+        if pi == pj or not compatible(meta[pi], meta[pj]):
+            return
+        a, b = meta[pi], meta[pj]
+        ds = [d for d in (a["lo"], a["hi"], b["lo"], b["hi"]) if d]
+        if a["prog"] and b["prog"]:
+            prog = {x for x in a["prog"] if _prog_overlap({x}, b["prog"])} or (a["prog"] | b["prog"])
+        else:
+            prog = a["prog"] or b["prog"]
+        meta[pi] = {"fam": a["fam"] | b["fam"], "orgs": a["orgs"] | b["orgs"], "lo": min(ds) if ds else None, "hi": max(ds) if ds else None, "prog": prog}
+        parent[pj] = pi
+
+    # 1) 같은 기관 핵심 이름
+    for ids in by_org.values():
+        for x in range(len(ids)):
+            for y in range(x + 1, len(ids)):
+                if can(ids[x], ids[y]):
+                    union(ids[x], ids[y])
+    # 2) 같은 제목 핵심어
+    for ids in by_title.values():
+        for x in range(len(ids)):
+            for y in range(x + 1, len(ids)):
+                if can(ids[x], ids[y]):
+                    union(ids[x], ids[y])
+    # 3) 기관 이름이 비어 있거나 대학 이름인 공고: 제목 안에 다른 항목의 기관 핵심 이름이 있으면 같은 공고
+    orgs = sorted((oc for oc in by_org if len(oc) >= 3), key=len, reverse=True)
+    for i, (oc, tc, generic) in enumerate(info):
+        if not generic and rows[i]["source"] not in ("board", "legacy", "hanyang"):
+            continue
+        hay = _hangul(rows[i].get("title", "") + " " + (rows[i].get("target") or "")[:200])
+        for o in orgs:
+            if o in hay:
+                for j in by_org[o]:
+                    if j != i and can(i, j):
+                        union(i, j)
+                break
+
+    # 4) HY-in·공지처럼 제목이 짧은 항목: 그 핵심어가 다른 항목의 제목·기관에 들어 있으면 같은 공고
+    cores = [(_hangul(r.get("title", "")) + org_core(r.get("org", ""))) for r in rows]
+    for i, (oc, tc, generic) in enumerate(info):
+        if rows[i]["source"] not in ("hyin", "hanyang") or len(tc) < 3:
+            continue
+        for j in range(n):
+            if j != i and rows[j]["source"] != rows[i]["source"] and tc in cores[j] and can(i, j):
+                union(i, j)
+
+    # 5) 제목이 다르게 적힌 같은 공고: 핵심어 글자쌍(bigram) 유사도 0.55 이상 + 시기 가까움
+    def grams(t):
+        return {t[k:k + 2] for k in range(len(t) - 1)}
+    G = [grams(i[1]) for i in info]
+    def month(r):
+        d = (r.get("end") or r.get("start") or r.get("posted") or "")[:7]
+        return d
+    buckets: dict[str, list[int]] = {}
+    for i, r in enumerate(rows):
+        if len(info[i][1]) >= 4 and month(r):
+            buckets.setdefault(month(r), []).append(i)
+    keys = sorted(buckets)
+    for bi, k in enumerate(keys):
+        pool = buckets[k] + (buckets[keys[bi + 1]] if bi + 1 < len(keys) else [])
+        for x in range(len(buckets[k])):
+            i = buckets[k][x]
+            for j in pool:
+                if j <= i or find(i) == find(j):
+                    continue
+                if FAMILY.get(rows[i]["source"]) and FAMILY.get(rows[i]["source"]) == FAMILY.get(rows[j]["source"]):
+                    continue
+                a, b = G[i], G[j]
+                if not a or not b:
+                    continue
+                if GENERIC_T.search(rows[i].get("title", "")) or GENERIC_T.search(rows[j].get("title", "")):
+                    continue
+                sim = len(a & b) / len(a | b)
+                small = min(len(a), len(b))
+                contain = len(a & b) / small if small >= 8 else 0
+                if (sim >= 0.55 or (contain >= 0.85 and sim >= 0.4)) and can(i, j):
+                    union(i, j)
+
+    # 6) 드문 고유 단어(예: '토박이', '김정옥', '봄내')를 함께 쓰는 공고는 같은 공고로 본다
+    COMMON = re.compile(r"^(장학|장학생|장학금|선발|모집|안내|공고|신청|지원|재단|학년도|하반기|상반기|대학생|학기|신규|추가|연장|기간|사업|프로그램|우수|특별|일반|재학생)$")
+    def toks(t):
+        t = re.sub(r"\[[^\]]*\]", " ", t or "")
+        out = set()
+        for w in re.findall(r"[가-힣]{2,}", t):
+            w = re.sub(STOP, "", w)
+            if len(w) >= 3 and not COMMON.match(w):
+                out.add(w)
+        return out
+    T = [toks(r.get("title", "")) | ({org_core(r.get("org", ""))} if len(org_core(r.get("org", ""))) >= 3 and not info[i][2] else set()) for i, r in enumerate(rows)]
+    df: dict[str, list[int]] = {}
+    for i, ts in enumerate(T):
+        for w in ts:
+            df.setdefault(w, []).append(i)
+    for w, ids in df.items():
+        if 2 <= len(ids) <= 6:
+            for x in range(len(ids)):
+                for y in range(x + 1, len(ids)):
+                    i, j = ids[x], ids[y]
+                    if find(i) != find(j) and not (GENERIC_T.search(rows[i].get("title", "")) or GENERIC_T.search(rows[j].get("title", ""))) and can(i, j):
+                        union(i, j)
+
+    # 7) 지난 회차: 같은 기관·같은 장학의 1~2년 전 회차(한국장학재단 DB, 지난 포털 일정 등)는 최신 회차에 붙인다.
+    #    그래야 '장학재단 정보'와 '올해 학교 공지'가 두 번 나오지 않는다. 지난 회차의 날짜는 쓰지 않고 설명만 빈칸에 채운다.
+    kosaf_orgs = sorted({info[i][0] for i, r in enumerate(rows) if FAMILY.get(r["source"]) == "kosaf" and len(info[i][0]) >= 2 and not info[i][2]}, key=len, reverse=True)
+    def row_key(i):
+        r = rows[i]
+        oc, generic = info[i][0], info[i][2]
+        if oc and not generic and _hangul(r.get("org", "")) != _hangul(r.get("title", "")):
+            return oc
+        own = org_core(r.get("title", ""))
+        if len(own) >= 2 and own in by_org:
+            return own  # 'OO재단' 처럼 제목이 곧 기관 이름인 경우
+        hay = _hangul(r.get("title", "") + (r.get("org") or ""))
+        return next((o for o in kosaf_orgs if len(o) >= 3 and o in hay), "")  # 두 글자 이름은 다른 말 속에 우연히 들어 있을 수 있다
+    today_d = date.today()
+    G2: dict[int, dict] = {}
+    for i, r in enumerate(rows):
+        g = G2.setdefault(find(i), {"keys": set(), "hi": None, "cur": False, "lvl": set(), "prog": set(), "progs": [], "rprog": set(), "ends": set(), "fam": set(), "kt": set(), "gen": False, "tcs": set()})
+        k = row_key(i)
+        if k:
+            g["keys"].add(k)
+        d = _key_date(r)
+        if d and (g["hi"] is None or d > g["hi"]):
+            g["hi"] = d
+        e, st, ps = _d(r.get("end")), _d(r.get("start")), _d(r.get("posted"))
+        if (e and e >= today_d) or (st and st >= today_d) or (not e and not st and ps and (today_d - ps).days <= 45):
+            g["cur"] = True
+        if e:
+            g["ends"].add(e)
+        if FAMILY.get(r["source"]):
+            g["fam"].add(FAMILY[r["source"]])
+        if FAMILY.get(r["source"]) == "kosaf":
+            g["kt"].add(re.sub(r"\d", "", _hangul(r.get("title", ""))))  # 한국장학재단 DB 상품 이름은 해마다 같다
+        if info[i][1]:
+            g["tcs"].add(info[i][1])
+        if GENERIC_T.search(r.get("title", "")) or re.search(r"이자\s*지원|학자금", r.get("title", "")):
+            g["gen"] = True  # 지역마다 따로 있는 학자금·이자 지원은 이름만으로 같은 장학이라 볼 수 없다
+        if r["source"] not in ("board", "legacy"):
+            g["rprog"] |= _prog_tokens(r)  # 게시판 글은 운영기관을 본문에서 잘못 읽은 경우가 있어 프로그램 판단에서 뺀다
+        if r.get("level"):
+            g["lvl"].add(r["level"])
+        g["progs"].append(_prog_tokens(r))
+    for root, g in G2.items():
+        ps = [p for p in g["progs"] if p]
+        g["prog"] = set().union(*ps) if ps else set()
+    def annual_ok(o, nw, key):
+        po, pn = o["rprog"], nw["rprog"]
+        if ("고등학생" in o["lvl"]) != ("고등학생" in nw["lvl"]) or o["gen"] or nw["gen"]:
+            return False
+        if o["kt"] and nw["kt"] and not (o["kt"] & nw["kt"]):
+            return False  # 둘 다 한국장학재단 DB에 있는데 상품 이름이 다르면 다른 장학
+        if po and pn:
+            both = all(_prog_overlap({x}, pn) for x in po) and all(_prog_overlap({y}, po) for y in pn)
+            return both and any(("대학원" in x) for x in po) == any(("대학원" in x) for x in pn)
+        return not (po or pn)  # 한쪽만 장학 이름이 있으면 다른 장학일 수 있어 붙이지 않는다
+    by_key: dict[str, list[int]] = {}
+    for root, g in G2.items():
+        for k in g["keys"]:
+            by_key.setdefault(k, []).append(root)
+    # 8) 같은 기관·같은 마감일의 지금 모집 중인 공고끼리는 (프로그램 이름이 서로 다르지 않으면) 같은 공고
+    for k, roots in by_key.items():
+        roots = [r for r in roots if G2[r]["cur"]]
+        for x in range(len(roots)):
+            for y in range(x + 1, len(roots)):
+                a, b = G2[roots[x]], G2[roots[y]]
+                ra, rb = find(roots[x]), find(roots[y])
+                if ra == rb or (a["fam"] & b["fam"] & {"kosaf", "hyin"}):
+                    continue
+                if a["gen"] or b["gen"]:
+                    sims = [len(G[0] & G[1]) / len(G[0] | G[1]) for G in ((({x[q:q + 2] for q in range(len(x) - 1)}), ({y[q:q + 2] for q in range(len(y) - 1)})) for x in a["tcs"] for y in b["tcs"]) if G[0] and G[1]]
+                    if not (a["ends"] & b["ends"]) or max(sims or [0]) < 0.5:
+                        continue  # 학자금·이자 지원은 마감일이 같고 제목이 거의 같을 때만
+                same_end = bool(a["ends"] & b["ends"])
+                named = bool(a["rprog"] and b["rprog"] and _prog_overlap(a["rprog"], b["rprog"]))
+                if not (same_end or (named and not (a["ends"] and b["ends"]))):
+                    continue  # 마감일이 같거나, 한쪽에 마감일이 없고 장학 이름(예: '동행')이 같아야 같은 공고
+                if a["rprog"] and b["rprog"] and not _prog_overlap(a["rprog"], b["rprog"]):
+                    continue
+                if ("고등학생" in a["lvl"]) != ("고등학생" in b["lvl"]):
+                    continue
+                parent[rb] = ra
+                for f in ("keys", "ends", "fam", "rprog", "lvl"):
+                    G2[ra][f] = G2[ra][f] | G2[rb][f]
+                G2[ra]["prog"] = G2[ra]["prog"] | G2[rb]["prog"]
+                if G2[rb]["hi"] and (not G2[ra]["hi"] or G2[rb]["hi"] > G2[ra]["hi"]):
+                    G2[ra]["hi"] = G2[rb]["hi"]
+                G2[rb] = G2[ra]
+    prev_roots = set()
+    for k, roots in by_key.items():
+        roots = sorted({find(r) for r in roots if G2[r]["hi"]}, key=lambda r: G2[r]["hi"], reverse=True)
+        for x, old in enumerate(roots):
+            o = G2[old]
+            if o["cur"] or find(old) != old:
+                continue
+            for nw in roots[:x]:
+                nwr = find(nw)
+                if nwr == old:
+                    continue
+                gap = (G2[nw]["hi"] - o["hi"]).days
+                lo_gap = 150 if G2[nw]["cur"] else 250  # 지금 모집 중인 회차가 있으면 반년 전 회차도 지난 회차로 본다
+                if lo_gap <= gap <= 800 and annual_ok(o, G2[nw], k):
+                    parent[old] = nwr
+                    prev_roots.add(old)
+                    break
+    prev = {i for i in range(n) if any(_root_chain(parent, i, r) for r in prev_roots)}
+
+    groups: dict[int, list[int]] = {}
+    for i in range(n):
+        groups.setdefault(find(i), []).append(i)
+    out = []
+    for ids in groups.values():
+        members = [rows[i] for i in ids]
+        today = date.today().isoformat()
+        now = [rows[i] for i in ids if i not in prev] or members
+        rep = dict(max(now, key=lambda m: ((m.get("end") or "") >= today or (m.get("start") or "") >= today, _richness(m))))
+        for i in ids:
+            m = rows[i]
+            if m is rep or m.get("id") == rep.get("id"):
+                continue
+            for k in FILL:
+                if i in prev and k in ("start", "end", "posted", "apply_url"):
+                    continue  # 지난 회차 날짜·신청 주소는 쓰지 않는다
+                if not rep.get(k) and m.get(k):
+                    rep[k] = m[k]
+            if not rep.get("support") and m.get("support"):
+                rep["support"] = m["support"]
+        links = []
+        for m in members:
+            for l in [{"name": "공고 원문", "url": m.get("url")}] + list(m.get("links") or []):
+                if l.get("url") and l["url"] not in [x["url"] for x in links]:
+                    links.append({"name": "공고 원문", "url": l["url"]})
+        rep["links"] = links[:8]
+        if rep.get("source") == "board" and rep.get("org_type") == "대학 게시판" and any(m.get("_relay_ok") for m in members):
+            other = [m.get("org") for m in members if m.get("org") and m.get("org_type") != "대학 게시판"]
+            rep["org"] = other[0] if other else ("" if re.search(r"대학교|대학$", rep.get("org") or "") else rep.get("org", ""))
+        relay = [m.get("source") == "board" and m.get("org_type") == "대학 게시판" and not m.get("_hy") for m in members]
+        # 다른 대학 게시판에만 있고 운영기관이 그 대학 자신인 공고(교내 장학)는 그 학교 학생 전용
+        rep["_univ_only"] = all(relay) and not any(m.get("_relay_ok") for m in members)
+        rep["school_check"] = all(relay)
+        schools = {m.get("_relay_school") for m in members if m.get("_relay_school")}
+        rep["_relay_schools"] = sorted(schools)
+        rep["_relay_text"] = " ".join(((m.get("target") or "") + " " + (m.get("summary") or "")[:1500]) for m in members if m.get("_relay_school"))
+        rep["_srcs"] = sorted({m.get("source") for m in members})
+        rep["_st_all"] = sorted({t for m in members for t in (m.get("school_types") or [])})
+        rep["_alltext"] = " ".join(" ".join(str(m.get(k) or "") for k in ("title", "org", "target", "special", "restriction", "residence", "recommend", "selection"))
+                                   + " " + (m.get("summary") or "")[:2500] for m in members)
+        tb: dict = {}
+        for m in members:
+            tb[m.get("source")] = tb.get(m.get("source"), "") + " " + " ".join(str(m.get(k) or "") for k in ("title", "org", "target", "special", "restriction", "residence", "recommend", "selection")) + " " + (m.get("summary") or "")[:2500]
+        rep["_textby"] = tb  # 출처별 본문 (다른 학교 공지의 '본교' 같은 말이 이 학교 판정에 섞이지 않게)
+        rep["dupes"] = len(members) - 1
+        rep["_ids"] = [m.get("id") for m in members]
+        rep["_hyids"] = [m.get("id") for m in members if m.get("source") == "hyin"]
+        out.append(rep)
+    return out
+
+
+UNIV_NAME = re.compile(r"([가-힣]{2,10}(?:대학교|대학원대학교|교육대학교|과학기술원))")
+OK_SCHOOL = {"4년제(5~6년제포함)", "전문대(2~3년제)", "일반대학원", "전문대학원", "특수대학원", "제한없음", "특정대학"}
+
+
+NEG = re.compile(r"(지정|추천|협약|선정|대상|참여|해당|소속|배정)\s*대학(교)?(?!\s*(제한\s*)?(없|무관))|(지정|선정|선발|협약)(한|된|을\s*맺은)\s*(\d+\s*개\s*)?대학|본교|학교별\s*(추천|배정)|대학별\s*(추천|배정|인원)|(추천|배정)\s*인원|우리\s*대학|재단\s*지정|협력\s*대학|장학\s*협약|대학의?\s*추천을\s*받|소속\s*대학\s*(장|총장)\s*추천")
+OPEN = re.compile(r"전국\s*(?:의과|한의과|치의과|약학|의학)?\s*(?:대학|의대|한의대|치대|약대)|전국\s*(의\s*)?(4년제\s*|소재\s*)?(대학|대학생)|국내\s*(소재\s*)?(4년제\s*|정규\s*)*(대학|대학교)\s*(\(원\)\s*)?(에\s*)?재(학|적)|대학\s*(제한|구분)\s*(없|무관)|모든\s*대학|(학교|대학|소속\s*대학)\s*(제한\s*)?무관|대학교?\s*구분\s*없이")
+RES = re.compile(r"주민등록|거주|구민|시민|군민|도민|출신|연고|전입|주소를?\s*두")
+PROV = r"서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|충청|전북|전남|전라|경북|경남|경상|제주|부울경|대경|영남|호남|호서"
+LOCW = (r"(?:(?:[가-힣]{1,8}(?:특별시|광역시|특별자치도|특별자치시|시|도|군|구)|(?:" + PROV + r")|[가-힣]{2,6}\s*지역)\s*(?:지역\s*)?(?:내\s*)?(?:에\s*)?(?:소재|위치|있는|관내|내)(?:하는|한|의)?"
+        r"|도내|관내|시내|군내|구내|지역\s*내|비수도권|지방\s*소재|지방대)")
+SCHOOL_LOC = re.compile(r"(?:" + LOCW + r"|(?:[가-힣]{1,8}(?:특별시|광역시|특별자치도|시|도|군)|(?:" + PROV + r"))\s*지역)(?:\s*지역)?\s*(?:소재\s*|에\s*소재한\s*)?(?:\*\s*)?(?:4년제\s*|전문\s*)?(?:대학|대학교|학\s*(?:재학|학생))")
+GENERIC_UNIV = re.compile(r"(정규|국내|사이버|방송통신|한국방송통신|전문|일반|대학원|관내|명문|우수|외국|지역|해외|4년제|각|해당|소속|타|원격|기술)")
+ALT_OK = re.compile(r"(?:시|도|군|구|지역)\s*외\s*(?:소재\s*)?대학|도외\s*(?:소재\s*)?대학|관외\s*(?:소재\s*)?대학|타\s*지역\s*(?:소재\s*)?대학|타\s*시[·ㆍ]?도\s*(?:소재\s*)?대학|대학\s*소재지\s*(?:무관|제한\s*없)|조건\s*중\s*(?:하나|1개|한\s*가지)|(?:요건|조건|자격)\s*중\s*어느\s*하나(?:를|에)?\s*(?:만족|충족)")
+BOTH = re.compile(r"(?:본인|학생|시민|도민|군민|구민|주민)\s*(?:또는|이나|혹은)\s*(?:그\s*)?(?:[가-힣]{0,4}\s*)?(?:부모|보호자|자녀|가족|세대주)")
+OTHER_UNIV = re.compile(r"([가-힣]{2,12}(?:대학교|대학원대학교|교육대학교|과학기술원))(?:\s*[가-힣A-Za-z]{0,8}캠퍼스)?")
+OWN = re.compile(r"교내|\[교내|본교|근로장학|국가근로|학과\s*장학|학부\s*장학|대학원\s*(우수|연구)|가족\s*장학|형제자매|동문(회)?\s*장학|발전기금|면학장학|가계곤란|어학우수|성적우수\s*장학|사정관")
+ABROAD_NO = re.compile(r"고등학교|고교|외국인\s*유학생|해외대학\s*입학|입학지원금|교원연수|교수|전문가\s*장학|포스트닥|Postdoc|저널리스트|영어교사|사비\s*외국인")
+HOME_REGIONS = {"서울", "경기"}  # 한양대(서울)·ERICA(경기 안산)·한양여대(서울)
+
+# 이 앱이 지원하는 학교. own: 그 학교가 직접 안내한 공고의 출처, name: 공고에 그 학교가 대상으로 적힌 경우,
+# home: '○○ 소재 대학' 조건을 그 학교가 만족하는 지역 이름, local: 그 학교 지역 기관의 '도내·관내 대학' 이 맞는 지역
+SCHOOLS = {
+    "hy": {"own": {"hyin", "hanyang", "hywoman"}, "name": r"한양대|한양여대|한양여자대|한양\s*대학교|HYU|HYWU",
+           "home": r"서울|수도권|성동", "region": "서울", "district": r"성동"},
+    "kw": {"own": {"kangwon"}, "name": r"강원대|강원\s*대학교|KNU|삼척캠퍼스|도계캠퍼스",
+           "home": r"강원|삼척|영동|비수도권|지방", "region": "강원", "district": r"삼척"},
+    "sg": {"own": {"sogang"}, "name": r"서강대|서강\s*대학교|Sogang",
+           "home": r"서울|수도권|마포", "region": "서울", "district": r"마포"},
+    "kk": {"own": {"konkuk"}, "name": r"건국대|건국\s*대학교|Konkuk",
+           "home": r"서울|수도권|광진", "region": "서울", "district": r"광진"},
+}
+COMMON_OK = r"전국|국내|한국|대한민국|도외|관외"
+
+
+def for_schools(rows: list[dict]) -> list[dict]:
+    """학교마다 지원할 수 있는 장학을 고르고, 한 곳이라도 맞으면 남긴다. r["for"] = 지원할 수 있는 학교 목록."""
+    import copy
+    picked: dict[str, dict] = {}
+    order: list[str] = []
+    for key in SCHOOLS:
+        for r in for_school(copy.deepcopy(rows), key):
+            if r["id"] not in picked:
+                picked[r["id"]] = r
+                r["for"] = []
+                order.append(r["id"])
+            picked[r["id"]]["for"].append(key)
+    # 전국 대학 게시판에만 올라온 장학 가운데 위 학교 학생 누구도 지원 근거가 없는 것 = 그 학교(들) 학생만 할 수 있는 장학.
+    # 빼지 않고 own(학교 이름)을 붙여 두면, 앱은 처음 목록에서는 숨기고 '학교 전용'에서 그 학교를 고를 때만 보여 준다.
+    def _school(n):
+        n = re.sub(r"\s.*$", "", (n or "").strip())
+        return n if re.search(r"대학교?$|대학원$|과학기술원$|사관학교$", n) else ""
+    for r in rows:
+        if r["id"] in picked or r.get("level") in ("고등학생", "학점은행제"):
+            continue
+        srcs = set(r.get("_srcs") or [r.get("source")])
+        if not srcs <= {"board", "legacy"}:
+            continue
+        if re.search(r"국가장학금|학자금\s*(대출|지원구간)|가구원\s*(정보\s*)?동의|소득\s*(분위|구간)|한국장학재단|푸른등대", r.get("title") or "") and not re.search(r"교내|근로", r.get("title") or ""):
+            continue  # 학교가 다시 알린 전국 공통 안내(국가장학금 등)는 이미 따로 있다
+        own = sorted({x for x in (_school(n) for n in (r.get("_relay_schools") or [r.get("_relay_school")])) if x})
+        if not own or re.search(r"ERICA|에리카", (r.get("title") or "") + " " + (r.get("org") or "")):
+            continue
+        t = dict(r)
+        for k in ("_univ_only", "_hy", "_relay_ok", "_relay_school", "_relay_schools", "_relay_text", "_srcs", "_st_all", "_alltext", "_textby"):
+            t.pop(k, None)
+        t["for"] = []
+        t["own"] = own[:5]
+        if t.get("org_type") == "대학 게시판" and not t.get("org"):
+            t["org"] = own[0]
+        picked[t["id"]] = t
+        order.append(t["id"])
+    # 중·고등학생 장학: 학교와 상관없이 따로 넣고(for=["hs"]), 앱에서 켜야 보인다
+    teen = re.compile(r"중학생|중학교|중등")
+    for r in rows:
+        if r.get("level") == "고등학생" and r["id"] not in picked:
+            t = dict(r)
+            for k in ("_univ_only", "_hy", "_relay_ok", "_relay_school", "_relay_schools", "_relay_text", "_srcs", "_st_all", "_alltext", "_textby"):
+                t.pop(k, None)
+            t["for"] = ["hs"]
+            if teen.search(" ".join(str(r.get(k) or "") for k in ("title", "target", "special", "summary"))[:3000]):
+                t["mid"] = True
+            picked[t["id"]] = t
+            order.append(t["id"])
+    return [picked[i] for i in order]
+
+
+def for_school(rows: list[dict], school: str = "hy") -> list[dict]:
+    """한양대·한양여대 학생이 실제로 지원할 수 있는 장학금만 남긴다.
+
+    남기는 근거가 있어야만 남긴다.
+      - 한양대 자체 출처(HY-in 장학캘린더, 한양대 공지)에 있는 장학금
+      - 공고에 '한양'이 대상으로 나오는 장학금
+      - 한국장학재단 DB에서 대학 유형이 일반(4년제·전문대·대학원)인 장학금
+      - 다른 곳에서 온 공고는 '전국 대학', '대학 제한 없음' 같은 개방 근거나 거주지 기준(주민등록·구민 등)이 있을 때만
+    빼는 경우
+      - 고등학생·학점은행제 대상, 학교 유형이 맞지 않는 장학금
+      - 지정·추천·협약·참여 대학, '본교', 대학별 추천 인원처럼 특정 대학 학생만 받는 공고 (한양 언급이 없으면)
+      - '도내·관내·OO 소재 대학 재학생'처럼 학교 위치가 서울·경기가 아닌 지역으로 묶인 공고
+      - 근거를 찾을 수 없는 다른 대학 게시판 공고
+    """
+    cfg = SCHOOLS[school]
+    own_src = cfg["own"]
+    other_own = set().union(*(c["own"] for k, c in SCHOOLS.items() if k != school))
+    name_rx = re.compile(cfg["name"])
+    home_rx = re.compile(COMMON_OK + "|" + cfg["home"])
+    out = []
+    for r in rows:
+        if r.get("level") in ("고등학생", "학점은행제"):
+            continue
+        if set(r.get("_srcs") or [r.get("source")]) & own_src:
+            out.append(r)  # 내 학교가 직접 학생들에게 안내한 장학은 모두 남긴다
+            continue
+        if set(r.get("_srcs") or [r.get("source")]) <= other_own and r.get("org_type") == "대학(교내)":
+            continue  # 다른 학교의 교내 공고
+        st = set(r.get("_st_all") or r.get("school_types") or [])
+        st.discard("특정대학") if r.get("source") in ("board",) else None
+        if st and not (st & OK_SCHOOL):
+            continue
+        srcs = set(r.get("_srcs") or [r.get("source")])
+        tb = r.get("_textby") or {}
+        mine = [v for k, v in tb.items() if k not in other_own]
+        text = " ".join(mine) if mine else (r.get("_alltext") or "")  # 다른 학교 공지 글은 빼고 판단 (그 공지만 있으면 그대로)
+        hy_named = bool(name_rx.search(text.replace("한양·한여", "")))
+        if r.get("level") == "해외유학" and ABROAD_NO.search(r.get("title", "") + " " + (r.get("target") or "")):
+            continue
+        if srcs <= {"board", "legacy"} | other_own and (OWN.search(r.get("title", "")) or re.search(r"추천자\s*(선발|모집)|추천\s*대상자", r.get("title", ""))) and not hy_named:
+            continue  # 다른 대학의 교내·근로·학과 장학
+        elig = " ".join(str(r.get(k) or "") for k in ("title", "target", "special", "residence", "restriction"))
+        drop = False
+        src = elig + " " + text
+        alt = bool(ALT_OK.search(src) or OPEN.search(src))
+        for m in SCHOOL_LOC.finditer(src):
+            g = m.group(0)
+            if hy_named:
+                break
+            win = src[max(0, m.start() - 15): m.end()]
+            if re.search(r"비수도권|지방", g) and not re.search(r"비수도권|지방", cfg["home"]):
+                drop = True  # 비수도권·지방 대학만 (서울 학교는 해당 없음)
+                break
+            if home_rx.search(win) or alt:
+                continue
+            if r.get("region") == cfg["region"] and (re.search(r"도내", g) or (re.search(cfg["district"], r.get("district") or "") and re.search(r"관내|시내|군내|구내", g))):
+                continue  # 내 학교가 있는 지역 기관의 '도내·관내 대학' 조건
+            line = re.split(r"[○□◦•\n]", src[max(0, m.start() - 150): m.start()])[-1] + src[m.start(): m.end() + 80].split("\n")[0].split("○")[0]
+            line = BOTH.sub("", line)
+            either = re.search(r"(거주|주소|주민등록|시민|도민|군민|구민)[^○□\n]{0,40}(또는|이거나|혹은|아니더라도)[^○□\n]{0,60}대학", line) or \
+                     re.search(r"대학[^○□\n]{0,30}(또는|이거나|혹은)[^○□\n]{0,60}(거주|주소|주민등록|시민|도민|군민|구민)", line) or \
+                     re.search(r"대학[^○□\n]{0,40}(자를|학생을|학생도|자도)\s*포함", line)
+            if either:
+                continue  # 거주지 또는 학교 위치 중 하나만 맞으면 되는 경우
+            drop = True
+            break
+        if drop:
+            continue  # 학교 위치가 서울·경기 밖으로 묶인 장학
+        if re.search(r"외국인\s*(유학생|학생|장학생)", r.get("title", "") + " " + (r.get("target") or "")[:200]):
+            continue
+        pos = " ".join(str(r.get(k) or "") for k in ("target", "special", "title"))
+        names = {n for n in OTHER_UNIV.findall(pos) if not GENERIC_UNIV.match(n)}
+        if names and not hy_named and not OPEN.search(pos):
+            continue  # 공고에 다른 대학 이름만 대상으로 적힌 장학
+        neg = NEG.search(text)
+        if neg and not hy_named:
+            continue
+        if "dreamspon" in srcs and srcs <= {"dreamspon", "board", "legacy"} | other_own:
+            # 전국 대상 장학 모음에 올라온 공고: 산학 협약처럼 특정 대학만 받는 것은 빼고, 학교 조건은 원문 확인으로 표시
+            if re.search(r"산학", r.get("title", "") + " " + (r.get("special") or "")) or not (r.get("_st_all") or r.get("school_types")):
+                continue
+            r["school_check"] = True
+            out.append(r)
+            continue
+        kosaf = any(x.startswith("kosaf") for x in srcs)
+        if kosaf:
+            kst = set(r.get("_st_all") or [])
+            home_loc = any(home_rx.search(src[max(0, m.start() - 15): m.end()]) for m in SCHOOL_LOC.finditer(src))
+            if kst and kst <= {"특정대학"} and not (hy_named or OPEN.search(src) or home_loc):
+                continue  # 한국장학재단 DB에 '특정대학'으로만 등록된 장학
+            out.append(r)
+            continue
+        # 대학 게시판·기존 수집본·다른 학교 공지에서만 온 공고: 열려 있다는 근거가 있어야 남긴다
+        if hy_named or OPEN.search(text) or (RES.search(text) and r.get("region") not in ("",)) or RES.search(text):
+            r["school_check"] = False
+            out.append(r)
+            continue
+    for r in out:
+        r.pop("_univ_only", None)
+        r.pop("_hy", None)
+        r.pop("_relay_ok", None)
+        r.pop("_relay_school", None)
+        r.pop("_relay_schools", None)
+        r.pop("_relay_text", None)
+        for k in ("_srcs", "_st_all", "_alltext", "_textby"):
+            r.pop(k, None)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# 원칙: 같은 장학은 목록에 한 번만 나온다.
+#  A) 같은 기관·같은 장학의 세부 분야(괄호 안: 성적우수·특기·다자녀 …)가 같은 마감일로 여러 줄이면 한 줄로 묶고, 분야는 variants 로 남긴다.
+#  B) 같은 기관·같은 장학의 여러 회차(학기·1차·2차·연도)는 지금 열려 있는 회차만, 모두 지났으면 가장 최근 회차 하나만 남긴다.
+SCHOOL_SRC = {"hyin": "hy", "hanyang": "hy", "hywoman": "hywu", "kangwon": "kw", "sogang": "sg", "konkuk": "kk"}
+GENERIC_TAG = re.compile(r"^(학자금대출|학부|학부생|대학원|대학원생|신설|신규|계속|한국장학재단|장학재단|교외장학금|교내장학금|교내|교외|국가|외부|장학|장학금|등록금|생활비|근로|근로장학|학자금|공지|필독|중요|홍보|안내|모집|선발|신청|마감|재공고|추가|긴급|삼척|ALL|전체|서울|ERICA|교내장학|교외장학|국가장학)$")
+ROUND = re.compile(r"20\d\d\s*[-.]?\s*(학년도|년도|년)?|\d+\s*[-.]\s*\d+\s*학기|\d\s*학기|여름학기|겨울학기|[상하]반기|\d+\s*차|제\s*\d+\s*(기|회|차)|\d+\s*(기|회)(?![가-힣])|\d+\s*월")
+ROUND_WORDS = re.compile(r"학생\s*신청\s*기간|신청\s*방법|신청\s*기간|및|일정|신청|안내|모집|선발|공고|접수|추가|재공고|연장|대상자|장학생|장학금|장학")
+
+
+def _org_key(r: dict) -> str:
+    if r.get("own"):
+        return "@" + r["own"][0]
+    srcs = set(r.get("_srcs") or [r.get("source")])
+    for s in srcs:
+        if s in SCHOOL_SRC and (r.get("org_type") == "대학(교내)" or not r.get("org") or re.search(r"20\d\d|\d\s*학기", r.get("org") or "")):
+            return "@" + SCHOOL_SRC[s]
+    return org_core(r.get("org") or "") or "@" + (r.get("source") or "")
+
+
+def _base_title(t: str) -> tuple[str, str]:
+    """끝의 괄호(세부 분야)를 떼어 낸 제목과 그 괄호 안 글."""
+    m = re.match(r"^(.*?\S)\s*[(（]((?:[^()（）]|[(（][^()（）]*[)）]){1,30})[)）]\s*$", t or "")
+    return (m.group(1), m.group(2).strip()) if m else (t or "", "")
+
+
+def _round_core(t: str) -> str:
+    t = re.sub(r"^\s*(\[[^\]]*\]\s*)+", " ", t or "")  # 맨 앞 [말머리]
+    t = re.sub(r"[(（][^()（）]*[)）]", " ", t)  # 괄호 안 설명
+    t = re.sub(r"\[([^\]]*)\]", lambda m: " " if GENERIC_TAG.match(m.group(1).strip()) else " " + m.group(1) + " ", t or "")
+    t = re.sub(r"[(（]([^()（）]*)[)）]", lambda m: " " if re.search(r"\d|마감|~|신청|기간|접수|한국장학재단", m.group(1)) or GENERIC_TAG.match(m.group(1).strip()) else " " + m.group(1) + " ", t)
+    t = ROUND.sub(" ", t)
+    t = ROUND_WORDS.sub(" ", t)
+    return _hangul(t)
+
+
+def _lv(r: dict) -> str:
+    return "hs" if r.get("level") == "고등학생" else "u"
+
+
+def _when(r: dict) -> str:
+    return r.get("end") or r.get("start") or r.get("posted") or ""
+
+
+def _union_into(rep: dict, others: list[dict]):
+    for f in ("support", "majors", "school_types", "grades"):
+        vals = [v for r in [rep] + others for v in (r.get(f) or [])]
+        if vals:
+            rep[f] = list(dict.fromkeys(vals))
+    fs = [r.get("for") or [] for r in [rep] + others]
+    if all(fs):
+        rep["for"] = list(dict.fromkeys(x for f in fs for x in f))
+    if not rep.get("fresh"):
+        fr = next((r["fresh"] for r in others if r.get("fresh") and r.get("status") != "마감"), None)
+        if fr:
+            rep["fresh"] = fr
+    rep["aka"] = list(dict.fromkeys((rep.get("aka") or []) + [x for r in others for x in [r["id"]] + (r.get("aka") or [])]))[:30]
+
+
+def _group(rows, keyfn):
+    groups, order = {}, []
+    for r in rows:
+        k = keyfn(r) or ("#", r["id"])
+        if k not in groups:
+            groups[k] = []
+            order.append(k)
+        groups[k].append(r)
+    return [groups[k] for k in order]
+
+
+def _pick_rounds(g: list[dict]) -> list[dict]:
+    """여러 회차 중 남길 것: 모집중·예정이면 그것만, 아니면 일정이 있는 가장 최근 회차 하나."""
+    live = [r for r in g if r.get("status") in ("모집중", "예정")]
+    if live:
+        keep = live
+    else:
+        keep = [max(g, key=lambda r: (bool(r.get("end") or r.get("start")), _when(r), _richness(r)))]
+    drop = [r for r in g if not any(r is k for k in keep)]
+    if drop:
+        rep = keep[0]
+        vs = list(rep.get("variants") or [])
+        names = {_hangul(v["n"]) for v in vs}
+        for r in drop:
+            _, var = _base_title(r.get("title", ""))
+            for v in (r.get("variants") or ([{"n": var, "a": (r.get("amount") or "")[:120], "t": (r.get("target") or "")[:240]}] if var else [])):
+                if _hangul(v["n"]) not in names and len(vs) < 12:
+                    names.add(_hangul(v["n"]))
+                    vs.append(dict(v, e=r.get("end") or ""))
+        if len(vs) > 1:
+            if not rep.get("variants"):
+                b, var = _base_title(rep["title"])
+                if var and _hangul(var) not in {_hangul(v["n"]) for v in vs}:
+                    vs.insert(0, {"n": var, "a": (rep.get("amount") or "")[:120], "t": (rep.get("target") or "")[:240], "e": rep.get("end") or ""})
+            rep["variants"] = vs
+            rep["title"] = _base_title(rep["title"])[0] if _base_title(rep["title"])[1] else rep["title"]
+        for k in keep:
+            _union_into(k, drop)
+    return keep
+
+
+def _ccore(r: dict) -> str:
+    return _round_core(re.sub(r"\[[^\]]*\]", " ", _base_title(r.get("title", ""))[0]))
+
+
+def collapse(rows: list[dict]) -> list[dict]:
+    # A0) 제목·마감일까지 똑같은 줄
+    out = []
+    for g in _group(rows, lambda r: (_hangul(r.get("title")), r.get("end") or "", _lv(r)) if len(_hangul(r.get("title"))) >= 4 else None):
+        g.sort(key=lambda r: (bool(r.get("own")), -_richness(r)))  # 일반 장학을 대표로 (학교 전용으로 숨지 않게)
+        rep = g[0]
+        if len(g) > 1:
+            _union_into(rep, g[1:])
+        out.append(rep)
+    # A) 세부 분야(끝 괄호)만 다르고 마감일이 같은 줄 → 한 줄 + variants
+    rows, out = out, []
+    for g in _group(rows, lambda r: (_org_key(r), _hangul(_base_title(r.get("title", ""))[0]), r.get("end") or "", _lv(r)) if len(_hangul(_base_title(r.get("title", ""))[0])) >= 4 else None):
+        if len(g) == 1:
+            out.append(g[0])
+            continue
+        g.sort(key=lambda r: -_richness(r))
+        rep = g[0]
+        base = _base_title(rep["title"])[0]
+        seen, variants = set(), []
+        for r in g:
+            var = _base_title(r.get("title", ""))[1]
+            if var and _hangul(var) not in seen:
+                seen.add(_hangul(var))
+                variants.append({"n": var[:30], "a": (r.get("amount") or "")[:120], "t": (r.get("target") or "")[:240]})
+        if len(variants) > 1:
+            rep["title"] = base
+            rep["variants"] = variants[:12]
+        _union_into(rep, g[1:])
+        out.append(rep)
+    # B) 같은 기관의 여러 회차·세부 분야(마감일 다름) → 열린 회차만, 다 지났으면 최근 회차 하나
+    rows, out = out, []
+    for g in _group(rows, lambda r: (_org_key(r), _round_core(_base_title(r.get("title", ""))[0]), _lv(r)) if len(_round_core(_base_title(r.get("title", ""))[0])) >= 4 else None):
+        out.extend(_pick_rounds(g) if len(g) > 1 else g)
+    # C) 기관 이름이 다르게 적혔어도 긴 핵심 이름이 같으면 같은 장학 (서로 다른 학교의 교내 공고끼리는 제외)
+    rows, out = out, []
+    for g in _group(rows, lambda r: ("C", _ccore(r), _lv(r)) if len(_ccore(r)) >= 8 else None):
+        gen = [r for r in g if not r.get("own")]
+        if len(g) > 1 and gen and len(gen) < len(g):
+            # 일반 장학과 이름이 같은 '학교 전용' 줄은 그 학교가 옮겨 실은 같은 공고 → 일반 장학 하나로
+            for r in gen[:1]:
+                _union_into(r, [x for x in g if x.get("own")])
+            g = gen
+        if len(g) > 1 and len({_org_key(r) for r in g if _org_key(r).startswith("@")}) <= 1:
+            live = [r for r in g if r.get("status") in ("모집중", "예정")]
+            if len(live) > 1:  # 같은 공고가 여러 곳에 올라온 것: 내용이 가장 많은 하나로
+                live.sort(key=lambda r: (bool(r.get("end")), _richness(r)), reverse=True)
+                _union_into(live[0], live[1:])
+                g = [r for r in g if not any(r is x for x in live[1:])]
+            out.extend(_pick_rounds(g))
+        else:
+            out.extend(g)
+    return out
