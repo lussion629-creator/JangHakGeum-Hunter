@@ -104,14 +104,15 @@ def _legacy_get(url, verify, **kw):
 def get(url: str, **kw) -> requests.Response:
     """requests.get 과 같지만, 인증서 문제가 있는 학교 서버면 한 번 더 '검증해서' 연다.
     1) 빠진 중간 인증서를 보완한 묶음  2) 오래된 서버용 연결 설정 (둘 다 검증은 끄지 않는다)"""
+    kw.setdefault("timeout", 20)  # 응답 없는 서버에 붙잡히지 않게
     try:
-        return requests.get(url, **kw)
+        return requests.get(url, **kw)  # nosec B113 - timeout 은 위에서 넣는다
     except requests.exceptions.SSLError as e:
         err = e
     b = bundle_for(url) if "CERTIFICATE_VERIFY_FAILED" in str(err) or "certificate" in str(err).lower() else None
     if b:
         try:
-            return requests.get(url, verify=b, **kw)
+            return requests.get(url, verify=b, **kw)  # nosec B113 - timeout 은 위에서 넣는다
         except requests.exceptions.SSLError:
             pass
     import certifi

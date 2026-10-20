@@ -30,7 +30,7 @@ def clean(v) -> str:
 
 
 def make_id(*parts) -> str:
-    return hashlib.sha1("|".join(str(p) for p in parts).encode()).hexdigest()[:16]
+    return hashlib.sha1("|".join(str(p) for p in parts).encode(), usedforsecurity=False).hexdigest()[:16]
 
 
 def norm_date(v) -> str:
@@ -139,7 +139,7 @@ def finalize(rec: dict) -> dict:
         out["amount_won"] = parse_amount(out.get("amount", "") + " " + out.get("summary", "")[:400])
     out["verified"] = bool(out.get("verified"))
     payload = {k: v for k, v in out.items() if k not in ("id",)}
-    out["hash"] = hashlib.sha1(json.dumps(payload, ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:12]
+    out["hash"] = hashlib.sha1(json.dumps(payload, ensure_ascii=False, sort_keys=True).encode(), usedforsecurity=False).hexdigest()[:12]
     return out
 
 
