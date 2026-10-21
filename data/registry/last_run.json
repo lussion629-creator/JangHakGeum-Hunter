@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-21T07:41:19+00:00",
- "finishedAt": "2026-10-21T08:16:55+00:00",
+ "startedAt": "2026-10-21T12:31:15+00:00",
+ "finishedAt": "2026-10-21T13:06:59+00:00",
  "online": true,
- "total": 4591,
- "new": 7,
- "changed": 4584,
+ "total": 4637,
+ "new": 1,
+ "changed": 416,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,9 +45,9 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 0,
-   "work": 0,
-   "mode": "seed/seed"
+   "count": 52,
+   "work": 3,
+   "mode": "online/seed"
   },
   {
    "source": "hywoman",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 366곳",
    "ok": true,
-   "count": 1133,
-   "mode": "성공 332 / 실패 34"
+   "count": 1127,
+   "mode": "성공 333 / 실패 33"
   },
   {
    "source": "gov24",
@@ -421,7 +421,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 9
+    "count": 8
    },
    {
     "name": "강남대학교",
@@ -660,7 +660,7 @@
     "url": "https://www.jejunu.ac.kr/ara/noticesurvey/degree.htm?category=238",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -961,7 +961,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 7
+    "count": 6
    },
    {
     "name": "부산가톨릭대학교",
@@ -1031,7 +1031,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 12
+    "count": 11
    },
    {
     "name": "인제대학교 김해",
@@ -1061,7 +1061,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 19
+    "count": 18
    },
    {
     "name": "배재대학교",
@@ -5281,7 +5281,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 1
+    "count": 0
    },
    {
     "name": "선린대학교",
@@ -5401,7 +5401,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 4
+    "count": 3
    },
    {
     "name": "호남신학대학교",
