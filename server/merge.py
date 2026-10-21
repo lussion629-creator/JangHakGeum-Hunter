@@ -964,22 +964,42 @@ def catalog_dup(r: dict, korg: dict) -> bool:
 
 
 def _same_view_once(rows: list[dict]) -> list[dict]:
-    """재확인(scripts/verify_data.py)과 같은 기준: 같은 학생에게 보이는 (같은 학교, 같은 장학 이름, 같은 마감일) 공고는 하나만.
-    학교가 직접 올린 공지 > 대학 게시판 순으로 남긴다."""
+    """재확인(scripts/verify_data.py)과 같은 기준: 같은 장학 이름·같은 마감일의 공고가 여러 줄이면,
+    한 줄이 보이는 학생이 다른 줄의 학생을 모두 포함할 때(모든 학생 ⊇ 한 학교, 학교 목록 ⊇ 그 일부) 좁은 쪽을 뺀다.
+    남길 때는 학교가 직접 올린 공지 > 대학 게시판 > 그 밖 순."""
     pref = {"hanyang": 0, "hywoman": 0, "kangwon": 0, "sogang": 0, "konkuk": 0, "board": 1}
-    seen: dict[tuple, dict] = {}
-    out = []
-    for r in sorted(rows, key=lambda r: pref.get(r.get("source"), 2)):
+
+    def aud(r):
+        own = r.get("own") or []
+        return None if not own else {re.sub(r"^국립|\s.*$", "", o) for o in own}  # None = 모든 학생
+
+    def covers(a, b):
+        return a is None or (b is not None and b <= a)
+
+    groups: dict[tuple, list] = {}
+    for r in rows:
         c = _core(r.get("title"))
         if len(c) >= 4 and r.get("level") != "고등학생":
-            who = tuple(sorted({re.sub(r"^국립|\s.*$", "", o) for o in (r.get("own") or [])}))
-            k = (who, c, r.get("end") or "")
-            if k in seen:
-                continue
-            seen[k] = r
-        out.append(r)
-    order = {id(r): i for i, r in enumerate(rows)}
-    return sorted(out, key=lambda r: order[id(r)])
+            groups.setdefault((c, r.get("end") or ""), []).append(r)
+    drop = set()
+    for rs in groups.values():
+        if len(rs) < 2:
+            continue
+        owned = [r for r in rs if aud(r) is not None]
+        relay_general = [r for r in rs if aud(r) is None and (r.get("source") in pref)]
+        if owned and relay_general and len(relay_general) == len([r for r in rs if aud(r) is None]):
+            # 같은 공고를 학교 공지는 '학교 전용', 게시판은 '모든 학생'으로 읽은 경우: 좁은 쪽(학교 전용)을 믿는다
+            for r in relay_general:
+                drop.add(id(r))
+            rs = owned
+        rs = sorted(rs, key=lambda r: (aud(r) is not None, -len(aud(r) or ()), pref.get(r.get("source"), 2)))
+        kept = []
+        for r in rs:
+            if any(covers(aud(k), aud(r)) for k in kept):
+                drop.add(id(r))
+            else:
+                kept.append(r)
+    return [r for r in rows if id(r) not in drop]
 
 
 def final_dupes(rows: list[dict]) -> list[dict]:

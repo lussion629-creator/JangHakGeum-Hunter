@@ -55,7 +55,7 @@ for c in cases:
         continue
     if c["expect"] == "single":
         if len({(_core(r["title"]), r.get("end") or "") for r in hits}) < len(hits):
-            fails.append(f"사례 불일치 [한 줄] {hits[0]['title'][:60]} {len(hits)}줄 — {c.get('why', '')}")
+            fails.append(f"사례 불일치 [한 줄] {hits[0]['title'][:60]} {len(hits)}줄 " + str([(r['source'], r.get('own'), r.get('end')) for r in hits]) + f" — {c.get('why', '')}")
         continue
     if not hits:
         warns.append(f"사례 없음(지금 자료에 해당 공고 없음): {c.get('title') or c.get('title_re')}")
@@ -82,7 +82,7 @@ for v in views:
         if len(rs) > 1 and len({x["id"] for x in rs}) > 1:
             dup_total += 1
             if dup_total <= 20:
-                fails.append(f"중복({v[0] if v else '학교 미선택'}): " + " / ".join(x["title"][:40] for x in rs[:3]))
+                fails.append(f"중복({v[0] if v else '학교 미선택'}): " + " / ".join(f"{x['title'][:40]} [{x['source']} own={x.get('own')} end={x.get('end')}]" for x in rs[:3]))
 
 # 2-2) 정기 장학 목록과 한국장학재단 자료의 같은 장학
 korg = {}
