@@ -13,7 +13,7 @@ FIELDS = [
     "school_types", "grades", "majors", "region", "district", "amount", "amount_won",
     "income", "gpa", "special", "residence", "selection", "quota", "restriction", "recommend",
     "documents", "url", "apply_url", "start", "end", "posted", "summary", "images", "files",
-    "links", "verified", "target", "support_hint",
+    "links", "verified", "target", "support_hint", "next_hint",
 ]
 
 NA = {"", "해당없음", "-", "없음", "※ 기관확인필요", "기관확인필요"}

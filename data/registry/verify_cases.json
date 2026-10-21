@@ -1,0 +1,26 @@
+[
+ {
+  "title": "신세계 지식향연",
+  "expect": "general",
+  "why": "신세계그룹이 대학 재학생 누구나 지원할 수 있게 연 프로그램 (학교가 옮겨 실음)"
+ },
+ {
+  "title": "국가근로",
+  "source": "b",
+  "expect": "own",
+  "why": "학교마다 따로 뽑는 국가근로 공고는 그 학교 전용"
+ },
+ {
+  "title": "교내장학",
+  "expect": "own",
+  "why": "교내 장학은 그 학교 전용",
+  "source_re": "^(b|u\\d)$"
+ },
+ {
+  "source": "u1",
+  "title_re": "ERICA|에리카",
+  "expect": "own_campus",
+  "campus": "ERICA",
+  "why": "한양대 ERICA 공지는 ERICA 캠퍼스 전용"
+ }
+]

@@ -16,7 +16,7 @@ from datetime import date
 from pathlib import Path
 
 from .collectors import boards, catalog, gov24, hanyang, hywoman, kangwon, konkuk, kosaf, kosaf_hist, sogang
-from .merge import collapse, final_dupes, for_all, merge
+from .merge import collapse, deep_check, final_dupes, for_all, merge
 from .model import summarize_body, expected_next, now_iso, status_of, support_of
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,6 +25,7 @@ WEB_DATA = ROOT / "web" / "data"
 # 공개 자료만 모은다: 공공데이터(한국장학재단·정부24)와 로그인 없이 보이는 공개 게시판(robots.txt 를 지킴)
 COLLECTORS = [("kosaf", kosaf), ("kosaf_hist", kosaf_hist), ("hanyang", hanyang), ("hywoman", hywoman), ("kangwon", kangwon), ("sogang", sogang), ("konkuk", konkuk), ("board", boards), ("gov24", gov24), ("catalog", catalog)]
 log = logging.getLogger("refresh")
+VERIFY_LOG: list[dict] = []  # 재확인 단계에서 판정을 바꾼 내역
 
 
 def connect() -> sqlite3.Connection:
@@ -151,7 +152,7 @@ def export(con: sqlite3.Connection, summary: dict):
         r["first_seen"], r["changed_at"] = first_seen, changed_at
         r["status"] = status_of(r.get("start"), r.get("end"), today, r.get("posted", ""))
         r["support"] = support_of(r)
-        r["next"] = expected_next(r.get("start"), r.get("end"), today) if r["status"] == "마감" and r["source"].startswith(("kosaf", "hyin")) else ""
+        r["next"] = (r.get("next_hint") or expected_next(r.get("start"), r.get("end"), today)) if r["status"] == "마감" and r["source"].startswith(("kosaf", "hyin", "catalog")) else ""
         rows.append(r)
     # 게시판 본문: 메뉴·꼬리말을 걷어내고 필요한 항목만 남긴다
     for r in rows:
@@ -199,10 +200,12 @@ def export(con: sqlite3.Connection, summary: dict):
             kind = "new" if any(k == "new" for k, _ in hits) else "updated"
             r["fresh"] = {"kind": kind, "at": max(a for _, a in hits)}
     rows = for_all(rows)  # 전국 모든 학교 학생용: 특정 대학 학생만 지원할 수 있는 장학에는 학교 이름(own)을 붙인다
+    rows = deep_check(rows)  # 재확인: 학교 게시판 공고는 본문 전체를 다시 읽어 판정을 한 번 더 검증한다
+    VERIFY_LOG[:] = [{"title": r.get("title", "")[:80], "why": r.pop("_why")} for r in rows if r.get("_why")]
     for r in rows:
         r["status"] = status_of(r.get("start"), r.get("end"), today, r.get("posted", ""))
         r["support"] = support_of(r)
-        r["next"] = expected_next(r.get("start"), r.get("end"), today) if r["status"] == "마감" and r["source"].startswith(("kosaf", "hyin")) else ""
+        r["next"] = (r.get("next_hint") or expected_next(r.get("start"), r.get("end"), today)) if r["status"] == "마감" and r["source"].startswith(("kosaf", "hyin", "catalog")) else ""
     from .model import fix_entities
     for r in rows:  # '&amp;#9312;' 같은 깨진 글자 표기를 고친다
         for k, v in list(r.items()):
@@ -216,6 +219,7 @@ def export(con: sqlite3.Connection, summary: dict):
     rows = [public(r) for r in rows]
     payload = json.dumps({"generatedAt": summary["finishedAt"], "count": len(rows), "items": rows}, ensure_ascii=False, separators=(",", ":"))
     (WEB_DATA / "scholarships.json").write_text(payload)
+    (ROOT / "data" / "registry" / "verify.json").write_text(json.dumps({"changed_by_recheck": VERIFY_LOG}, ensure_ascii=False, indent=1))
     (WEB_DATA / "scholarships.json.gz").write_bytes(gzip.compress(payload.encode()))
     changes = [dict(zip(("at", "id", "kind", "title"), c)) for c in con.execute("select at,sid,kind,title from changes order by id desc limit 200")]
     meta = {k: summary[k] for k in ("finishedAt", "total", "new", "changed")}
@@ -278,6 +282,7 @@ def public(r: dict) -> dict:
         r["summary"] = key_facts(r.get("summary") or "")
     r["images"] = []
     r.pop("support_hint", None)
+    r.pop("next_hint", None)
     if src not in ("kosaf_univ", "kosaf_high", "kosaf_abroad", "kosaf_creditbank", "kosaf_hist", "gov24"):
         for k in ("summary", "documents", "target", "selection", "quota", "recommend", "special"):
             if isinstance(r.get(k), str) and r[k]:

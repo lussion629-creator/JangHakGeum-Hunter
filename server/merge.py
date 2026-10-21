@@ -792,14 +792,59 @@ def collapse(rows: list[dict]) -> list[dict]:
 # ---------------------------------------------------------------------------
 # 전국 모든 학교 학생용: 장학을 빼지 않고, 특정 대학 학생만 지원할 수 있는 장학에는 그 학교 이름(own)을 붙인다.
 # 앱은 내 정보의 학교가 own 에 없으면 기본으로 숨기고, '학교 전용' 칸에서 고르면 다시 보여 준다.
-SRC_OWN = {"hanyang": "한양대학교", "hywoman": "한양여자대학교", "kangwon": "강원대학교", "sogang": "서강대학교", "konkuk": "건국대학교"}
+SRC_OWN = {"hanyang": "한양대학교", "hywoman": "한양여자대학교", "kangwon": "강원대학교", "sogang": "서강대학교", "konkuk": "건국대학교 서울캠퍼스"}
 RELAY_EXT = re.compile(r"재단|장학회|육영회|협회|구민|시민|군민|도민|공사|공단|진흥원|은행|그룹|교육청|시청|군청|구청|도청|\[교외|교외\]|\[외부|외부\s*장학")
 _INTERNAL = ("_univ_only", "_hy", "_relay_ok", "_relay_school", "_relay_schools", "_relay_text", "_srcs", "_st_all", "_alltext", "_textby")
 
 
+CAMPUS_ALIAS = {"에리카": "ERICA", "안산": "ERICA", "erica": "ERICA", "충주": "글로컬", "GLOCAL": "글로컬", "glocal": "글로컬", "경주": "WISE", "wise": "WISE",
+                "관악": "", "신촌": "서울", "안암": "서울", "인문사회과학": "인문사회", "인사": "인문사회"}
+
+
 def _school_name(n: str) -> str:
-    n = re.sub(r"\s.*$", "", (n or "").strip())
-    return n if re.search(r"대학교?$|대학원$|과학기술원$|사관학교$|대학원대학교$", n) else ""
+    """'고려대학교 세종' · '한양대학교 ERICA캠퍼스' · '가천대학교(인천 메디컬캠퍼스)' → '고려대학교 세종캠퍼스' 처럼 캠퍼스까지.
+    여러 캠퍼스를 함께 다루는 게시판('경희대학교 서울/국제')이나 캠퍼스가 없으면 학교 이름만."""
+    n = re.sub(r"\(구\s[^)]*\)", "", (n or "").strip())
+    m = re.match(r"^(.+?(?:대학교|대학원대학교|대학원|대학|과학기술원|사관학교))(.*)$", n)
+    if not m:
+        return ""
+    base, rest = m.group(1).replace(" ", ""), m.group(2)
+    if not re.search(r"대학교?$|대학원$|과학기술원$|사관학교$|대학원대학교$", base):
+        return ""
+    rest = re.sub(r"[()]|캠퍼스|본교|분교|\s+", " ", rest).strip()
+    if not rest or "/" in rest or "," in rest or re.search(r"장학|공지|게시판", rest):
+        return base
+    tok = rest.split()[-1]
+    tok = CAMPUS_ALIAS.get(tok, CAMPUS_ALIAS.get(tok.lower(), tok))
+    return f"{base} {tok}캠퍼스" if tok else base
+
+
+_KNOWN: set[str] = set()
+SCHOOL_RENAMED = {"안동대학교": "국립경국대학교", "국립안동대학교": "국립경국대학교", "한국교통대학교": "국립한국교통대학교"}
+
+
+def known_schools() -> set[str]:
+    """앱의 학교 목록(web/index.html 의 UNIVS·UNIV_PORTALS·EXTRA_SCHOOLS)에 있는 학교 이름 ('국립'은 떼고 비교)."""
+    if not _KNOWN:
+        import json
+        from pathlib import Path
+        idx = (Path(__file__).resolve().parents[1] / "web" / "index.html").read_text()
+        for pat in (r"const UNIVS=(\[.*?\]);", r"const UNIV_PORTALS=(\[.*?\]);", r"const EXTRA_SCHOOLS=(\[.*?\]);"):
+            m = re.search(pat, idx, re.S)
+            if m:
+                for x in json.loads(m.group(1)):
+                    _KNOWN.add(re.sub(r"^국립|\s.*$|\(.*$", "", x[0] if isinstance(x, list) else x))
+    return _KNOWN
+
+
+def real_schools(names) -> list[str]:
+    out = []
+    for n in names:
+        for one in re.findall(r"[가-힣]+?(?:대학원대학교|교육대학교|과학기술원|대학교)", n):
+            one = SCHOOL_RENAMED.get(one, one)
+            if re.sub(r"^국립", "", one) in known_schools() and one not in out:
+                out.append(one)
+    return out
 
 
 def for_all(rows: list[dict]) -> list[dict]:
@@ -813,22 +858,23 @@ def for_all(rows: list[dict]) -> list[dict]:
         relays = [x for x in (_school_name(n) for n in (t.get("_relay_schools") or [t.get("_relay_school")])) if x]
         for k in _INTERNAL:
             t.pop(k, None)
+        t["_srcs2"], t["_relays2"] = sorted(srcs), relays  # 재확인(deep_check)에서 쓰고 지운다
         if t.get("level") == "고등학생":
             t["for"] = ["hs"]
             if teen.search(" ".join(str(t.get(k) or "") for k in ("title", "target", "special", "summary"))[:3000]):
                 t["mid"] = True
             out.append(t)
             continue
-        if re.search(r"외국인\s*(유학생|학생|장학생)", title + " " + (t.get("target") or "")[:200]):
+        if re.search(r"외국인\s*(유학생|학생|장학생|장학금)|외국인유학생|우수\s*외국인|International\s*Student", title + " " + (t.get("target") or "")[:200], re.I):
             continue  # 외국인 유학생 전용
         if t.get("level") == "해외유학" and ABROAD_NO.search(title + " " + (t.get("target") or "")):
             continue
         t["for"] = ["all"]
         pos = " ".join(str(t.get(k) or "") for k in ("target", "special", "title"))
-        named = sorted({n for n in OTHER_UNIV.findall(pos) if not GENERIC_UNIV.match(n)})
+        named = real_schools(n for n in OTHER_UNIV.findall(pos) if not GENERIC_UNIV.match(n))
         open_ = bool(OPEN.search(text) or OPEN.search(pos))
         own: list[str] = []
-        school_src = [SRC_OWN[s] for s in srcs if s in SRC_OWN]
+        school_src = [(_school_name(t.get("org") or "") if (t.get("org") or "").startswith(SRC_OWN[s][:4]) else "") or SRC_OWN[s] for s in srcs if s in SRC_OWN]
         board_only = srcs <= {"board", "legacy"} | set(SRC_OWN)
         if named and not open_:
             own = named  # 공고에 대상 대학 이름이 적힌 장학
@@ -864,7 +910,61 @@ def _core(t: str) -> str:
     return _CORE_DROP.sub("", t or "")
 
 
+def _latest_only(rows: list[dict]) -> list[dict]:
+    """같은 대상(학교 전용이면 그 학교, 아니면 모두)에게 보이는 같은 장학이 여러 줄이면 가장 최근 회차 하나만 남긴다."""
+    def when(r):
+        return max(r.get("end") or "", r.get("start") or "", r.get("posted") or "")
+    groups: dict[tuple, list] = {}
+    for r in rows:
+        c = _core(r.get("title"))
+        if len(c) < 4 or r.get("level") == "고등학생":
+            continue
+        who = tuple(sorted({re.sub(r"^국립|\s.*$", "", o) for o in (r.get("own") or [])}))  # 같은 학교의 캠퍼스 표기 차이는 같은 대상으로 본다
+        groups.setdefault((who, c), []).append(r)
+    drop = set()
+    for (who, c), rs in groups.items():
+        if len(rs) < 2:
+            continue
+        rs = sorted(rs, key=lambda r: (when(r), max((len(o) for o in r.get("own") or [""]), default=0)), reverse=True)
+        keep = rs[0]
+        for x in rs[1:]:
+            if x.get("end") and keep.get("end") and x["end"] != keep["end"] and x["end"] >= date_today():
+                continue  # 아직 열려 있는 다른 회차(예: 1차·2차 동시 모집)는 남긴다
+            drop.add(id(x))
+    # 날짜 없이 남은 오래된 학교 공지(제목의 연도가 2년 이상 지난 것)는 뺀다 — 한국장학재단 자료는 '내년 예상'에 쓰므로 그대로 둔다
+    this = int(date_today()[:4])
+    for r in rows:
+        if (r.get("source") or "").startswith("kosaf") or r.get("source") == "catalog" or (r.get("end") or "") >= date_today():
+            continue
+        ys = [int(y) for y in re.findall(r"(20\d\d)\s*(?:학년도|년도|년|-|\.|학기)", r.get("title") or "")]
+        if ys and max(ys) <= this - 2 and not r.get("end", "")[:4] >= str(this - 1):
+            drop.add(id(r))
+    return [r for r in rows if id(r) not in drop]
+
+
+def date_today() -> str:
+    from datetime import date
+    return date.today().isoformat()
+
+
+def _orgn(o: str) -> str:
+    return re.sub(r"\(.*?\)|재단법인|사단법인|\(재\)|\(사\)|[^0-9A-Za-z가-힣]", "", o or "")
+
+
+def catalog_dup(r: dict, korg: dict) -> bool:
+    """정기 장학 목록의 장학이 같은 운영기관의 한국장학재단 장학과 같은지: 이름에서 운영기관을 빼면 남는 게 없거나,
+    남은 말이 한국장학재단 장학 이름에 들어 있으면 같은 장학으로 본다."""
+    o = _orgn(r.get("org"))
+    if not o or o not in korg:
+        return False
+    rest = _core(r.get("title")).replace(_core(r.get("org")), "").replace(o, "")
+    if len(rest) < 2:
+        return True
+    return any(rest in k or k.replace(o, "") in rest for k in korg[o] if k.replace(o, ""))
+
+
 def final_dupes(rows: list[dict]) -> list[dict]:
+    rows = _latest_only(rows)
     canon = {}
     for r in rows:
         if r.get("source", "").startswith("kosaf") or r.get("source") == "catalog":
@@ -872,6 +972,10 @@ def final_dupes(rows: list[dict]) -> list[dict]:
             if len(c) >= 4:
                 canon.setdefault(c, r)
     kcore = {_core(r.get("title")) for r in rows if (r.get("source") or "").startswith("kosaf")}
+    korg: dict[str, list[str]] = {}
+    for r in rows:
+        if (r.get("source") or "").startswith("kosaf"):
+            korg.setdefault(_orgn(r.get("org")), []).append(_core(r.get("title")))
     seen: dict[tuple, dict] = {}
     out = []
     for r in rows:
@@ -880,6 +984,8 @@ def final_dupes(rows: list[dict]) -> list[dict]:
         c = _core(r.get("title"))
         if src == "catalog" and len(c) >= 4 and c in kcore:
             continue  # 한국장학재단 자료에 같은 장학이 있다
+        if src == "catalog" and catalog_dup(r, korg):
+            continue  # 같은 운영기관의 같은 장학이 한국장학재단 자료에 있다 (실제 모집 기간이 있는 쪽을 남긴다)
         if relay and not r.get("own") and len(c) >= 4 and c in canon and canon[c] is not r:
             continue  # 한국장학재단·정기 장학 목록에 같은 장학이 있다
         if relay and not r.get("own") and len(c) >= 4 and r.get("end"):
@@ -893,3 +999,39 @@ def final_dupes(rows: list[dict]) -> list[dict]:
             seen[k] = r
         out.append(r)
     return out
+
+
+# ---------------------------------------------------------------------------
+# 재확인(심층): 위 판정이 끝난 뒤, 학교 게시판에서 온 공고는 본문 전체를 다시 읽어 판정을 한 번 더 검증한다.
+#  - '모든 학생' 으로 둔 공고에 '본교 재학생', '학과장 추천' 같은 제한이 있으면 → 그 학교 전용으로 바꾼다
+#  - '학교 전용' 으로 둔 공고에 '대학 재학생이라면 누구나', '전국 대학생' 같은 개방 근거가 있으면 → 모든 학생으로 바꾼다
+# 바꾼 내역은 r["_why"] 에 남겨 검증 보고서(data/registry/verify.json)에 적는다.
+RESTRICT = re.compile(r"본교\s*(재학생|학생|소속)|우리\s*대학(교)?\s*(재학생|학생)|당\s*대학(교)?\s*(재학생|학생)|본\s*대학(교)?\s*(재학생|학생)"
+                      r"|학과장\s*추천|지도\s*교수\s*추천|소속\s*(학과|학부|단과대)\s*(장|추천)|학과\s*사무실(로|에)\s*(제출|접수)|교내\s*(선발|심사|추천)")
+OPEN_DEEP = re.compile(r"대학\s*재학생(이)?(라면|이면)\s*누구나|누구나\s*(지원|신청)\s*(가능|할\s*수)|전국\s*(의\s*)?(4년제\s*|2,?3년제\s*)?대학(교)?\s*(재학생|학생|생)"
+                       r"|대학\s*(제한|구분)\s*(없|무관)|소속\s*대학\s*(제한\s*)?무관|모든\s*대학(교)?\s*(재학생|학생)")
+
+
+def deep_check(rows: list[dict]) -> list[dict]:
+    for r in rows:
+        srcs = set(r.get("_srcs2") or [r.get("source")])
+        if not srcs <= {"board", "legacy"} | set(SRC_OWN) or r.get("level") == "고등학생":
+            continue
+        text = " ".join(str(r.get(k) or "") for k in ("title", "target", "special", "restriction", "recommend", "selection", "summary"))
+        if r.get("own"):
+            if OPEN_DEEP.search(text) and not RESTRICT.search(text) and not OWN.search(r.get("title") or ""):
+                r["_why"] = "학교 전용 → 모든 학생 (" + OPEN_DEEP.search(text).group(0)[:30] + ")"
+                r.pop("own", None)
+        else:
+            m = RESTRICT.search(text)
+            if m and not OPEN_DEEP.search(text):
+                school = next((x for x in (r.get("_relays2") or []) if x), "")
+                if not school:
+                    school = next((v for k, v in SRC_OWN.items() if k in srcs), "")
+                if school:
+                    r["own"] = [school]
+                    r["_why"] = "모든 학생 → " + school + " 전용 (" + m.group(0)[:30] + ")"
+    for r in rows:
+        r.pop("_srcs2", None)
+        r.pop("_relays2", None)
+    return rows
