@@ -871,12 +871,15 @@ def final_dupes(rows: list[dict]) -> list[dict]:
             c = _core(r.get("title"))
             if len(c) >= 4:
                 canon.setdefault(c, r)
+    kcore = {_core(r.get("title")) for r in rows if (r.get("source") or "").startswith("kosaf")}
     seen: dict[tuple, dict] = {}
     out = []
     for r in rows:
         src = r.get("source") or ""
         relay = src == "board" or src in SRC_OWN
         c = _core(r.get("title"))
+        if src == "catalog" and len(c) >= 4 and c in kcore:
+            continue  # 한국장학재단 자료에 같은 장학이 있다
         if relay and not r.get("own") and len(c) >= 4 and c in canon and canon[c] is not r:
             continue  # 한국장학재단·정기 장학 목록에 같은 장학이 있다
         if relay and not r.get("own") and len(c) >= 4 and r.get("end"):
