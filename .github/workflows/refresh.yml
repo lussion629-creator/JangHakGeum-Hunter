@@ -59,6 +59,12 @@ jobs:
           key: work-${{ github.run_id }}
       - name: 자료 재확인 (분류·중복·제한 문구 검증, 실패하면 커밋·배포 안 함)
         run: python scripts/verify_data.py
+      - name: 재확인 결과 올리기 (재확인이 실패했을 때만, 원인 확인용)
+        if: failure()
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          mkdir -p /tmp/vr && cp data/registry/verify.json /tmp/vr/ && cd /tmp/vr && git init -q && git checkout -q -b verify-report && git add . \
+            && git -c user.name=bot -c user.email=bot@x commit -qm "재확인 실패 보고" && git push -f -q "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" verify-report
       - name: 수집 후 보안 점검 (실패하면 커밋·배포 안 함)
         env: { PII_DENYLIST: "${{ secrets.PII_DENYLIST }}" }
         run: python scripts/security_check.py
