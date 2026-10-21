@@ -22,5 +22,40 @@
   "expect": "own_campus",
   "campus": "ERICA",
   "why": "한양대 ERICA 공지는 ERICA 캠퍼스 전용"
+ },
+ {
+  "source_re": "^u1$",
+  "title": "장학",
+  "expect": "any",
+  "min_count": 5,
+  "why": "한양대 공지 수집이 0건이 되면 안 된다 (2026-10-21 수집 실패를 놓친 일)"
+ },
+ {
+  "source_re": "^u2$",
+  "title": "",
+  "expect": "any",
+  "min_count": 5,
+  "why": "학교 공지 수집기가 비면 알린다"
+ },
+ {
+  "source_re": "^u3$",
+  "title": "",
+  "expect": "any",
+  "min_count": 5,
+  "why": "학교 공지 수집기가 비면 알린다"
+ },
+ {
+  "source_re": "^u4$",
+  "title": "",
+  "expect": "any",
+  "min_count": 5,
+  "why": "학교 공지 수집기가 비면 알린다"
+ },
+ {
+  "source_re": "^u5$",
+  "title": "",
+  "expect": "any",
+  "min_count": 5,
+  "why": "학교 공지 수집기가 비면 알린다"
  }
 ]

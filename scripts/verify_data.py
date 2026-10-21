@@ -48,6 +48,11 @@ def visible(r, school):
 for c in cases:
     hits = [r for r in rows if (c.get("title") is None or c["title"] in r["title"]) and (c.get("title_re") is None or re.search(c["title_re"], r["title"] + " " + (r.get("org") or "")))
             and (c.get("source") is None or r["source"] == c["source"]) and (c.get("source_re") is None or re.search(c["source_re"], r["source"]))]
+    if c.get("min_count") and len(hits) < c["min_count"]:
+        warns.append(f"수집 건수 부족(배포는 계속, 확인 필요): {c.get('source_re')} {len(hits)}건 (최소 {c['min_count']}) — {c.get('why', '')}")
+        continue
+    if c["expect"] == "any":
+        continue
     if not hits:
         warns.append(f"사례 없음(지금 자료에 해당 공고 없음): {c.get('title') or c.get('title_re')}")
         continue

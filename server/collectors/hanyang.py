@@ -59,7 +59,13 @@ def fetch(pages=8, cat=CAT_SCH):
     from bs4 import BeautifulSoup
     rows = []
     for page in range(1, pages + 1):
-        html = requests.get(LIST.format(p=PID, page=page, cat=cat), timeout=20, headers={"User-Agent": "Mozilla/5.0"}).text
+        try:
+            from .boards import get as bget
+            html = bget(LIST.format(p=PID, page=page, cat=cat), timeout=25).text
+        except Exception:  # noqa: BLE001
+            if rows:
+                break  # 앞 페이지까지 읽은 것은 쓴다 (한 페이지가 늦다고 전부 버리지 않는다)
+            raise
         soup = BeautifulSoup(html, "html.parser")
         items = soup.select(".hyu-list-body-item")
         if not items:
@@ -74,8 +80,13 @@ def fetch(pages=8, cat=CAT_SCH):
             dt = it.select_one(".date")
             rows.append({"id": m.group(1) if m else a.get_text(strip=True), "title": a.get_text(strip=True),
                          "campus": badges[0] if badges else "", "dept": spans[0] if spans else "",
-                         "date": norm_date(dt.get_text() if dt else ""), "cat": cat})
+                         "date": _date_of(dt.get_text(" ", strip=True) if dt else it.get_text(" ", strip=True)), "cat": cat})
     return rows
+
+
+def _date_of(text: str) -> str:
+    m = re.search(r"(20\d\d)\s*[.\-/]\s*(\d{1,2})\s*[.\-/]\s*(\d{1,2})", text or "")
+    return norm_date(f"{m.group(1)}-{int(m.group(2)):02d}-{int(m.group(3)):02d}") if m else ""
 
 
 def _due(title: str, posted: str) -> str:
