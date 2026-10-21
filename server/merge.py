@@ -963,8 +963,27 @@ def catalog_dup(r: dict, korg: dict) -> bool:
     return any(rest in k or k.replace(o, "") in rest for k in korg[o] if k.replace(o, ""))
 
 
+def _same_view_once(rows: list[dict]) -> list[dict]:
+    """재확인(scripts/verify_data.py)과 같은 기준: 같은 학생에게 보이는 (같은 학교, 같은 장학 이름, 같은 마감일) 공고는 하나만.
+    학교가 직접 올린 공지 > 대학 게시판 순으로 남긴다."""
+    pref = {"hanyang": 0, "hywoman": 0, "kangwon": 0, "sogang": 0, "konkuk": 0, "board": 1}
+    seen: dict[tuple, dict] = {}
+    out = []
+    for r in sorted(rows, key=lambda r: pref.get(r.get("source"), 2)):
+        c = _core(r.get("title"))
+        if len(c) >= 4 and r.get("level") != "고등학생":
+            who = tuple(sorted({re.sub(r"^국립|\s.*$", "", o) for o in (r.get("own") or [])}))
+            k = (who, c, r.get("end") or "")
+            if k in seen:
+                continue
+            seen[k] = r
+        out.append(r)
+    order = {id(r): i for i, r in enumerate(rows)}
+    return sorted(out, key=lambda r: order[id(r)])
+
+
 def final_dupes(rows: list[dict]) -> list[dict]:
-    rows = _latest_only(rows)
+    rows = _same_view_once(_latest_only(rows))
     canon = {}
     for r in rows:
         if r.get("source", "").startswith("kosaf") or r.get("source") == "catalog":

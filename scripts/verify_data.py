@@ -53,6 +53,10 @@ for c in cases:
         continue
     if c["expect"] == "any":
         continue
+    if c["expect"] == "single":
+        if len({(_core(r["title"]), r.get("end") or "") for r in hits}) < len(hits):
+            fails.append(f"사례 불일치 [한 줄] {hits[0]['title'][:60]} {len(hits)}줄 — {c.get('why', '')}")
+        continue
     if not hits:
         warns.append(f"사례 없음(지금 자료에 해당 공고 없음): {c.get('title') or c.get('title_re')}")
         continue
