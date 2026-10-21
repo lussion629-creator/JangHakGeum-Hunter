@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-21T05:52:46+00:00",
- "finishedAt": "2026-10-21T06:21:40+00:00",
+ "startedAt": "2026-10-21T06:22:41+00:00",
+ "finishedAt": "2026-10-21T06:58:53+00:00",
  "online": true,
- "total": 4419,
- "new": 2,
- "changed": 427,
+ "total": 4595,
+ "new": 178,
+ "changed": 4417,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -79,10 +79,10 @@
   },
   {
    "source": "board",
-   "label": "대학·재단·지자체 게시판 250곳",
+   "label": "대학·재단·지자체 게시판 366곳",
    "ok": true,
-   "count": 1110,
-   "mode": "성공 229 / 실패 21"
+   "count": 1126,
+   "mode": "성공 333 / 실패 33"
   },
   {
    "source": "gov24",
@@ -90,11 +90,18 @@
    "ok": false,
    "count": 0,
    "mode": "키 미설정"
+  },
+  {
+   "source": "catalog",
+   "label": "정기 장학 목록 164건",
+   "ok": true,
+   "count": 164,
+   "mode": "registry"
   }
  ],
  "registry": {
-  "total": 573,
-  "enabled": 250,
+  "total": 689,
+  "enabled": 366,
   "sources": [
    {
     "name": "한양대학교 서울캠퍼스",
@@ -723,7 +730,7 @@
     "url": "https://www.hoseo.ac.kr/Home/BBSList.mbz?action=MAPP_1708240139&schCategorycode=CTG_17082400011",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -5434,7 +5441,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 2
+    "count": 3
    },
    {
     "name": "동양미래대학교",
@@ -5825,6 +5832,1166 @@
     "verified": false,
     "ok": true,
     "count": 9
+   },
+   {
+    "name": "인슐레이션코리아 드림재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.ikdream.kr/news",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "JH사랑나눔재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.jhnanum.org/sub/6_1.php",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "안중근의사숭모회",
+    "type": "private",
+    "region": "",
+    "url": "https://www.patriot.or.kr/index.html",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "대선공익재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.c1welfarefoundation.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "지구촌교회 장학사역팀",
+    "type": "private",
+    "region": "",
+    "url": "https://www.jiguchon.or.kr/contents.php?gr=6&page=7",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "성혜장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://shscholar.com/xe/main",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "백영장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://baekyoungfoundation.org/niabbs5/index.php",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "서담장학연구재단",
+    "type": "private",
+    "region": "",
+    "url": "https://seodam.org/index.html",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "청양문화장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.cheongyangf.or.kr/board/list?bd_id=apply01",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 1
+   },
+   {
+    "name": "한국세무사회공익재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.kacptaf.or.kr/?index",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "hy사회복지재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.ybz.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "해동과학문화재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.haedong-foundation.org/index.php",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "한국아동청소년그룹홈협의회",
+    "type": "private",
+    "region": "",
+    "url": "https://www.grouphome.kr/pages/page_88.php",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 2
+   },
+   {
+    "name": "옥한흠장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://scholarship.sarang.org/qna/qna.asp",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "선재교육문화장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://xn--9d0b39hn2h0kgvlixwakbe2262axbc.org/main/main.html",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "설봉장학회",
+    "type": "private",
+    "region": "",
+    "url": "http://seolbong.kr/sub/sub04_02.php",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "백산장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.baeksan.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "성모박기주장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.pkj.or.kr/index.php",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "동양이엔피장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.dyenp.com/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "윤영문화재단",
+    "type": "private",
+    "region": "",
+    "url": "https://yoonyoung.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "앤코이교육재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.ncoi.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "KEC과학교육재단",
+    "type": "private",
+    "region": "",
+    "url": "https://ksec.kec.co.kr/notice/notice.asp",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "금신장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.keumsin.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "MG새마을금고 지역희망나눔재단",
+    "type": "private",
+    "region": "",
+    "url": "https://kfccf.or.kr/activity/notice.jsp",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "JW이종호재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.jw-foundation.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "인송문화재단",
+    "type": "private",
+    "region": "",
+    "url": "https://insong.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "한원장학회",
+    "type": "private",
+    "region": "",
+    "url": "http://www.xn--sp5b8o224aja73m.com/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "지원장학회",
+    "type": "private",
+    "region": "",
+    "url": "http://xn--sp5b8op4cnyv4nb.com/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "종하장학회",
+    "type": "private",
+    "region": "",
+    "url": "http://www.jongha.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "부남장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://bunam.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "재단법인 보건장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://www.kr-hff.or.kr/kor/foundation-news/notice.html",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 2
+   },
+   {
+    "name": "용복장학회 희망장학금",
+    "type": "private",
+    "region": "",
+    "url": "http://www.yongpok.org/ver01/busi/cont0102.html",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "사단법인 점프",
+    "type": "private",
+    "region": "",
+    "url": "https://onmentoring.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "모두의 멘토링",
+    "type": "private",
+    "region": "",
+    "url": "https://modu-mentoring.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "KT그룹 희망나눔재단",
+    "type": "private",
+    "region": "",
+    "url": "https://ktgf.or.kr/news/notice.php",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "더가꿈",
+    "type": "private",
+    "region": "",
+    "url": "https://www.gaggoom.net/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "행복나무플러스",
+    "type": "private",
+    "region": "",
+    "url": "http://www.hbnamu.org/index.php",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "더라이트핸즈",
+    "type": "private",
+    "region": "",
+    "url": "https://www.therighthands.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "한국여학사협회",
+    "type": "private",
+    "region": "",
+    "url": "http://www.kauw.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "대한한돈협회",
+    "type": "private",
+    "region": "",
+    "url": "https://koreapork.or.kr/branch/statslist?Ncode=gongmun",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "한국언론학회",
+    "type": "private",
+    "region": "",
+    "url": "https://comm.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "엔지니어링인재육성재단",
+    "type": "private",
+    "region": "",
+    "url": "https://egifoundation.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "원장재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.wonjangfoundation.org/kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "국회기후변화포럼",
+    "type": "private",
+    "region": "",
+    "url": "https://www.climateforum.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "신용회복위원회",
+    "type": "private",
+    "region": "",
+    "url": "https://www.ccrs.or.kr/cms/com/index.do?MENU_ID=840",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "한국노총장학문화재단",
+    "type": "private",
+    "region": "",
+    "url": "http://inochong.org/notice",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "석성장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://seoksung.co.kr/index.html",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "인탑스평산장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://idream.imweb.me/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "미래국제재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.mif2005.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "신한장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.shsf.or.kr/business/scholarType2",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "KB인재양성",
+    "type": "private",
+    "region": "",
+    "url": "https://www.dream2030.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "대산신용호기념사업회 대산보험장학사업",
+    "type": "private",
+    "region": "",
+    "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "가송재단 장학 사업",
+    "type": "private",
+    "region": "",
+    "url": "https://www.dong-wha.co.kr/company/gasong.asp",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "DB김준기문화재단 드림마스터",
+    "type": "private",
+    "region": "",
+    "url": "https://www.dbfoundation.or.kr/business/domestic/dreamMaster",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "한국산업기술진흥원",
+    "type": "private",
+    "region": "",
+    "url": "https://kiat.or.kr/front/board/boardContentsListPage.do?board_id=90&MenuId=b159c9dac684471b87256f1e25404f5e",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "대은강완석장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://daeeunsf.org/index.php",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "아산사회복지재단",
+    "type": "private",
+    "region": "",
+    "url": "https://welfare.asanfoundation.or.kr/welfare/main.do",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "굿패밀리복지재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.goodfamily.or.kr/bbs/board.php?bo_table=notice",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "류호산장학회",
+    "type": "private",
+    "region": "",
+    "url": "http://www.rhs.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "티앤씨재단 장학생 모집",
+    "type": "private",
+    "region": "",
+    "url": "https://tncfoundation.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "보건장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://kr-hff.or.kr/kor/foundation-news/notice.html",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 2
+   },
+   {
+    "name": "반석나라 장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://banseoknara.co.kr/home",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "혜안재단",
+    "type": "private",
+    "region": "",
+    "url": "https://hyeanfd.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "목암과학장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.mogamfoundation.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "미래의동반자재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.partners-korea.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "CHUBB 이노베이션 펀드",
+    "type": "private",
+    "region": "",
+    "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=25285",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "현송교육문화재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.hyunsong.kr/ko",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "신양문화재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.sinyang.org/default/customer/cust06.php?sub=06",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "양영재단",
+    "type": "private",
+    "region": "",
+    "url": "https://samyang.yangyoungfoundation.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "인춘재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.inchoon.org/front/index.jsp",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "정수장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://www.chungsoo.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "혜림장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://hlvision.or.kr/index.php",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "에스엘서봉재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.slworld.com/esg/social_foundation_03.php",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "미래인재육성재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.sffl.or.kr/main/index.html",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "성보장학회",
+    "type": "private",
+    "region": "",
+    "url": "http://sungbossf.kr/index.php",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "형남진장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.hyungsf.or.kr/main/index.asp",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "한국지도자육성장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.kosffl.or.kr/?home",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "청한장학회",
+    "type": "private",
+    "region": "",
+    "url": "http://cheonghan.or.kr/sub/sub04_01.php",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "복성장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://boksungsf.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "우아한 사장님 자녀 장학금",
+    "type": "private",
+    "region": "",
+    "url": "https://woowa.janghak.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "계룡장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://krfoundation.krcon.co.kr/sf/sfwabout/about/main.dev",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "춘곡장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://choongok.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "유당장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://wwww.yudang.or.kr/?page_id=3773",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "수협재단 장학금",
+    "type": "private",
+    "region": "",
+    "url": "https://www.fecwf.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "한국사회복지관협회",
+    "type": "private",
+    "region": "",
+    "url": "https://kaswc.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "사단법인 유쾌한반란 바로가기",
+    "type": "private",
+    "region": "",
+    "url": "https://www.queran.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "최경주재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.kjchoifoundation.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 1
+   },
+   {
+    "name": "하이트진로홀딩스 공식 홍페이지 바로가기]",
+    "type": "private",
+    "region": "",
+    "url": "https://www.hitejinroholdings.com/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "문숙과학지원재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.moonsook.co.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "송원김영환장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.songwon.or.kr/pc/news/notice",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "청로장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.cheongro.org/main.php",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "인석장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://inseok.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "만우 조홍제 스칼러십",
+    "type": "private",
+    "region": "",
+    "url": "https://mwscholarship.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "에몬스 장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://www.emons.co.kr/company/notice/notice_list.php",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "우인장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.wooin.org/v2/view/news/noticeList.php",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "삼원장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://samwonsf.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "선암장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.sunam.or.kr",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "호반장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.hobansf.or.kr/kr/news/notice/list",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "IBK행복나눔재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.ibkfoundation.or.kr/boarddata/catalog?board_seq=1&mn=15",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 1
+   },
+   {
+    "name": "STX장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.stxfoundation.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 1
+   },
+   {
+    "name": "우덕윤덕병재단",
+    "type": "private",
+    "region": "",
+    "url": "https://wooduk-foundation.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "안중근바보장학회",
+    "type": "private",
+    "region": "",
+    "url": "https://www.ahnbabo.co.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "수림재단",
+    "type": "private",
+    "region": "",
+    "url": "https://surim.or.kr/kr",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "선재학술장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://sjfoundation.or.kr/home",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "창암장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.changam.or.kr/?act=board&bbs_code=notice",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "일주학술문화재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.iljufoundation.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "일운과학기술재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.ilun.or.kr/korean/notice/list.asp",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 1
+   },
+   {
+    "name": "운해장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://woonhaefoundation.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "우덕장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.udeokfoundation.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "용운장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.yongwoon.co.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "서암윤세영재단",
+    "type": "private",
+    "region": "",
+    "url": "https://seoam.foundation.sbs.co.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "협성문화재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.hscf.co.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "OK배정장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.okscholarship.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 1
+   },
+   {
+    "name": "KT&G장학재단",
+    "type": "private",
+    "region": "",
+    "url": "https://scholarship.ktngtogether.com/bbsctt/list.do?key=2309040011",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 2
+   },
+   {
+    "name": "현대차정몽구재단",
+    "type": "private",
+    "region": "",
+    "url": "https://www.hyundai-cmkfoundation.org/usr/board/notice/list",
+    "enabled": true,
+    "verified": true,
+    "ok": true,
+    "count": 0
+   },
+   {
+    "name": "KC미래장학재단",
+    "type": "private",
+    "region": "",
+    "url": "http://www.kcffd.org/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 0
    }
   ]
  }
