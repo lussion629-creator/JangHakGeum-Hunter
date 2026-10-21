@@ -1,0 +1,2285 @@
+[
+ {
+  "name": "인슐레이션코리아 드림재단 장학금",
+  "org": "인슐레이션코리아 드림재단",
+  "url": "https://www.ikdream.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생",
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "JH사랑나눔재단 TCK 장학금",
+  "org": "JH사랑나눔재단",
+  "url": "http://www.jhnanum.org/index.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "해외"
+  ]
+ },
+ {
+  "name": "안중근의사숭모회 안중근장학금",
+  "org": "안중근의사숭모회",
+  "url": "https://www.patriot.or.kr/index.html",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "대선공익재단 대선장학금",
+  "org": "대선공익재단",
+  "url": "https://www.c1welfarefoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "부산",
+  "tags": [
+   "사회복지 전공"
+  ]
+ },
+ {
+  "name": "우리다문화장학재단 특기장학",
+  "org": "우리다문화장학재단",
+  "url": "https://www.woorifoundation.or.kr/html/news/bbslist_?db=notice",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "다문화",
+   "이공계",
+   "예체능"
+  ]
+ },
+ {
+  "name": "우리다문화장학재단 장학금",
+  "org": "우리다문화장학재단",
+  "url": "https://www.woorifoundation.or.kr/html/news/bbslist_?db=notice",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": [
+   "다문화"
+  ]
+ },
+ {
+  "name": "지구촌교회 장학금",
+  "org": "지구촌교회 장학사역팀",
+  "url": "https://www.jiguchon.or.kr/contents.php?gr=6&page=7",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "기독교"
+  ]
+ },
+ {
+  "name": "성혜장학회 장학금",
+  "org": "성혜장학회",
+  "url": "https://shscholar.com/xe/main",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생",
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "백영장학재단 장학금",
+  "org": "백영장학재단",
+  "url": "http://baekyoungfoundation.org/niabbs5/index.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생",
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "서담장학연구재단 장학금",
+  "org": "서담장학연구재단",
+  "url": "https://seodam.org/index.html",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "청양문화장학재단 장학금",
+  "org": "청양문화장학재단",
+  "url": "http://www.cheongyangf.or.kr/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생",
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "한국세무사회공익재단 장학금",
+  "org": "한국세무사회공익재단",
+  "url": "http://www.kacptaf.or.kr/?index",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "hy사회복지재단 든든 학업지원금",
+  "org": "hy사회복지재단",
+  "url": "https://www.ybz.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득",
+   "사회복지 전공"
+  ]
+ },
+ {
+  "name": "해동과학문화재단 장학금",
+  "org": "해동과학문화재단",
+  "url": "http://www.haedong-foundation.org/index.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "한국아동청소년그룹홈협의회",
+  "org": "한국아동청소년그룹홈협의회",
+  "url": "https://www.grouphome.kr/pages/page_1.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "자립준비청년"
+  ]
+ },
+ {
+  "name": "옥한흠 장학회 장학금",
+  "org": "옥한흠장학회",
+  "url": "https://scholarship.sarang.org/qna/qna.asp",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "선재교육문화장학재단 장학금",
+  "org": "선재교육문화장학재단",
+  "url": "http://xn--9d0b39hn2h0kgvlixwakbe2262axbc.org/main/main.html",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "설봉장학회 장학금",
+  "org": "설봉장학회",
+  "url": "http://seolbong.kr/index.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "강원",
+  "tags": []
+ },
+ {
+  "name": "백산장학재단 장학금",
+  "org": "백산장학재단",
+  "url": "http://www.baeksan.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생",
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "성모박기주장학재단 장학금",
+  "org": "성모박기주장학재단",
+  "url": "http://www.pkj.or.kr/index.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생",
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "몽은장학재단 장학금",
+  "org": "몽은장학재단법인",
+  "url": "https://cafe.naver.com/mongeun",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "동양이엔피장학재단 장학금",
+  "org": "동양이엔피장학재단",
+  "url": "http://www.dyenp.com/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득",
+   "이공계"
+  ]
+ },
+ {
+  "name": "윤영문화재단 장학금",
+  "org": "윤영문화재단",
+  "url": "https://yoonyoung.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "앤코이교육재단 NOBLE희망 장학금",
+  "org": "앤코이교육재단",
+  "url": "https://www.ncoi.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "KEC과학교육재단 산학장학생",
+  "org": "KEC과학교육재단",
+  "url": "https://ksec.kec.co.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "금신사랑장학금",
+  "org": "금신장학재단",
+  "url": "https://www.keumsin.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "경기",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "MG새마을금고 청년누리 장학금",
+  "org": "MG새마을금고 지역희망나눔재단",
+  "url": "https://kfccf.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "JW이종호재단 주거장학사업",
+  "org": "JW이종호재단",
+  "url": "https://www.jw-foundation.or.kr/",
+  "support": [
+   "living",
+   "dorm"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "저소득",
+   "이공계"
+  ]
+ },
+ {
+  "name": "인송문화재단 장학금",
+  "org": "인송문화재단",
+  "url": "https://insong.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "한원장학회 장학금",
+  "org": "한원장학회",
+  "url": "http://www.xn--sp5b8o224aja73m.com/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "지원장학회 장학금",
+  "org": "지원장학회",
+  "url": "http://xn--sp5b8op4cnyv4nb.com/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "종하장학회 장학금",
+  "org": "종하장학회",
+  "url": "http://www.jongha.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "부남장학재단 장학금",
+  "org": "부남장학재단",
+  "url": "http://bunam.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "보건장학회 다문화가정 장학금",
+  "org": "재단법인 보건장학회",
+  "url": "https://www.kr-hff.or.kr/kor/main/main.html",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "다문화"
+  ]
+ },
+ {
+  "name": "용복장학회 희망장학금",
+  "org": "용복장학회 희망장학금",
+  "url": "http://www.yongpok.org/ver01/busi/cont0102.html",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "보건장학회 연구지원 장학생",
+  "org": "재단법인 보건장학회",
+  "url": "https://www.kr-hff.or.kr/kor/main/main.html",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "용복장학회 월정생활비장학금",
+  "org": "용복장학회",
+  "url": "http://www.yongpok.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "JUMP ON 멘토링",
+  "org": "사단법인 점프",
+  "url": "https://onmentoring.org/",
+  "support": [
+   "living",
+   "work"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "멘토링 활동"
+  ]
+ },
+ {
+  "name": "카카오뱅크 모두의 멘토링",
+  "org": "모두의 멘토링",
+  "url": "https://modu-mentoring.org/",
+  "support": [
+   "living",
+   "work"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "멘토링 활동"
+  ]
+ },
+ {
+  "name": "KT그룹 희망나눔재단 멘토링 장학금",
+  "org": "KT그룹 희망나눔재단",
+  "url": "https://ktgf.or.kr/index.php",
+  "support": [
+   "living",
+   "work"
+  ],
+  "level": "고등학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "멘토링 활동"
+  ]
+ },
+ {
+  "name": "The가꿈 장학금",
+  "org": "더가꿈",
+  "url": "https://www.gaggoom.net/",
+  "support": [
+   "living",
+   "work"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "멘토링 활동"
+  ]
+ },
+ {
+  "name": "롯데장학재단 취업준비생 장학금",
+  "org": "롯데장학재단",
+  "url": "https://www.lottefoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "행복나무플러스 장학금",
+  "org": "행복나무플러스",
+  "url": "http://www.hbnamu.org/index.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "자립준비청년"
+  ]
+ },
+ {
+  "name": "더라이트핸즈 핸쏘꿈",
+  "org": "더라이트핸즈",
+  "url": "https://www.therighthands.or.kr/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "한국여학사협회 차세대여성리더지원사업",
+  "org": "한국여학사협회",
+  "url": "http://www.kauw.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "서울인재대학장학금",
+  "org": "서울미래인재재단",
+  "url": "https://www.seoulfuture.or.kr/home/kor/M338346211/scholarship/info/index.do?",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "서울",
+  "tags": []
+ },
+ {
+  "name": "한돈 미래인재 장학금",
+  "org": "대한한돈협회",
+  "url": "https://koreapork.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "GS SHOP 콘텐츠 리더 장학금",
+  "org": "한국언론학회",
+  "url": "https://comm.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "초록우산 맥쿼리 청년리더 장학금",
+  "org": "초록우산",
+  "url": "https://www.chorogusan.or.kr/news/wholeList.do",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "서울",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "엔지니어링인재육성재단 장학금",
+  "org": "엔지니어링인재육성재단",
+  "url": "https://egifoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "원장재단 장학금",
+  "org": "원장재단",
+  "url": "https://www.wonjangfoundation.org/kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "서울",
+  "tags": []
+ },
+ {
+  "name": "스타벅스 청년인재 장학금",
+  "org": "초록우산",
+  "url": "https://www.chorogusan.or.kr/main.do",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "국회기후변화포럼 장학금",
+  "org": "국회기후변화포럼",
+  "url": "https://www.climateforum.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "신용회복위원회 새희망힐링펀드 장학금",
+  "org": "신용회복위원회",
+  "url": "https://www.ccrs.or.kr/cms/com/index.do?MENU_ID=840",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "푸른등대 한국가스공사 장학금(유형3)",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,08",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "봉사활동"
+  ]
+ },
+ {
+  "name": "푸른등대 정인욱학술장학재단",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,08",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "자립준비청년"
+  ]
+ },
+ {
+  "name": "푸른등대 연암장학회 기부장학금",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,08",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "푸른등대 한국교직원공제회 장학금",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,00",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "사범·교육 계열"
+  ]
+ },
+ {
+  "name": "푸른등대 한국토지주택공사 장학금",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,08",
+  "support": [
+   "living",
+   "dorm"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "푸른등대 한국가스공사 장학금(유형1·2)",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,08",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "푸른등대 KOSAF기부펀드 장학금",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,08",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "푸른등대 상미당 행복한 장학금",
+  "org": "한국장학재단 푸른등대 기부장학금 바로가기]",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,08",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "푸른등대 KRX국민행복재단",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,08",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "부산",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "푸른등대 국민연금 기부장학금",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,00",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "푸른등대 NICE그룹 장학금",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,08",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "푸른등대 김재영 기부장학금",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,00",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "푸른등대 국민건강보험공단 강원인재 장학금",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,00",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "강원",
+  "tags": []
+ },
+ {
+  "name": "푸른등대 공수 김용호 기부장학금",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,00",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "푸른등대 가수 윤하 기부장학금",
+  "org": "푸른등대 기부장학금",
+  "url": "https://www.kosaf.go.kr/ko/scholar.do?pg=scholarship05_11_01&naviParam=JH,05,01,08",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "한국노총 장학금",
+  "org": "한국노총장학문화재단",
+  "url": "http://inochong.org/notice",
+  "support": [
+   "living",
+   "work"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "석성장학회 장학금",
+  "org": "석성장학회",
+  "url": "https://seoksung.co.kr/index.html",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "우양재단 마루장학금",
+  "org": "우양재단",
+  "url": "https://www.wooyang.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "인탑스평산장학재단 장학금",
+  "org": "인탑스평산장학재단",
+  "url": "https://idream.imweb.me/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득",
+   "이공계"
+  ]
+ },
+ {
+  "name": "미래국제재단 장학금",
+  "org": "미래국제재단",
+  "url": "https://www.mif2005.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "신한장학재단 유공자녀 장학사업",
+  "org": "신한장학재단",
+  "url": "https://www.shsf.or.kr/business/scholarType2",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "국가유공"
+  ]
+ },
+ {
+  "name": "KB인재양성 장학금",
+  "org": "KB인재양성",
+  "url": "https://www.dream2030.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "대산보험장학금",
+  "org": "대산신용호기념사업회 대산보험장학사업",
+  "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "가송재단 장학금",
+  "org": "가송재단 장학 사업",
+  "url": "https://www.dong-wha.co.kr/company/gasong.asp",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "DB김준기문화재단 드림마스터 장학금",
+  "org": "DB김준기문화재단 드림마스터",
+  "url": "https://www.dbfoundation.or.kr/business/domestic/dreamMaster",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "한국고등교육재단 문우림 장학금",
+  "org": "한국고등교육재단 문우림",
+  "url": "https://www.kfas.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "한미 첨단분야 청년교류 지원사업 장학금",
+  "org": "한국산업기술진흥원",
+  "url": "https://kiat.or.kr/front/board/boardContentsListPage.do?board_id=90&MenuId=b159c9dac684471b87256f1e25404f5e",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계",
+   "해외"
+  ]
+ },
+ {
+  "name": "대은강완석장학재단 장학금",
+  "org": "대은강완석장학재단",
+  "url": "http://daeeunsf.org/index.php",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "세아해암 커리어챌린지 장학금",
+  "org": "세아해암학술장학재단",
+  "url": "https://haiam.seah.co.kr/main/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "아산사회복지재단 장학금",
+  "org": "아산사회복지재단",
+  "url": "https://welfare.asanfoundation.or.kr/welfare/main.do",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "북한이탈",
+   "사회복지 전공"
+  ]
+ },
+ {
+  "name": "아산사회복지재단 대학원 장학금",
+  "org": "아산사회복지재단",
+  "url": "https://welfare.asanfoundation.or.kr/welfare/main.do",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "이공계",
+   "사회복지 전공"
+  ]
+ },
+ {
+  "name": "아산사회복지재단 의생명대학 장학금",
+  "org": "아산사회복지재단",
+  "url": "https://welfare.asanfoundation.or.kr/welfare/main.do",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계",
+   "사회복지 전공"
+  ]
+ },
+ {
+  "name": "굿패밀리복지재단 장학금",
+  "org": "굿패밀리복지재단",
+  "url": "https://www.goodfamily.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "류호산장학회",
+  "org": "류호산장학회",
+  "url": "http://www.rhs.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "티앤씨재단 대학생 장학금",
+  "org": "티앤씨재단 장학생 모집",
+  "url": "https://tncfoundation.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "재능 Dream 희망 장학금",
+  "org": "재능 Dream 희망 장학금 네이버 카페 바로가기]",
+  "url": "https://cafe.naver.com/dreamplushope",
+  "support": [
+   "living",
+   "work"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "봉사활동",
+   "멘토링 활동"
+  ]
+ },
+ {
+  "name": "보건장학회 학업지원 장학금",
+  "org": "보건장학회",
+  "url": "https://kr-hff.or.kr/kor/main/main.html",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "반석나라 장학회 비전장학금",
+  "org": "반석나라 장학회",
+  "url": "https://banseoknara.co.kr/home",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "혜안재단",
+  "org": "혜안재단",
+  "url": "https://hyeanfd.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "유한재단 대학원생 장학금",
+  "org": "유한재단",
+  "url": "https://www.yuhanfoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "목암과학장학재단 국내 장학금",
+  "org": "목암과학장학재단",
+  "url": "http://www.mogamfoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "메트라이프 미래 장학금",
+  "org": "미래의동반자재단",
+  "url": "https://www.partners-korea.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "CHUBB 이노베이션 펀드 장학금",
+  "org": "CHUBB 이노베이션 펀드",
+  "url": "https://www.insjournal.co.kr/news/articleView.html?idxno=25285",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "유한재단 생활비 장학금",
+  "org": "유한재단",
+  "url": "https://www.yuhanfoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "현송교육문화재단",
+  "org": "현송교육문화재단",
+  "url": "https://www.hyunsong.kr/ko",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "신양문화재단",
+  "org": "신양문화재단",
+  "url": "https://www.sinyang.org/default/index.php",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "양영재단",
+  "org": "양영재단",
+  "url": "https://samyang.yangyoungfoundation.org/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "인춘재단 장학금",
+  "org": "인춘재단",
+  "url": "http://www.inchoon.org/front/index.jsp",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "정수장학회",
+  "org": "정수장학회",
+  "url": "https://www.chungsoo.org/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "혜림장학재단",
+  "org": "혜림장학재단",
+  "url": "http://hlvision.or.kr/index.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "광주",
+  "tags": []
+ },
+ {
+  "name": "에스엘서봉재단",
+  "org": "에스엘서봉재단",
+  "url": "https://www.slworld.com/esg/social_foundation_03.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득",
+   "이공계"
+  ]
+ },
+ {
+  "name": "미래인재육성재단",
+  "org": "미래인재육성재단",
+  "url": "http://www.sffl.or.kr/main/index.html",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "성보장학회",
+  "org": "성보장학회",
+  "url": "http://sungbossf.kr/index.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "형남진장학재단 장학금",
+  "org": "형남진장학재단",
+  "url": "http://www.hyungsf.or.kr/main/index.asp",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "한국지도자육성장학재단",
+  "org": "한국지도자육성장학재단",
+  "url": "https://www.kosffl.or.kr/?home",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "청한장학회",
+  "org": "청한장학회",
+  "url": "http://cheonghan.or.kr/index.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생",
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "재단법인 복성장학회",
+  "org": "복성장학회",
+  "url": "https://boksungsf.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "우아한 사장님 자녀 장학금",
+  "org": "우아한 사장님 자녀 장학금",
+  "url": "https://woowa.janghak.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "계룡장학재단",
+  "org": "계룡장학재단",
+  "url": "https://krfoundation.krcon.co.kr/sf/sfwabout/about/main.dev",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "춘곡장학회",
+  "org": "춘곡장학회",
+  "url": "https://choongok.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "대구",
+  "tags": []
+ },
+ {
+  "name": "유당장학재단 장학금",
+  "org": "유당장학재단",
+  "url": "http://wwww.yudang.or.kr/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "서울희망 대학진로 장학금",
+  "org": "서울희망 대학진로 장학금 바로가기]",
+  "url": "https://www.seoulfuture.or.kr/home/kor/M338346211/scholarship/info/view.do?idx=cb00d1a0008a85e71a41b8741facbffe4d70c2b189c2c79f9576c3797a0949b1&idx3=cb00d1a0008a85e71a41b8741facbffe4d70c2b189c2c79f9576c3797a0949b1&act=&tabPos3=A#n",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "서울",
+  "tags": []
+ },
+ {
+  "name": "청춘Start장학금",
+  "org": "청춘Start 장학금 바로가기]",
+  "url": "https://www.seoulfuture.or.kr/home/kor/M338346211/scholarship/info/view.do?idx=cb00d1a0008a85e71a41b8741facbffe71a547009cdc82b6a17d02db013fb623&idx3=cb00d1a0008a85e71a41b8741facbffe71a547009cdc82b6a17d02db013fb623&act=&tabPos3=A",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "서울인재 해외교환학생 장학금",
+  "org": "서울인재해외교환학생장학금 바로가기]",
+  "url": "https://www.seoulfuture.or.kr/home/kor/M338346211/scholarship/info/view.do?idx=cb00d1a0008a85e71a41b8741facbffe76bede247ad7fca503608770da735e0b&idx3=cb00d1a0008a85e71a41b8741facbffe76bede247ad7fca503608770da735e0b&act=&tabPos3=A",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "서울",
+  "tags": [
+   "저소득",
+   "해외"
+  ]
+ },
+ {
+  "name": "수협 장학금",
+  "org": "수협재단 장학금",
+  "url": "https://www.fecwf.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생",
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "농어촌"
+  ]
+ },
+ {
+  "name": "한솔섬유 솔샘 장학금",
+  "org": "한국사회복지관협회",
+  "url": "https://kaswc.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "카카오뱅크 스칼라십 장학금",
+  "org": "사단법인 유쾌한반란 바로가기",
+  "url": "https://www.queran.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "최경주-SKT 희망장학금",
+  "org": "최경주재단",
+  "url": "http://www.kjchoifoundation.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "하이트진로홀딩스",
+  "org": "하이트진로홀딩스 공식 홍페이지 바로가기]",
+  "url": "https://www.hitejinroholdings.com/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "문숙과학지원재단 명훈장학금",
+  "org": "문숙과학지원재단",
+  "url": "http://www.moonsook.co.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "송원김영환장학재단",
+  "org": "송원김영환장학재단",
+  "url": "http://www.songwon.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "청로장학재단",
+  "org": "청로장학재단",
+  "url": "https://www.cheongro.org/main.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득",
+   "이공계"
+  ]
+ },
+ {
+  "name": "인석장학재단 장학금",
+  "org": "인석장학재단",
+  "url": "https://inseok.org/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "만우 조홍제 스칼러십",
+  "org": "만우 조홍제 스칼러십",
+  "url": "https://mwscholarship.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "두산연강재단",
+  "org": "두산연강재단",
+  "url": "https://www.yonkang.org/kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "에몬스 장학회",
+  "org": "에몬스 장학회",
+  "url": "https://www.emons.co.kr/company/scholarship_intro.php",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "우인장학재단",
+  "org": "우인장학재단",
+  "url": "https://www.wooin.org/v2/view/index.php",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생",
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "삼원장학재단",
+  "org": "삼원장학재단",
+  "url": "https://samwonsf.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "선암장학재단 대학생 장학금",
+  "org": "선암장학재단",
+  "url": "https://www.sunam.or.kr",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "호반장학재단",
+  "org": "호반장학재단",
+  "url": "https://www.hobansf.or.kr/kr/main",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "IBK 행복나눔재단",
+  "org": "IBK행복나눔재단",
+  "url": "https://www.ibkfoundation.or.kr/",
+  "support": [
+   "living",
+   "work"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "STX장학재단",
+  "org": "STX장학재단",
+  "url": "http://www.stxfoundation.or.kr/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "손태희장학재단",
+  "org": "손태희장학재단",
+  "url": "https://sontaehee.co.kr/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "우덕윤덕병재단",
+  "org": "우덕윤덕병재단",
+  "url": "https://wooduk-foundation.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "안중근바보장학회 장학금",
+  "org": "안중근바보장학회",
+  "url": "https://www.ahnbabo.co.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "수림장학재단",
+  "org": "수림재단",
+  "url": "https://surim.or.kr/kr",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "선재학술장학재단",
+  "org": "선재학술장학재단",
+  "url": "http://sjfoundation.or.kr/home",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "상아장학재단",
+  "org": "상아장학재단",
+  "url": "https://sangahfoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "목암과학장학재단 해외 유학 장학금",
+  "org": "목암과학장학재단",
+  "url": "http://www.mogamfoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계",
+   "해외"
+  ]
+ },
+ {
+  "name": "경원장학재단",
+  "org": "경원장학재단",
+  "url": "https://www.gyeongwon.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "창암장학재단",
+  "org": "창암장학재단",
+  "url": "http://www.changam.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "종근당고촌재단",
+  "org": "종근당고촌재단",
+  "url": "http://www.kochon.org",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "서울",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "일주학술문화재단 장학금",
+  "org": "일주학술문화재단",
+  "url": "https://www.iljufoundation.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "일운과학기술재단",
+  "org": "일운과학기술재단",
+  "url": "http://www.ilun.or.kr/main/kr_main.asp",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "운해장학재단",
+  "org": "운해장학재단",
+  "url": "https://woonhaefoundation.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "우덕장학재단",
+  "org": "우덕장학재단",
+  "url": "https://www.udeokfoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "고등학생"
+  ],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "용운장학재단",
+  "org": "용운장학재단",
+  "url": "https://www.yongwoon.co.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "앨트웰민초장학재단",
+  "org": "앨트웰민초장학재단",
+  "url": "https://www.mincho.or.kr/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "신한장학재단",
+  "org": "신한장학재단",
+  "url": "https://www.shsf.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "서암윤세영재단",
+  "org": "서암윤세영재단",
+  "url": "https://seoam.foundation.sbs.co.kr/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "산학협동재단",
+  "org": "산학협동재단",
+  "url": "https://www.sanhakfund.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "두을장학재단",
+  "org": "두을장학재단",
+  "url": "https://www.dooeul.or.kr/",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "관정장학재단",
+  "org": "관정이종환교육재단",
+  "url": "https://www.ikef.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "협성문화재단",
+  "org": "협성문화재단",
+  "url": "https://www.hscf.co.kr/",
+  "support": [
+   "living",
+   "tuition",
+   "work"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "부산",
+  "tags": []
+ },
+ {
+  "name": "OK배정장학재단",
+  "org": "OK배정장학재단",
+  "url": "https://www.okscholarship.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [
+   "대학원생"
+  ],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "KT&G 상상 장학금",
+  "org": "KT&G장학재단",
+  "url": "https://scholarship.ktngtogether.com/index.do",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "저소득"
+  ]
+ },
+ {
+  "name": "현대차정몽구재단",
+  "org": "현대차정몽구재단",
+  "url": "https://www.hyundai-cmkfoundation.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "KC미래장학재단 장학금",
+  "org": "KC미래장학재단",
+  "url": "http://www.kcffd.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "이공계"
+  ]
+ },
+ {
+  "name": "DB김준기문화재단 드림리더 장학금",
+  "org": "DB김준기문화재단",
+  "url": "https://www.dbfoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ },
+ {
+  "name": "롯데장학재단",
+  "org": "롯데장학재단",
+  "url": "https://www.lottefoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": []
+ }
+]

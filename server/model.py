@@ -13,7 +13,7 @@ FIELDS = [
     "school_types", "grades", "majors", "region", "district", "amount", "amount_won",
     "income", "gpa", "special", "residence", "selection", "quota", "restriction", "recommend",
     "documents", "url", "apply_url", "start", "end", "posted", "summary", "images", "files",
-    "links", "verified", "target",
+    "links", "verified", "target", "support_hint",
 ]
 
 NA = {"", "해당없음", "-", "없음", "※ 기관확인필요", "기관확인필요"}
@@ -132,7 +132,7 @@ def finalize(rec: dict) -> dict:
     for k, v in list(rec.items()):
         if isinstance(v, str):
             rec[k] = scrub(v)
-    out = {k: rec.get(k, "" if k not in ("school_types", "grades", "majors", "images", "files", "links") else []) for k in FIELDS}
+    out = {k: rec.get(k, "" if k not in ("school_types", "grades", "majors", "images", "files", "links", "support_hint") else []) for k in FIELDS}
     if not out.get("region"):
         out["region"], out["district"] = infer_region(out.get("org", ""), out.get("residence", ""), out.get("title", ""))
     if not out.get("amount_won"):
@@ -192,6 +192,9 @@ SUPPORT = [
 def support_of(r: dict) -> list:
     text = " ".join([r.get("title", ""), r.get("amount", ""), r.get("kind", ""), (r.get("summary") or "")[:500]])
     tags = [k for k, rx in SUPPORT if re.search(rx, text)]
+    for k in r.get("support_hint") or []:  # 정기 장학 목록처럼 분류가 정해져 있는 경우
+        if k not in tags:
+            tags.append(k)
     if "work" in tags or r.get("kind") in ("교내근로", "교외근로"):
         return ["work"]  # 근로장학은 근로 칸에만 둔다
     if "loan" in tags and len(tags) > 1 and not re.search(r"대출|이자", r.get("title", "")):

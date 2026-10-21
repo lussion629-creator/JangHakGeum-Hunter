@@ -1,40 +1,48 @@
-"""(일회성) 장학 정보 사이트의 생활비 장학 목록에서 장학 이름·운영기관·원본(운영기관) 링크만 모은다. robots.txt 를 지킨다."""
-import json, re, sys, time
+"""(일회성) 운영기관 공식 홈페이지에서 장학 공지가 올라오는 게시판을 찾는다. robots.txt 를 지킨다."""
+import json, re, sys
 from urllib.parse import urljoin, urlparse
 sys.path.insert(0, ".")
 from bs4 import BeautifulSoup
-from server.collectors.boards import allowed, get
-BASE = "https://campuscholar.com/category/scholarships/external/living-cost-scholarships/"
-out = {"robots_list": allowed(BASE), "posts": []}
-if out["robots_list"]:
-    urls = []
-    for n in range(1, 40):
-        u = BASE if n == 1 else f"{BASE}page/{n}/"
-        try:
-            h = get(u, timeout=20).text
-        except Exception as e:
-            out.setdefault("errs", []).append(f"{u} {e}"[:120]); break
-        s = BeautifulSoup(h, "html.parser")
-        found = [a["href"] for a in s.select("h2 a[href], h3 a[href], .entry-title a[href]") if "campuscholar.com/" in a["href"] and "/category/" not in a["href"]]
-        if not found: break
-        urls += [x for x in found if x not in urls]
-        time.sleep(1)
-    for u in urls:
-        if not allowed(u):
-            out["posts"].append({"url": u, "err": "robots"}); continue
-        try:
-            s = BeautifulSoup(get(u, timeout=20).text, "html.parser")
-        except Exception as e:
-            out["posts"].append({"url": u, "err": str(e)[:80]}); continue
-        title = (s.select_one("h1") or s.title).get_text(" ", strip=True)
-        body = s.select_one(".entry-content, article") or s
-        ext = []
-        for a in body.select("a[href]"):
-            h = a["href"]; host = urlparse(h).hostname or ""
-            if h.startswith("http") and "campuscholar" not in host and not re.search(r"facebook|twitter|kakao|naver\.me|instagram|youtube|google|band\.us|x\.com|t\.me|linkedin|pinterest|addtoany", host):
-                ext.append({"text": a.get_text(" ", strip=True)[:40], "url": h})
-        cats = [a.get_text(strip=True) for a in s.select("a[rel~=category], .cat-links a")]
-        out["posts"].append({"url": u, "title": title[:120], "ext": ext[:8], "cats": cats[:6]})
-        time.sleep(1)
-json.dump(out, open("out/cc.json", "w"), ensure_ascii=False, indent=0)
-print(len(out["posts"]))
+from server.collectors.boards import allowed, get, parse_html, KEY, Renderer
+TODO = json.load(open("scripts/cc_todo.json"))
+RD = Renderer()
+SC = [(re.compile(r"장학\s*(공지|공고|소식|안내|사업)|공지\s*사항|^공지$|알림|소식|NEWS|Notice|게시판|공고", re.I), 5), (re.compile(r"장학"), 4)]
+def fetch(u):
+    if not allowed(u): return "", u
+    try:
+        r = get(u, timeout=15); h, f = r.text, r.url
+    except Exception:
+        h, f = "", u
+    if len(h) < 3000 or h.count("<a") < 15:
+        x = RD.html(u, 3000) if RD.browser else ""
+        if len(x) > len(h): h = x
+    return h, f
+def n_posts(h, base):
+    return sum(1 for it in parse_html(h, base) if KEY.search(it["title"]) and it.get("posted"))
+res = {}
+for org, host, url in TODO:
+    try:
+        h, f = fetch(url)
+        if not h: res[org] = {"err": "unreachable", "url": url}; continue
+        best = None
+        if n_posts(h, f) >= 1 and re.search(r"bbs|board|notice|list|news", f, re.I): best = {"url": f, "n": n_posts(h, f)}
+        cands = []
+        for a in BeautifulSoup(h, "html.parser").find_all("a"):
+            t = " ".join(a.get_text(" ").split()); href = a.get("href") or ""
+            if not href or href.startswith(("javascript", "#", "mailto")) or len(t) > 20: continue
+            u = urljoin(f, href)
+            if (urlparse(u).hostname or "").replace("www.", "") != host.replace("www.", ""): continue
+            sc = next((s for rx, s in SC if rx.search(t)), 0)
+            if sc: cands.append((sc, u))
+        seen = set()
+        for sc, u in sorted(cands, key=lambda x: -x[0])[:8]:
+            if u in seen: continue
+            seen.add(u)
+            h2, f2 = fetch(u)
+            n = n_posts(h2, f2)
+            if n and (not best or n > best["n"]): best = {"url": f2, "n": n}
+        res[org] = best or {"err": "notfound", "url": url}
+    except Exception as e:
+        res[org] = {"err": repr(e)[:80], "url": url}
+    json.dump(res, open("out/cc_boards.json", "w"), ensure_ascii=False, indent=0)
+RD.close()

@@ -15,7 +15,7 @@ import sqlite3
 from datetime import date
 from pathlib import Path
 
-from .collectors import boards, gov24, hanyang, hywoman, kangwon, konkuk, kosaf, kosaf_hist, sogang
+from .collectors import boards, catalog, gov24, hanyang, hywoman, kangwon, konkuk, kosaf, kosaf_hist, sogang
 from .merge import collapse, for_all, merge
 from .model import summarize_body, expected_next, now_iso, status_of, support_of
 
@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DB = ROOT / "data" / "scholarships.db"
 WEB_DATA = ROOT / "web" / "data"
 # 공개 자료만 모은다: 공공데이터(한국장학재단·정부24)와 로그인 없이 보이는 공개 게시판(robots.txt 를 지킴)
-COLLECTORS = [("kosaf", kosaf), ("kosaf_hist", kosaf_hist), ("hanyang", hanyang), ("hywoman", hywoman), ("kangwon", kangwon), ("sogang", sogang), ("konkuk", konkuk), ("board", boards), ("gov24", gov24)]
+COLLECTORS = [("kosaf", kosaf), ("kosaf_hist", kosaf_hist), ("hanyang", hanyang), ("hywoman", hywoman), ("kangwon", kangwon), ("sogang", sogang), ("konkuk", konkuk), ("board", boards), ("gov24", gov24), ("catalog", catalog)]
 log = logging.getLogger("refresh")
 
 
@@ -229,7 +229,7 @@ def export(con: sqlite3.Connection, summary: dict):
 # 공개 자료에는 출처를 밝힌다: 어디서 온 정보인지(origin)와 원문 링크를 그대로 둔다.
 # 본문은 옮겨 싣지 않고 신청 조건을 판단하는 데 필요한 핵심 줄(기간·대상·금액·서류 등)만 남기며, 이미지는 다시 싣지 않는다.
 SRC_CODE = {"kosaf_univ": "k", "kosaf_high": "kh", "kosaf_abroad": "ka", "kosaf_creditbank": "kc", "kosaf_hist": "kp",
-            "hanyang": "u1", "hywoman": "u2", "kangwon": "u3", "sogang": "u4", "konkuk": "u5", "board": "b", "gov24": "g"}
+            "hanyang": "u1", "hywoman": "u2", "kangwon": "u3", "sogang": "u4", "konkuk": "u5", "board": "b", "gov24": "g", "catalog": "c"}
 KOSAF_ORIGIN = "한국장학재단 학자금지원정보 (공공데이터포털)"
 ORIGIN = {"kosaf_univ": KOSAF_ORIGIN, "kosaf_high": KOSAF_ORIGIN, "kosaf_abroad": KOSAF_ORIGIN, "kosaf_creditbank": KOSAF_ORIGIN,
           "kosaf_hist": KOSAF_ORIGIN, "gov24": "행정안전부 대한민국 공공서비스(혜택) 정보 (공공데이터포털)",
@@ -276,6 +276,7 @@ def public(r: dict) -> dict:
     if src not in ("kosaf_univ", "kosaf_high", "kosaf_abroad", "kosaf_creditbank", "kosaf_hist", "gov24"):
         r["summary"] = key_facts(r.get("summary") or "")
     r["images"] = []
+    r.pop("support_hint", None)
     if src not in ("kosaf_univ", "kosaf_high", "kosaf_abroad", "kosaf_creditbank", "kosaf_hist", "gov24"):
         for k in ("summary", "documents", "target", "selection", "quota", "recommend", "special"):
             if isinstance(r.get(k), str) and r[k]:
