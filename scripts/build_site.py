@@ -31,13 +31,14 @@ csp = ("default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' 
 head = re.sub(r'content="default-src[^"]*"', 'content="' + csp + '"', HEAD)
 assert csp in head
 (SITE / "index.html").write_text(head + html + "</body></html>")
-# 정보 출처 페이지: 공지를 읽는 기관 이름을 모두 밝힌다
-import json, html as _h  # noqa: E402
-_st = ROOT / "data" / "registry" / "status.json"
-_robots = {x["name"] for x in (json.loads(_st.read_text()) if _st.exists() else []) if "robots" in (x.get("error") or "")}  # 수집을 거부한 곳은 읽지 않으므로 빼고 적는다
-names = sorted({x["name"] for x in json.loads((ROOT / "data" / "registry" / "sources.json").read_text()) if x.get("enabled") and x.get("notice_url") and x["name"] not in _robots}
-               | {"한양대학교", "한양여자대학교", "강원대학교", "서강대학교", "건국대학교"})
-ab = SITE / "about.html"
-ab.write_text(ab.read_text().replace("{{SOURCES}}", "<br>".join(_h.escape(n) for n in names) + f"<br><b>총 {len(names)}곳</b>"))
+# 학교별 장학 공지 바로가기 (내 정보에 학교를 넣으면 그 학교 것만 보여 준다)
+import json  # noqa: E402
+links = {}
+for x in json.loads((ROOT / "data" / "registry" / "sources.json").read_text()):
+    if x.get("type") == "university" and x.get("notice_url", "").startswith("https://"):
+        base = re.sub(r"\s.*$", "", x["name"].strip())
+        links.setdefault(base, {"notice": x["notice_url"]})
+(SITE / "data").mkdir(exist_ok=True)
+(SITE / "data" / "school_links.json").write_text(json.dumps(links, ensure_ascii=False))
 (SITE / ".nojekyll").write_text("")
 print("site/ ready")

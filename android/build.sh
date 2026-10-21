@@ -10,7 +10,7 @@ VERSION=${VERSION:-1.0.0}
 OUT=build; rm -rf $OUT; mkdir -p $OUT/res $OUT/classes $OUT/assets/www
 # 1) 웹앱을 assets/www 로 (문서 머리말 포함)
 python3 ../scripts/build_site.py >/dev/null
-cp -r ../site/. $OUT/assets/www/ && rm -f $OUT/assets/www/data/*.gz
+cp -r ../site/. $OUT/assets/www/ && rm -f $OUT/assets/www/data/*.gz && cp -r ../web/tools $OUT/assets/www/tools
 # 2) 리소스 컴파일·링크
 $AAPT2 compile --dir res -o $OUT/res.zip
 $AAPT2 link -o $OUT/base.apk -I $ANDROID_JAR --manifest AndroidManifest.xml -A $OUT/assets $OUT/res.zip \

@@ -787,3 +787,69 @@ def collapse(rows: list[dict]) -> list[dict]:
         else:
             out.extend(g)
     return out
+
+
+# ---------------------------------------------------------------------------
+# 전국 모든 학교 학생용: 장학을 빼지 않고, 특정 대학 학생만 지원할 수 있는 장학에는 그 학교 이름(own)을 붙인다.
+# 앱은 내 정보의 학교가 own 에 없으면 기본으로 숨기고, '학교 전용' 칸에서 고르면 다시 보여 준다.
+SRC_OWN = {"hanyang": "한양대학교", "hywoman": "한양여자대학교", "kangwon": "강원대학교", "sogang": "서강대학교", "konkuk": "건국대학교"}
+RELAY_EXT = re.compile(r"재단|장학회|육영회|협회|구민|시민|군민|도민|공사|공단|진흥원|은행|그룹|교육청|시청|군청|구청|도청|\[교외|교외\]|\[외부|외부\s*장학")
+_INTERNAL = ("_univ_only", "_hy", "_relay_ok", "_relay_school", "_relay_schools", "_relay_text", "_srcs", "_st_all", "_alltext", "_textby")
+
+
+def _school_name(n: str) -> str:
+    n = re.sub(r"\s.*$", "", (n or "").strip())
+    return n if re.search(r"대학교?$|대학원$|과학기술원$|사관학교$|대학원대학교$", n) else ""
+
+
+def for_all(rows: list[dict]) -> list[dict]:
+    teen = re.compile(r"중학생|중학교|중등")
+    out = []
+    for r in rows:
+        t = dict(r)
+        title = t.get("title") or ""
+        srcs = set(t.get("_srcs") or [t.get("source")])
+        text = t.get("_alltext") or " ".join(str(t.get(k) or "") for k in ("title", "target", "special", "summary"))
+        relays = [x for x in (_school_name(n) for n in (t.get("_relay_schools") or [t.get("_relay_school")])) if x]
+        for k in _INTERNAL:
+            t.pop(k, None)
+        if t.get("level") == "고등학생":
+            t["for"] = ["hs"]
+            if teen.search(" ".join(str(t.get(k) or "") for k in ("title", "target", "special", "summary"))[:3000]):
+                t["mid"] = True
+            out.append(t)
+            continue
+        if re.search(r"외국인\s*(유학생|학생|장학생)", title + " " + (t.get("target") or "")[:200]):
+            continue  # 외국인 유학생 전용
+        if t.get("level") == "해외유학" and ABROAD_NO.search(title + " " + (t.get("target") or "")):
+            continue
+        t["for"] = ["all"]
+        pos = " ".join(str(t.get(k) or "") for k in ("target", "special", "title"))
+        named = sorted({n for n in OTHER_UNIV.findall(pos) if not GENERIC_UNIV.match(n)})
+        open_ = bool(OPEN.search(text) or OPEN.search(pos))
+        own: list[str] = []
+        school_src = [SRC_OWN[s] for s in srcs if s in SRC_OWN]
+        board_only = srcs <= {"board", "legacy"} | set(SRC_OWN)
+        if named and not open_:
+            own = named  # 공고에 대상 대학 이름이 적힌 장학
+        elif board_only:
+            if re.search(r"국가장학금|학자금\s*(대출|지원구간)|가구원\s*(정보\s*)?동의|소득\s*(분위|구간)|한국장학재단|푸른등대", title) and not re.search(r"교내|근로", title):
+                continue  # 학교가 다시 알린 전국 공통 안내(국가장학금 등)는 한국장학재단 자료로 이미 있다
+            schools = sorted(set(relays + school_src))
+            external = bool(RELAY_EXT.search(title)) and not OWN.search(title)
+            evidence = open_ or RES.search(text) or external
+            inside = OWN.search(title) or re.search(r"추천자\s*(선발|모집)|추천\s*대상자", title)
+            if schools and len(schools) >= 3 and not inside:
+                t["school_check"] = True  # 여러 학교가 함께 알린 바깥 장학: 누구나 볼 수 있게 두고 학교 조건은 원문 확인
+            elif schools and (inside or NEG.search(text) or not evidence):
+                own = schools  # 그 학교 게시판에 올라온 교내 장학, 또는 다른 학교 학생에게 열려 있다는 근거가 없는 공고
+        else:
+            st = set(t.get("school_types") or [])
+            if NEG.search(text) or (st and st <= {"특정대학"}):
+                t["school_check"] = True  # 특정 대학·추천 대학만 (대학 이름은 원문 확인)
+        if own:
+            t["own"] = own[:8]
+            if t.get("org_type") == "대학 게시판" and not t.get("org"):
+                t["org"] = own[0]
+        out.append(t)
+    return out

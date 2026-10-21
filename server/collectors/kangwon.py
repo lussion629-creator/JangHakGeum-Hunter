@@ -1,7 +1,7 @@
-"""강원대학교 장학공지(삼척캠퍼스 대상) — 공개 게시판, 로그인 불필요.
+"""강원대학교 장학공지 (모든 캠퍼스) — 공개 게시판, 로그인 불필요.
 
 robots.txt 는 /ko/ 아래 공개 페이지를 허용한다. 장학공지(750)는 전부, 일반공지(504)는 장학·근로 글만 본다.
-캠퍼스 칸이 '삼척' 이거나 'ALL'(전 캠퍼스)인 글만 남긴다. 교외 장학을 옮겨 실은 글은 운영기관 이름으로 보여 준다.
+모든 캠퍼스 글을 남긴다. 교외 장학을 옮겨 실은 글은 운영기관 이름으로 보여 준다.
 """
 from __future__ import annotations
 
@@ -100,10 +100,12 @@ def fetch(known: dict) -> list[dict]:
 
 
 def _keep(r) -> bool:
-    c = r.get("campus", "")
-    if not re.search(r"삼척|ALL|전체", c):
-        return False  # 춘천·강릉·원주 캠퍼스만 대상인 글
-    return not OTHER_CAMPUS.search(r["title"])
+    return True  # 모든 캠퍼스 학생이 쓰는 앱이므로 캠퍼스로 거르지 않는다
+
+
+def _campus(r) -> str:
+    m = re.search(r"춘천|삼척|도계|강릉|원주", (r.get("campus") or "") + " " + r.get("title", ""))
+    return m.group(0) if m and not re.search(r"ALL|전체", r.get("campus") or "") else ""
 
 
 def collect(online: bool = True):
@@ -127,7 +129,7 @@ def collect(online: bool = True):
     for r in rows:
         if not _keep(r):
             continue
-        t = re.sub(r"^\s*\[(삼척|삼척캠퍼스|ALL|전체)\]\s*", "", r["title"])
+        t = re.sub(r"^\s*\[(춘천|삼척|도계|강릉|원주)?(캠퍼스)?(ALL|전체)?\]\s*", "", r["title"])
         det = r.get("detail") or {}
         body = det.get("text", "")
         start, end = period_from(t, body, r.get("date", ""))
@@ -137,15 +139,15 @@ def collect(online: bool = True):
         inside = bool(INSIDE.search(t)) and not re.search(r"재단|장학회|진흥원", t) or (ext == "강원대학교" and not relay)
         if not inside and ext == "강원대학교":
             ext = ""  # 운영기관 이름을 찾지 못한 교외 장학
-        dogye = "도계" in t
+        cp = _campus(r)
         out.append(finalize({
             "id": make_id("kangwon", r["bbs"], r["sn"]), "source": "kangwon", "source_name": "강원대 장학공지",
-            "title": t, "org": "강원대학교 " + ("도계캠퍼스" if dogye else "삼척캠퍼스") if inside else ext,
+            "title": t, "org": ("강원대학교" + (" " + cp + "캠퍼스" if cp else "")) if inside else ext,
             "org_type": "대학(교내)" if inside else "민간·기업·대학",
             "category": "근로장학" if work else ("학자금" if "대출" in t else "장학금"),
             "kind": ("교내근로" if work else "공고"), "level": "대학원생" if re.search(r"대학원생|석사|박사", t) and not re.search(r"학부", t) else "대학생",
             "school_types": ["4년제(5~6년제포함)"] if inside else [],
-            "region": "강원" if inside else "", "district": "삼척" if inside else "",
+            "region": "강원" if inside else "", "district": "",
             "url": VIEW.format(bbs=r["bbs"], sn=r["sn"]), "posted": r.get("date", ""), "start": start, "end": end,
             "summary": body, "files": det.get("files", []),
             "selection": ("담당: " + r["dept"]) if r.get("dept") else "", "verified": True,

@@ -88,6 +88,7 @@ public class MainActivity extends Activity {
         });
         if (saved != null) web.restoreState(saved); else web.loadUrl(ORIGIN + "index.html");
         try { AlertJob.schedule(this); } catch (Exception ignored) { }
+        silentCal(root);
         if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission("android.permission.POST_NOTIFICATIONS") != 0) {
             requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 1);
         }
@@ -102,6 +103,41 @@ public class MainActivity extends Activity {
         if (p.endsWith(".png")) return "image/png";
         if (p.endsWith(".webmanifest")) return "application/manifest+json";
         return "application/octet-stream";
+    }
+
+    static final int REQ_PORTAL = 41;
+    private WebView hidden;
+
+    /** 우리 학교 장학캘린더: 전에 저장한 화면이 있고 하루가 지났으면, 남아 있는 포털 로그인으로 조용히 다시 읽어 본다 (자동 로그인은 하지 않는다). */
+    private void silentCal(final android.widget.FrameLayout root) {
+        final Portal p = Portal.get(this);
+        if (p == null || p.saved.isEmpty() || hidden != null) return;
+        java.io.File f = Portal.file(this);
+        if (f.exists() && System.currentTimeMillis() - f.lastModified() < 20L * 60 * 60 * 1000) return;
+        hidden = new WebView(this);
+        root.addView(hidden, new android.widget.FrameLayout.LayoutParams(1, 1));
+        hidden.setAlpha(0f);
+        new PortalClient(this, hidden, true, p, new PortalClient.Listener() {
+            @Override public void onProgress(String t) { }
+            @Override public void onLoginNeeded() { Portal.setState(MainActivity.this, "login"); drop(); }
+            @Override public void onDone(int n) { Portal.setState(MainActivity.this, "ok"); updated(); drop(); }
+            @Override public void onFail(String t) { if (!"notfound".equals(Portal.state(MainActivity.this))) Portal.setState(MainActivity.this, "fail"); drop(); }
+        }).start();
+        final WebView mine = hidden;
+        web.postDelayed(new Runnable() { @Override public void run() { if (hidden == mine) { Portal.setState(MainActivity.this, "login"); drop(); } } }, 120000);
+    }
+
+    private void drop() {
+        final WebView h = hidden; hidden = null;
+        if (h != null) web.post(new Runnable() { @Override public void run() { try { ((android.view.ViewGroup) h.getParent()).removeView(h); h.removeJavascriptInterface(PortalClient.NATIVE); h.destroy(); } catch (Exception ignored) { } } });
+    }
+
+    private void updated() { web.evaluateJavascript("window.__portalUpdated&&window.__portalUpdated()", null); }
+
+    @Override
+    protected void onActivityResult(int req, int res, Intent data) {
+        super.onActivityResult(req, res, data);
+        if (req == REQ_PORTAL) updated();
     }
 
     @Override
@@ -159,6 +195,58 @@ public class MainActivity extends Activity {
             runOnUiThread(new Runnable() { @Override public void run() {
                 getWindow().setStatusBarColor(Color.parseColor(dark ? "#0e1216" : "#2d6a3e"));
                 if (Build.VERSION.SDK_INT >= 29) web.getSettings().setForceDark(WebSettings.FORCE_DARK_OFF);
+            } });
+        }
+
+        // ---- 우리 학교 장학캘린더 (학생이 직접 로그인, 결과는 이 기기에만) ----
+        /** 학교를 정한다: 이름·학교 주소(예: snu.ac.kr)·처음 열 주소. 학교가 바뀌면 전에 저장한 화면·자료는 지운다. */
+        @JavascriptInterface
+        public boolean myPortalSet(String name, String domain, String entry) {
+            if (name == null || domain == null || entry == null) return false;
+            domain = domain.trim().toLowerCase(java.util.Locale.ROOT).replaceAll("^www\\.", "");
+            if (!domain.matches("[a-z0-9.-]{3,60}\\.[a-z]{2,}")) return false;
+            android.net.Uri u = android.net.Uri.parse(entry.trim());
+            String h = u.getHost();
+            if (!"https".equals(u.getScheme()) && !"http".equals(u.getScheme()) || h == null || !(h.equals(domain) || h.endsWith("." + domain))) return false;
+            android.content.SharedPreferences sp = getSharedPreferences(Portal.MY, MODE_PRIVATE);
+            if (!domain.equals(sp.getString("domain", ""))) { sp.edit().clear().apply(); Portal.file(MainActivity.this).delete(); Portal.setState(MainActivity.this, ""); }
+            String n = name.trim();
+            sp.edit().putString("name", n.substring(0, Math.min(40, n.length()))).putString("domain", domain).putString("entry", "https://" + h + (u.getPath() == null ? "/" : u.getPath())).apply();
+            return true;
+        }
+
+        @JavascriptInterface
+        public String myPortalInfo() {
+            android.content.SharedPreferences sp = getSharedPreferences(Portal.MY, MODE_PRIVATE);
+            try {
+                return new JSONObject().put("name", sp.getString("name", "")).put("domain", sp.getString("domain", ""))
+                        .put("saved", !sp.getString("saved", "").isEmpty()).put("state", Portal.state(MainActivity.this)).toString();
+            } catch (Exception e) { return "{}"; }
+        }
+
+        @JavascriptInterface
+        public void portalOpen() {
+            if (Portal.get(MainActivity.this) == null) return;
+            runOnUiThread(new Runnable() { @Override public void run() { startActivityForResult(new Intent(MainActivity.this, PortalActivity.class), REQ_PORTAL); } });
+        }
+
+        @JavascriptInterface
+        public String portalData() {
+            try { java.io.File f = Portal.file(MainActivity.this); return f.exists() ? PortalClient.read(f) : ""; } catch (Exception e) { return ""; }
+        }
+
+        /** 연결을 지운다: 저장한 화면·불러온 목록·그 학교 포털 쿠키. */
+        @JavascriptInterface
+        public void myPortalForget() {
+            final Portal p = Portal.get(MainActivity.this);
+            getSharedPreferences(Portal.MY, MODE_PRIVATE).edit().clear().apply();
+            Portal.setState(MainActivity.this, "");
+            Portal.file(MainActivity.this).delete();
+            if (p != null) runOnUiThread(new Runnable() { @Override public void run() {
+                android.webkit.CookieManager cm = android.webkit.CookieManager.getInstance();
+                String ck = cm.getCookie("https://" + p.mainHost + "/");
+                if (ck != null) for (String c : ck.split(";")) { String nm = c.split("=")[0].trim(); if (!nm.isEmpty()) cm.setCookie("https://" + p.mainHost + "/", nm + "=; Max-Age=0"); }
+                cm.flush();
             } });
         }
 

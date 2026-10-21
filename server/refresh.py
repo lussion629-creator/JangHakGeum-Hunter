@@ -16,7 +16,7 @@ from datetime import date
 from pathlib import Path
 
 from .collectors import boards, gov24, hanyang, hywoman, kangwon, konkuk, kosaf, kosaf_hist, sogang
-from .merge import collapse, for_schools, merge
+from .merge import collapse, for_all, merge
 from .model import summarize_body, expected_next, now_iso, status_of, support_of
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -122,8 +122,6 @@ def export(con: sqlite3.Connection, summary: dict):
     for data, first_seen, changed_at in con.execute("select data, first_seen, changed_at from scholarships where active=1"):
         r = json.loads(data)
         r.pop("hash", None)
-        if r.get("source") in ("hyin", "hanyang", "legacy", "board") and re.search(r"ERICA|에리카", (r.get("title") or "") + " " + (r.get("org") or "")):
-            continue  # ERICA 캠퍼스 공고는 넣지 않는다
         if r.get("source") == "legacy":
             if r.get("title") in hy_titles:
                 continue  # 한양대 공지에서 직접 가져온 같은 글이 있다
@@ -200,7 +198,7 @@ def export(con: sqlite3.Connection, summary: dict):
         if hits:
             kind = "new" if any(k == "new" for k, _ in hits) else "updated"
             r["fresh"] = {"kind": kind, "at": max(a for _, a in hits)}
-    rows = for_schools(rows)  # 앱이 지원하는 학교(한양대·한양여대·강원대 삼척·서강대·건국대) 학생 누구도 지원할 수 없는 장학금 제외
+    rows = for_all(rows)  # 전국 모든 학교 학생용: 특정 대학 학생만 지원할 수 있는 장학에는 학교 이름(own)을 붙인다
     for r in rows:
         r["status"] = status_of(r.get("start"), r.get("end"), today, r.get("posted", ""))
         r["support"] = support_of(r)
