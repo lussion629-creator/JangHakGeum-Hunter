@@ -853,3 +853,40 @@ def for_all(rows: list[dict]) -> list[dict]:
                 t["org"] = own[0]
         out.append(t)
     return out
+
+
+# 마지막 정리: 여러 학교 게시판이 같은 바깥 장학을 따로 옮겨 실어 운영기관 이름이 다르게 잡힌 경우,
+# 또는 학교가 다시 알린 공고와 한국장학재단 자료가 같은 장학인 경우를 한 줄로 만든다.
+_CORE_DROP = re.compile(r"\[[^\]]*\]|\([^)]*\)|20\d\d\s*(학년도|년도|년)?|\d\s*학기|[상하]반기|[1-9]\s*차|모집|선발|안내|공고|신청|장학생|장학금|추천|대상자|[^0-9A-Za-z가-힣]")
+
+
+def _core(t: str) -> str:
+    return _CORE_DROP.sub("", t or "")
+
+
+def final_dupes(rows: list[dict]) -> list[dict]:
+    canon = {}
+    for r in rows:
+        if r.get("source", "").startswith("kosaf") or r.get("source") == "catalog":
+            c = _core(r.get("title"))
+            if len(c) >= 4:
+                canon.setdefault(c, r)
+    seen: dict[tuple, dict] = {}
+    out = []
+    for r in rows:
+        src = r.get("source") or ""
+        relay = src == "board" or src in SRC_OWN
+        c = _core(r.get("title"))
+        if relay and not r.get("own") and len(c) >= 4 and c in canon and canon[c] is not r:
+            continue  # 한국장학재단·정기 장학 목록에 같은 장학이 있다
+        if relay and not r.get("own") and len(c) >= 4 and r.get("end"):
+            k = (c, r["end"])
+            if k in seen:
+                keep = seen[k]
+                for l in r.get("links") or []:
+                    if l not in (keep.get("links") or []) and len(keep.setdefault("links", [])) < 12:
+                        keep["links"].append(l)
+                continue  # 같은 마감일의 같은 장학을 다른 학교가 또 옮겨 실음
+            seen[k] = r
+        out.append(r)
+    return out

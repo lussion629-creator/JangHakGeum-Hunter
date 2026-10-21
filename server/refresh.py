@@ -16,7 +16,7 @@ from datetime import date
 from pathlib import Path
 
 from .collectors import boards, catalog, gov24, hanyang, hywoman, kangwon, konkuk, kosaf, kosaf_hist, sogang
-from .merge import collapse, for_all, merge
+from .merge import collapse, final_dupes, for_all, merge
 from .model import summarize_body, expected_next, now_iso, status_of, support_of
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -211,6 +211,7 @@ def export(con: sqlite3.Connection, summary: dict):
         if r.get("quota") and len(r["quota"]) > 120:
             r["quota"] = re.split(r"\n|(?<=[가-힣)])\s*\d{1,2}\.\s", r["quota"])[0][:120]  # 선발 인원 칸에 다른 항목이 이어 붙은 경우
     rows = collapse(rows)  # 원칙: 같은 장학(세부 분야·지난 회차 포함)은 한 번만 보여 준다
+    rows = final_dupes(rows)  # 여러 학교가 옮겨 실은 같은 장학·한국장학재단 자료와 같은 장학을 한 줄로
     rows.sort(key=lambda r: ({"모집중": 0, "예정": 1, "상시/미정": 2, "마감": 3}[r["status"]], r.get("end") or "9999"))
     rows = [public(r) for r in rows]
     payload = json.dumps({"generatedAt": summary["finishedAt"], "count": len(rows), "items": rows}, ensure_ascii=False, separators=(",", ":"))
