@@ -14,7 +14,7 @@ concurrency: { group: refresh, cancel-in-progress: false }
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 80
     permissions:
       contents: write   # 데이터 커밋용
     steps:
