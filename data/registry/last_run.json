@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-21T12:31:15+00:00",
- "finishedAt": "2026-10-21T13:06:59+00:00",
+ "startedAt": "2026-10-21T13:08:00+00:00",
+ "finishedAt": "2026-10-21T13:46:16+00:00",
  "online": true,
- "total": 4637,
+ "total": 4676,
  "new": 1,
- "changed": 416,
+ "changed": 420,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,9 +45,9 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 52,
-   "work": 3,
-   "mode": "online/seed"
+   "count": 94,
+   "work": 28,
+   "mode": "online/online"
   },
   {
    "source": "hywoman",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 366곳",
    "ok": true,
-   "count": 1127,
-   "mode": "성공 333 / 실패 33"
+   "count": 1121,
+   "mode": "성공 330 / 실패 36"
   },
   {
    "source": "gov24",
@@ -5410,8 +5410,8 @@
     "url": "https://www.htus.ac.kr/board/board.php?b_id=001",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 6
+    "ok": false,
+    "count": 0
    },
    {
     "name": "경민대학교",
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
