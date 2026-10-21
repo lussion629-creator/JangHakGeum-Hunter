@@ -15,6 +15,6 @@ for p in json.load(open("scripts/cc_posts.json"))["posts"]:
     seg = m.group(1) if m else ""
     months = sorted({int(x) for x in re.findall(r"(\d{1,2})\s*월", seg) if 1 <= int(x) <= 12})
     rng = bool(re.search(r"\d{1,2}\s*월?\s*[~～\-]\s*\d{1,2}\s*월", seg))
-    res[u] = {"months": months, "range": rng, "half": "상반기" if "상반기" in seg and not months else ("하반기" if "하반기" in seg and not months else "")}
+    res[u] = {"seg": seg[:40]}
     time.sleep(0.5)
 json.dump(res, open("out/months.json", "w"), ensure_ascii=False, indent=0)
