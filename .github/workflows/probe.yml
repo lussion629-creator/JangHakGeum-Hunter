@@ -3,16 +3,7 @@ on: workflow_dispatch
 permissions:
   contents: write
 jobs:
-  probe:
+  cleanup:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
-        with: { python-version: "3.12" }
-      - run: pip install -q -r requirements.txt playwright==1.48.0 && python -m playwright install --with-deps chromium
-      - run: mkdir -p out && python3 scripts/probe_cc.py 2> out/err.txt || true
-      - name: push result
-        if: always()
-        run: |
-          cd out && git init -q && git checkout -q -b probe-out && git add . && git -c user.name=probe -c user.email=probe@x commit -qm probe && git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" probe-out
+      - run: git init -q && git push "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" --delete probe-out || true
