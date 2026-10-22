@@ -15,7 +15,7 @@
   --line:#e4e7eb; --line-2:#eef0f3;
   --accent:#2d6a3e; --accent-ink:#ffffff; --accent-soft:#e6f1e8;
   --seal:#c42d21; --seal-soft:#fdeceb;
-  --ok:#14804a; --ok-soft:#e5f5ec; --no:#c0392b; --no-soft:#fbe9e7; --check:#9a6400; --check-soft:#fdf3dc;
+  --ok:#0f6b3d; --ok-soft:#e5f5ec; --no:#c0392b; --no-soft:#fbe9e7; --check:#9a6400; --check-soft:#fdf3dc;
   --shadow:0 1px 2px rgba(18,24,32,.04),0 6px 20px rgba(18,24,32,.06);
   --c-tuition:#2459c9; --c-tuition-soft:#e6eefc; --c-living:#c0306b; --c-living-soft:#fce8f0; --c-dorm:#6a43c9; --c-dorm-soft:#efe9fc; --c-loan:#5b6573; --c-loan-soft:#eceef1; --c-work:#b45309; --c-work-soft:#fdf0e1;
   --font:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
@@ -24,7 +24,7 @@
   --st-live:#2d6a3e; --st-live-soft:#dff1f2; --st-soon:#9a6400; --st-soon-soft:#fdf1d6; --st-end-soft:#eceef1;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0e1216; --surface:#161b21; --surface-2:#1b2128; --ink:#eef1f4; --ink-2:#b4bcc6; --ink-3:#808a96;
+  --bg:#0e1216; --surface:#161b21; --surface-2:#1b2128; --ink:#eef1f4; --ink-2:#b4bcc6; --ink-3:#a3acb7;
   --line:#262d35; --line-2:#20262d;
   --accent:#7cc98f; --accent-ink:#08190d; --accent-soft:#16301d;
   --seal:#ff7b6e; --seal-soft:#3a1d1a;
@@ -34,7 +34,7 @@
   --p-fld:#a5a1ff; --p-fld-soft:#23214a; --p-reg:#5fd3a6; --p-reg-soft:#123326; --p-lvl:#e19cf5; --p-lvl-soft:#35193f; --p-kind:#71c3ee; --p-kind-soft:#10293a; --p-rec:#f5b860; --p-rec-soft:#3a2a10;
   --st-live:#4fc1cb; --st-live-soft:#123135; --st-soon:#f2bf55; --st-soon-soft:#33290f; --st-end-soft:#20262d;}}
 :root[data-theme="dark"]{
-  --bg:#0e1216; --surface:#161b21; --surface-2:#1b2128; --ink:#eef1f4; --ink-2:#b4bcc6; --ink-3:#808a96;
+  --bg:#0e1216; --surface:#161b21; --surface-2:#1b2128; --ink:#eef1f4; --ink-2:#b4bcc6; --ink-3:#a3acb7;
   --line:#262d35; --line-2:#20262d;
   --accent:#7cc98f; --accent-ink:#08190d; --accent-soft:#16301d;
   --seal:#ff7b6e; --seal-soft:#3a1d1a;
@@ -110,7 +110,7 @@ nav.tabs{display:flex;gap:2px;overflow-x:auto;margin:22px auto 0;padding:4px;bac
 nav.tabs button{border:0;background:none;padding:9px 20px;border-radius:999px;cursor:pointer;white-space:nowrap;font-weight:600;font-size:14px;color:var(--ink-2)}
 nav.tabs button:hover{color:var(--ink)}
 nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
-nav.tabs .count{font-weight:700;font-size:13px;margin-left:5px;background:var(--seal);color:#fff;border-radius:999px;padding:0 6px}
+nav.tabs .count{font-weight:700;font-size:13px;margin-left:5px;background:#c42d21;color:#fff;border-radius:999px;padding:0 6px}
 nav.tabs .count:empty{display:none}
 
 .layout{display:grid;grid-template-columns:256px minmax(0,1fr);gap:28px;margin-top:22px}
@@ -228,7 +228,7 @@ select:focus,input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 
 .star{border:0;background:none;width:30px;height:30px;border-radius:8px;cursor:pointer;color:var(--ink-3);display:grid;place-items:center;margin:-4px -2px 0 0}
 .star:hover{background:var(--surface-2)}
 /* 새로 올라온 장학(최근 7일)은 따뜻한 색 바탕과 '새 장학' 표시, 바뀐 장학은 파란 표시 */
-.item.is-new{background:color-mix(in srgb,#ffb020 10%,var(--surface));border-color:color-mix(in srgb,#f59e0b 60%,var(--line))}
+.item.is-new{border-color:color-mix(in srgb,#b45309 45%,var(--line))}
 .item.is-upd{border-color:color-mix(in srgb,#3b82f6 45%,var(--line))}
 .newtag{display:inline-block;margin-right:5px;padding:0 6px;border-radius:999px;font-size:12px;font-weight:800;vertical-align:2px;background:#b45309;color:#fff}
 .newtag.upd{background:#1d4ed8}
@@ -298,7 +298,14 @@ select:focus,input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 
 .cal .num{font-weight:700;font-size:13.5px}
 .cal .ev{display:block;font-size:12px;font-weight:600;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:4px;padding:1px 4px;margin-top:3px;background:var(--seal-soft);color:var(--seal)}
 .cal .ev.s{background:var(--accent-soft);color:var(--accent)}
-.cal .ev.g{opacity:.65}
+.cal .ev.g{background:none;box-shadow:inset 0 0 0 1px currentColor}
+.cal .cnt,.callegend .cnt{display:inline-block;min-width:22px;padding:1px 6px;border-radius:999px;font-size:13px;font-weight:800;line-height:18px;text-align:center;background:#c42d21;color:#fff}
+.cal .cnt.s,.callegend .cnt.s{background:var(--accent);color:var(--accent-ink)}
+.cal .cnt{display:block;width:max-content;margin:4px auto 0}
+.cal .past .num{color:var(--ink-3)}
+.callegend .narrow{display:none}
+@media (max-width:639px){.callegend .wide{display:none}.callegend .narrow{display:inline}#cal>div[data-day]{min-height:64px;padding:5px 3px;text-align:center}}
+
 .cal .ev:hover{text-decoration:underline}
 .cal .evmore{display:block;font-size:12px;color:var(--ink-3);margin-top:2px;font-weight:650}
 
@@ -389,7 +396,7 @@ footer.legal a{color:var(--ink-2)}
 @media (max-width:480px){
   nav.tabs{gap:0;padding:3px;overflow:visible;flex-wrap:wrap;justify-content:center;border-radius:24px}
   nav.tabs button{position:relative;flex:1 1 auto;min-width:0;padding:9px 3px;font-size:14px}
-  nav.tabs .count{position:absolute;top:-7px;right:-4px;margin:0;font-size:11px;line-height:16px;min-width:16px;padding:0 4px;text-align:center;box-shadow:0 0 0 2px var(--surface)}
+  nav.tabs .count{position:absolute;top:-8px;right:-4px;margin:0;font-size:12px;line-height:17px;min-width:18px;padding:0 5px;text-align:center;box-shadow:0 0 0 2px var(--surface)}
   .due{padding:5px 2px}
   .due span:not(.d){font-size:12px}
   .item{grid-template-columns:68px minmax(0,1fr) auto;gap:8px;padding:8px 4px 8px 10px}
@@ -461,7 +468,7 @@ footer.legal a{color:var(--ink-2)}
       <button class="btn" id="calNext" type="button" aria-label="다음 달">›</button>
       <label class="chip" style="margin-left:auto"><input type="checkbox" id="calFav" style="accent-color:var(--accent);margin:0 4px 0 0"> 관심만</label><label class="chip"><input type="checkbox" id="calNextYear" style="accent-color:var(--accent);margin:0 4px 0 0"> 작년 일정으로 예상 포함</label>
     </div>
-    <p class="note" style="margin-bottom:10px">빨간 이름은 그날 마감, 청록 이름은 그날 접수 시작입니다. 이름을 누르면 상세가, 날짜를 누르면 아래에 그날 목록이 나옵니다.</p>
+    <p class="note callegend" style="margin-bottom:10px"><span class="wide">빨간 이름은 그날 마감, 초록 이름은 그날 접수 시작입니다. 이름을 누르면 상세가, 날짜를 누르면 아래에 그날 목록이 나옵니다.</span><span class="narrow"><span class="cnt e">3</span> 그날 마감 <span class="cnt s">2</span> 접수 시작 · 날짜를 누르면 아래에 목록이 나와요.</span></p>
     <div class="cal" id="cal"></div>
     <div class="list" id="calList" style="margin-top:16px"></div>
   </main>
@@ -1179,6 +1186,10 @@ function apply(){
 }
 function kindLabel(r){const k=(r.kind||"").replace(/\s*·.*$/,""); return !k||k==="해당없음"||k==="기타"||k==="공고"?"":k}
 function mainUrl(r){const pub=(r.links||[]).map(l=>safeUrl(l.url)).find(u=>u&&!/portal\.hanyang\.ac\.kr/.test(u)); const own=safeUrl(r.url); if(own&&!/portal\.hanyang\.ac\.kr/.test(own)) return own; return pub||safeUrl(r.apply_url)||own}
+// 목록 제목: 앞에 붙은 게시판 머리말([교외][서울][학교추천] 등)과 '장학안내' 같은 말머리를 뗀다 (상세에는 원래 제목)
+function cardTitle(t){let c=String(t||"");const tag=/^\s*[\[【<]([^\]】>]{1,16})[\]】>]\s*/;let m;
+  while((m=c.match(tag))&&!/재단|장학회|육영회|복지|공단|공사|은행|그룹|협회|센터|진흥원|기금|문화원/.test(m[1])) c=c.slice(m[0].length);
+  c=c.replace(/^(장학\s*안내|공지|안내)\s+/,"").trim();return c.length>=4?c:String(t||"")}
 function card(r){
   const s=r._s, m=r._m;
   const ymd=d=>d?(d.slice(0,4)===TODAY.slice(0,4)?d.slice(5):d.slice(2)).replace(/-/g,"."):"";
@@ -1191,17 +1202,18 @@ function card(r){
   {const own=ownSchool(r); if(own) pills.push(`<span class="pill only">${esc(ownLabel(own))}${ownKeys(r).length>1?" 외":""}</span>`)}
   if(r._f&&r._f.label==="내 학과 대상") pills.push(`<span class="pill ok">내 학과 대상</span>`);
   const mine=profile&&profile.major;
-  pills.push(`<span class="pill ${mine&&r._fields.includes(mine)?"ok":mine&&!r._fields.includes("무관")&&!r._fields.includes("특정학과")?"no":"fld"}">${r._fields.map(FSHORT).join("·")}${r._fields[0]==="무관"||r._fields[0]==="특정학과"?"":" 계열"}</span>`);
+  // '전공 무관'·'전국'처럼 누구에게나 해당하는 태그는 목록에서 빼서 중요한 태그가 보이게 한다 (상세에는 그대로)
+  if(!(r._fields[0]==="무관"&&r._fields.length===1)) pills.push(`<span class="pill ${mine&&r._fields.includes(mine)?"ok":mine&&!r._fields.includes("무관")&&!r._fields.includes("특정학과")?"no":"fld"}">${r._fields.map(FSHORT).join("·")}${r._fields[0]==="무관"||r._fields[0]==="특정학과"?"":" 계열"}</span>`);
   if(applyState[r.id]) pills.unshift(`<span class="pill state">${esc(applyState[r.id])}</span>`);
   if((r.variants||[]).length>1) pills.push(`<span class="pill kind">세부 ${r.variants.length}개</span>`);
   if(r._n.includes("추천 필요")) pills.push(`<span class="pill rec">추천 필요</span>`);
-  if(r.region) pills.push(`<span class="pill reg">${esc(r.region)}${r.district?" "+esc(r.district):""}</span>`);
+  if(r.region&&r.region!=="전국") pills.push(`<span class="pill reg">${esc(r.region)}${r.district?" "+esc(r.district):""}</span>`);
   const kd=kindLabel(r); if(kd) pills.push(`<span class="pill kind">${esc(kd)}</span>`);
   if(isGradOnly(r)&&r.level==="대학생") pills.push(`<span class="pill lvl">대학원생</span>`);
   if(r.level && r.level!=="대학생") pills.push(`<span class="pill lvl">${esc(r.level==="고등학생"?(r.mid?"중·고등학생":"고등학생"):r.level)}</span>`);
   const fr=freshKind(r);
   const tag=fr==="new"?`<span class="newtag">새 장학</span>`:fr==="updated"?`<span class="newtag upd">바뀜</span>`:"";
-  return `<article class="item ${r.support&&r.support[0]?"sup-"+r.support[0]:""} ${fr==="new"?"is-new":fr==="updated"?"is-upd":""}" data-id="${esc(r.id)}" tabindex="0">${due}<div style="min-width:0"><p class="t">${tag}${esc(r.title)}${amt?`<span class="money">${esc(amt)}</span>`:""}</p><div class="meta">${r.org&&r.org!==r.title?`<span>${esc(r.org)}</span>`:""}</div><div class="pills">${pills.slice(0,5).join("")}</div></div><div class="acts"><button class="star" type="button" data-star="${esc(r.id)}" aria-pressed="${favs.has(r.id)}" aria-label="관심 등록"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></button><button class="bell" type="button" data-bell="${esc(r.id)}" aria-pressed="${isWatched(r.id)}" aria-label="비슷한 장학 알림" title="같거나 비슷한 장학이 새로 올라오면 알림"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0" stroke-linecap="round"/></svg></button>${isHidden(r)?`<button class="hide" type="button" data-hide="${esc(r.id)}" aria-label="숨김 풀기" title="숨김 풀기">풀기</button>`:`<button class="hide" type="button" data-hide="${esc(r.id)}" aria-label="숨기기" title="숨기기 (목록에서 안 보이게)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 3l18 18M10.6 6.1A9.9 9.9 0 0 1 12 6c5 0 9 4.5 10 6-.4.7-1.4 2-2.8 3.3M6.4 7.6C4.4 8.9 2.9 10.8 2 12c1 1.5 5 6 10 6 1.6 0 3.1-.5 4.4-1.2M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></button>`}</div></article>`;
+  return `<article class="item ${r.support&&r.support[0]?"sup-"+r.support[0]:""} ${fr==="new"?"is-new":fr==="updated"?"is-upd":""}" data-id="${esc(r.id)}" tabindex="0">${due}<div style="min-width:0"><p class="t">${tag}${esc(cardTitle(r.title))}${amt?`<span class="money">${esc(amt)}</span>`:""}</p><div class="meta">${r.org&&r.org!==r.title?`<span>${esc(r.org)}</span>`:""}</div><div class="pills">${pills.slice(0,4).join("")}</div></div><div class="acts"><button class="star" type="button" data-star="${esc(r.id)}" aria-pressed="${favs.has(r.id)}" aria-label="관심 등록"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></button><button class="bell" type="button" data-bell="${esc(r.id)}" aria-pressed="${isWatched(r.id)}" aria-label="비슷한 장학 알림" title="같거나 비슷한 장학이 새로 올라오면 알림"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0" stroke-linecap="round"/></svg></button>${isHidden(r)?`<button class="hide" type="button" data-hide="${esc(r.id)}" aria-label="숨김 풀기" title="숨김 풀기">풀기</button>`:`<button class="hide" type="button" data-hide="${esc(r.id)}" aria-label="숨기기" title="숨기기 (목록에서 안 보이게)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 3l18 18M10.6 6.1A9.9 9.9 0 0 1 12 6c5 0 9 4.5 10 6-.4.7-1.4 2-2.8 3.3M6.4 7.6C4.4 8.9 2.9 10.8 2 12c1 1.5 5 6 10 6 1.6 0 3.1-.5 4.4-1.2M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></button>`}</div></article>`;
 }
 let LASTG="", GCNT={};
 const GLABEL={"모집중":["지금 모집중",""],"예정":["접수 예정","곧 접수가 시작돼요"],"상시/미정":["일정 미정","공고에서 일정을 확인하세요"],"마감":["마감·내년 예상","지난 회차 · 작년 일정으로 다음 모집 시기를 예상했어요"]};
@@ -1352,6 +1364,11 @@ function renderCal(){
   for(let i=0;i<startDow;i++) h+=`<div class="off"></div>`;
   for(let d=1;d<=dim;d++){const k=calY+"-"+String(calM+1).padStart(2,"0")+"-"+String(d).padStart(2,"0"); const v=map[k];
     const ev=v?[...v.end,...v.start]:[], max=innerWidth<640?2:3;
+    if(innerWidth<640){ // 휴대폰: 좁은 칸에 잘린 이름 대신 '마감·시작 건수'를 크게 보여 주고, 날짜를 누르면 아래에 목록
+      const ne=v?v.end.length:0, ns=v?v.start.length:0;
+      h+=`<div data-day="${k}" class="${k===TODAY?"today":""} ${k===calSel?"sel":""} ${k<TODAY?"past":""}" aria-label="${d}일 마감 ${ne}건, 시작 ${ns}건"><span class="num">${d}</span>${ne?`<span class="cnt e">${ne}</span>`:""}${ns?`<span class="cnt s">${ns}</span>`:""}</div>`;
+      continue;
+    }
     h+=`<div data-day="${k}" class="${k===TODAY?"today":""} ${k===calSel?"sel":""}"><span class="num">${d}</span>${ev.slice(0,max).map(x=>`<span class="ev ${x.t==="start"?"s":""} ${x.guess?"g":""}" data-ev="${esc(x.r.id)}" title="${esc(x.r.title)} ${x.t==="end"?"마감":"시작"}${x.guess?"(예상)":""}">${esc(shortName(x.r))}</span>`).join("")}${ev.length>max?`<span class="evmore">외 ${ev.length-max}건</span>`:""}</div>`}
   $("#cal").innerHTML=h;
   const sel=map[calSel]; const list=sel?[...sel.end,...sel.start]:[];
