@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-22T03:01:21+00:00",
- "finishedAt": "2026-10-22T03:46:02+00:00",
+ "startedAt": "2026-10-22T03:47:19+00:00",
+ "finishedAt": "2026-10-22T04:25:12+00:00",
  "online": true,
  "total": 4641,
- "new": 10,
- "changed": 413,
+ "new": 8,
+ "changed": 417,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,8 +45,8 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 74,
-   "work": 25,
+   "count": 80,
+   "work": 14,
    "mode": "online/online"
   },
   {
@@ -79,10 +79,10 @@
   },
   {
    "source": "board",
-   "label": "대학·재단·지자체 게시판 366곳",
+   "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1086,
-   "mode": "성공 330 / 실패 36"
+   "count": 1084,
+   "mode": "성공 333 / 실패 35"
   },
   {
    "source": "gov24",
@@ -93,15 +93,15 @@
   },
   {
    "source": "catalog",
-   "label": "정기 장학 목록 164건",
+   "label": "정기 장학 목록 168건",
    "ok": true,
-   "count": 164,
+   "count": 168,
    "mode": "registry"
   }
  ],
  "registry": {
-  "total": 689,
-  "enabled": 366,
+  "total": 691,
+  "enabled": 368,
   "sources": [
    {
     "name": "한양대학교 서울캠퍼스",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 11
    },
    {
     "name": "서울여자대학교",
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 11
+    "ok": false,
+    "count": 0
    },
    {
     "name": "호서대학교 아산/천안",
@@ -5410,8 +5410,8 @@
     "url": "https://www.htus.ac.kr/board/board.php?b_id=001",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 6
+    "ok": false,
+    "count": 0
    },
    {
     "name": "경민대학교",
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -5937,9 +5937,9 @@
     "name": "hy사회복지재단",
     "type": "private",
     "region": "",
-    "url": "https://www.ybz.or.kr/",
+    "url": "https://www.ybz.or.kr/board/common_notice",
     "enabled": true,
-    "verified": false,
+    "verified": true,
     "ok": true,
     "count": 0
    },
@@ -6300,7 +6300,7 @@
     "url": "https://seoksung.co.kr/index.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6992,6 +6992,26 @@
     "verified": false,
     "ok": true,
     "count": 0
+   },
+   {
+    "name": "한국고등교육재단(인재림)",
+    "type": "corporate",
+    "region": "전국",
+    "url": "https://www.kfas.or.kr/bbs/board.php?bo_table=injaerim_2026",
+    "enabled": true,
+    "verified": false,
+    "ok": false,
+    "count": 0
+   },
+   {
+    "name": "동진장학연구재단",
+    "type": "corporate",
+    "region": "전국",
+    "url": "http://djfoundation.or.kr/",
+    "enabled": true,
+    "verified": false,
+    "ok": true,
+    "count": 4
    }
   ]
  }
