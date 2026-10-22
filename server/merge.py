@@ -1101,7 +1101,7 @@ def fix_rollover(rows: list[dict]) -> list[dict]:
         src = r.get("source") or ""
         if src.startswith("kosaf") or src in ("k", "kh", "kp", "kc", "catalog"):
             continue
-        e, p = r.get("end") or "", (r.get("posted") or "")[:10]
+        e, p = r.get("end") or "", (r.get("posted") or r.get("first_seen") or "")[:10]
         if len(e) < 10 or len(p) < 10 or e <= p:
             continue
         try:
@@ -1109,7 +1109,7 @@ def fix_rollover(rows: list[dict]) -> list[dict]:
             back = de.replace(year=de.year - 1)
         except ValueError:
             continue
-        if (de - dp).days > 240 and dp - timedelta(days=120) <= back <= dp:
+        if (de - dp).days > 240 and dp - timedelta(days=120) <= back <= dp + timedelta(days=120):
             r["end"] = back.isoformat()
             if r.get("start") and r["start"] > r["end"]:
                 r["start"] = ""

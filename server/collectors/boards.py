@@ -120,8 +120,10 @@ def deadline_from(title: str, posted: str) -> str:
     explicit = bool(y)
     if not y:  # 제목에 연도가 있으면(예: '2026년 하반기', '(2026-2)') 그 연도를 쓴다
         ty = re.search(r"(20\d{2})\s*(?:년|학년도|[-.]\s*[12]\b|\s*[12]\s*학기)", title)
-        y = ty.group(1) if ty else None
-        explicit = bool(ty)
+        # '2027년도 장학생 선발'처럼 내년도 장학을 올해 뽑는 글이 많으므로, 게시 연도보다 늦은 제목 연도는 쓰지 않는다
+        lim = int((posted or date.today().isoformat())[:4])
+        y = ty.group(1) if ty and int(ty.group(1)) <= lim else None
+        explicit = bool(y)
     y = int(y) if y else int((posted or date.today().isoformat())[:4])
     try:
         dl = date(y, int(mo), int(d))
