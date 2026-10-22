@@ -21,7 +21,6 @@ public class PortalActivity extends Activity implements PortalClient.Listener {
     @Override
     protected void onCreate(Bundle saved) {
         super.onCreate(saved);
-        getWindow().setStatusBarColor(Color.parseColor("#2d6a3e"));
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         LinearLayout bar = new LinearLayout(this);
@@ -66,7 +65,13 @@ public class PortalActivity extends Activity implements PortalClient.Listener {
         }
         web = new WebView(this);
         root.addView(web, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
-        setContentView(root);
+        EdgeToEdge.Holder bars = EdgeToEdge.wrap(this, root, Color.parseColor("#2d6a3e"), Color.WHITE);
+        setContentView(bars.frame);
+        bars.colors(Color.parseColor("#2d6a3e"), Color.WHITE, true);
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                    new android.window.OnBackInvokedCallback() { @Override public void onBackInvoked() { onBackPressed(); } });
+        }
         client = new PortalClient(this, web, false, pt, this);
         client.start();
     }
@@ -84,7 +89,7 @@ public class PortalActivity extends Activity implements PortalClient.Listener {
 
     @Override
     public void onBackPressed() {
-        if (web.canGoBack()) web.goBack(); else super.onBackPressed();
+        if (web != null && web.canGoBack()) web.goBack(); else { setResult(RESULT_CANCELED); finish(); }
     }
 
     @Override

@@ -30,15 +30,22 @@ public class MainActivity extends Activity {
     static final String HOST = "app.hunter.local";
     static final String ORIGIN = "https://" + HOST + "/";
     private WebView web;
+    private EdgeToEdge.Holder bars;
 
     @Override
     protected void onCreate(Bundle saved) {
         super.onCreate(saved);
-        getWindow().setStatusBarColor(Color.parseColor("#2d6a3e"));
         web = new WebView(this);
         android.widget.FrameLayout root = new android.widget.FrameLayout(this);
         root.addView(web, new android.widget.FrameLayout.LayoutParams(-1, -1));
-        setContentView(root);
+        bars = EdgeToEdge.wrap(this, root, Color.parseColor("#2d6a3e"), Color.WHITE);
+        setContentView(bars.frame);
+        bars.colors(Color.parseColor("#2d6a3e"), Color.WHITE, true);
+        if (Build.VERSION.SDK_INT >= 33) {
+            // API 36: 예측 뒤로가기가 기본이라 onBackPressed 가 불리지 않는다 → 뒤로가기 콜백으로 받는다
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                    new android.window.OnBackInvokedCallback() { @Override public void onBackInvoked() { goBack(); } });
+        }
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
@@ -149,7 +156,9 @@ public class MainActivity extends Activity {
     @Override protected void onSaveInstanceState(Bundle out) { super.onSaveInstanceState(out); web.saveState(out); }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() { goBack(); }
+
+    private void goBack() {
         web.evaluateJavascript("window.__back&&window.__back()", new android.webkit.ValueCallback<String>() {
             @Override public void onReceiveValue(String r) {
                 if (!"true".equals(r)) { if (web.canGoBack()) web.goBack(); else finish(); }
@@ -193,7 +202,7 @@ public class MainActivity extends Activity {
         @JavascriptInterface
         public void setDark(final boolean dark) {
             runOnUiThread(new Runnable() { @Override public void run() {
-                getWindow().setStatusBarColor(Color.parseColor(dark ? "#0e1216" : "#2d6a3e"));
+                bars.colors(Color.parseColor(dark ? "#0e1216" : "#2d6a3e"), Color.parseColor(dark ? "#0e1216" : "#ffffff"), !dark);
                 if (Build.VERSION.SDK_INT >= 29) web.getSettings().setForceDark(WebSettings.FORCE_DARK_OFF);
             } });
         }

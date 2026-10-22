@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 장학금헌터 APK 빌드 (Gradle 없이 aapt2 + javac + d8 + apksigner)
-# 필요: JDK 17+, aapt2, android.jar(API 35), d8.jar, apksigner.jar  → TOOLS 디렉터리에 두기
+# 필요: JDK 17+, aapt2, android.jar(API 36), d8.jar, apksigner.jar  → TOOLS 디렉터리에 두기
 set -euo pipefail
 cd "$(dirname "$0")"
 TOOLS=${TOOLS:-./tools}
@@ -14,7 +14,7 @@ cp -r ../site/. $OUT/assets/www/ && rm -f $OUT/assets/www/data/*.gz && cp -r ../
 # 2) 리소스 컴파일·링크
 $AAPT2 compile --dir res -o $OUT/res.zip
 $AAPT2 link -o $OUT/base.apk -I $ANDROID_JAR --manifest AndroidManifest.xml -A $OUT/assets $OUT/res.zip \
-  --min-sdk-version 24 --target-sdk-version 35 --version-name "$VERSION" -0 json
+  --min-sdk-version 24 --target-sdk-version 36 --version-name "$VERSION" -0 json
 # 3) 자바 → dex
 javac -source 8 -target 8 -bootclasspath $ANDROID_JAR -classpath $ANDROID_JAR -d $OUT/classes -nowarn -Xlint:-options $(find src -name '*.java')
 java -cp $TOOLS/d8.jar com.android.tools.r8.D8 --release --min-api 24 --lib $ANDROID_JAR --output $OUT $(find $OUT/classes -name '*.class')

@@ -1,24 +1,21 @@
 name: probe
 on: workflow_dispatch
 permissions:
-  contents: read
+  contents: write   # 서명 전 AAB 를 임시 브랜치(aab-out)에 올리기 위해서만 (내려받은 뒤 지운다)
 jobs:
-  android-tools:
+  aab:
     runs-on: ubuntu-latest
     steps:
-      - name: 공식 안드로이드 SDK 도구 받기 (API 36, bundletool)
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: 공식 안드로이드 SDK(API 36)로 서명 전 AAB 빌드
         run: |
           set -e
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" >/dev/null
-          mkdir out
-          cp "$ANDROID_HOME/platforms/android-36/android.jar" out/android-36.jar
-          cp "$ANDROID_HOME/build-tools/36.0.0/aapt2" out/aapt2-36
-          cp "$ANDROID_HOME/build-tools/36.0.0/lib/d8.jar" out/d8-36.jar
-          cp "$ANDROID_HOME/build-tools/36.0.0/lib/apksigner.jar" out/apksigner-36.jar
-          curl -sSfL -o out/bundletool.jar https://github.com/google/bundletool/releases/download/1.18.1/bundletool-all-1.18.1.jar
-          sha256sum out/* | tee out/SHA256SUMS
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: android-tools
-          path: out/
-          retention-days: 1
+          curl -sSfL -o /tmp/bundletool.jar https://github.com/google/bundletool/releases/download/1.18.1/bundletool-all-1.18.1.jar
+          BUNDLETOOL=/tmp/bundletool.jar bash android/build_aab.sh
+      - name: 임시 브랜치에 올리기
+        run: |
+          cd android/build-aab && mkdir out && cp *.aab out/ && cd out && sha256sum *.aab > SHA256SUMS
+          git init -q && git checkout -q -b aab-out && git add . 
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "unsigned aab"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" aab-out
