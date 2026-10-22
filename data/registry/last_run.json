@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-22T03:47:19+00:00",
- "finishedAt": "2026-10-22T04:25:12+00:00",
+ "startedAt": "2026-10-22T04:30:03+00:00",
+ "finishedAt": "2026-10-22T05:07:03+00:00",
  "online": true,
- "total": 4641,
- "new": 8,
- "changed": 417,
+ "total": 4655,
+ "new": 2,
+ "changed": 421,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1084,
-   "mode": "성공 333 / 실패 35"
+   "count": 1088,
+   "mode": "성공 332 / 실패 36"
   },
   {
    "source": "gov24",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 11
+    "count": 0
    },
    {
     "name": "서울여자대학교",
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 11
    },
    {
     "name": "호서대학교 아산/천안",
@@ -1190,7 +1190,7 @@
     "url": "https://www.semyung.ac.kr/prog/vwBoard/bbs06/kor/sub08_02_03/list.do",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -1221,7 +1221,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 7
+    "count": 6
    },
    {
     "name": "동신대학교",
@@ -4880,7 +4880,7 @@
     "url": "https://www.ccn.ac.kr/scholarship",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -5410,8 +5410,8 @@
     "url": "https://www.htus.ac.kr/board/board.php?b_id=001",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 6
    },
    {
     "name": "경민대학교",
@@ -5451,7 +5451,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 4
+    "count": 3
    },
    {
     "name": "동의과학대학교",
@@ -5771,7 +5771,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 8
+    "count": 7
    },
    {
     "name": "장로회신학대학교",
@@ -6300,7 +6300,7 @@
     "url": "https://seoksung.co.kr/index.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6570,7 +6570,7 @@
     "url": "http://www.sffl.or.kr/main/index.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6831,7 +6831,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "우덕윤덕병재단",
@@ -6890,7 +6890,7 @@
     "url": "https://www.iljufoundation.org/",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
