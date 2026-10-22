@@ -15,7 +15,11 @@ jobs:
           BUNDLETOOL=/tmp/bundletool.jar bash android/build_aab.sh
       - name: 임시 브랜치에 올리기
         run: |
-          cd android/build-aab && mkdir out && cp *.aab out/ && cd out && sha256sum *.aab > SHA256SUMS
+          cd android/build-aab && mkdir out && cp *.aab out/
+          rm -f ~/.android/debug.keystore
+          java -jar /tmp/bundletool.jar build-apks --bundle=$(ls *.aab) --output=u.apks --mode=universal
+          unzip -q -o u.apks universal.apk -d out && mv out/universal.apk out/universal-unsigned.apk
+          cd out && sha256sum * > SHA256SUMS
           git init -q && git checkout -q -b aab-out && git add . 
           git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "unsigned aab"
           git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" aab-out
