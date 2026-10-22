@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-22T15:02:01+00:00",
- "finishedAt": "2026-10-22T15:41:50+00:00",
+ "startedAt": "2026-10-22T15:44:02+00:00",
+ "finishedAt": "2026-10-22T16:30:31+00:00",
  "online": true,
- "total": 4641,
- "new": 0,
- "changed": 413,
+ "total": 4627,
+ "new": 9,
+ "changed": 398,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1059,
-   "mode": "성공 330 / 실패 38"
+   "count": 1063,
+   "mode": "성공 329 / 실패 39"
   },
   {
    "source": "gov24",
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 11
+    "ok": false,
+    "count": 0
    },
    {
     "name": "호서대학교 아산/천안",
@@ -920,7 +920,7 @@
     "url": "https://www.jbnu.ac.kr/web/news/notice/sub01.do",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -1240,8 +1240,8 @@
     "url": "https://janghak.kiu.ac.kr/scholarship/sub/04.htm",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 7
+    "ok": false,
+    "count": 0
    },
    {
     "name": "서울신학대학교",
@@ -4951,7 +4951,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 7
    },
    {
     "name": "부산디지털대학교",
@@ -5410,8 +5410,8 @@
     "url": "https://www.htus.ac.kr/board/board.php?b_id=001",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 6
+    "ok": false,
+    "count": 0
    },
    {
     "name": "경민대학교",
@@ -5630,8 +5630,8 @@
     "url": "http://www.dist.ac.kr/kor/CMS/Board/Board.do?mCode=MN091",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 6
    },
    {
     "name": "디지털서울문화예술대학교",
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6141,7 +6141,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 2
+    "count": 0
    },
    {
     "name": "용복장학회 희망장학금",
@@ -6441,7 +6441,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 2
+    "count": 0
    },
    {
     "name": "반석나라 장학회",
