@@ -122,6 +122,10 @@ aside.filters{display:flex;flex-direction:column;gap:18px;flex:1 1 auto;min-heig
 .onlybox .chip{font-size:12px;padding:4px 9px}
 .onlybox .chip b{font-weight:650;color:var(--ink-3);margin-left:2px}
 .onlybox .note{font-size:11.5px;margin:6px 0 0}
+.onlybox input[type=search]{display:block;width:100%;box-sizing:border-box}
+.onlybox .actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.onlybox .actions .btn{font-size:12.5px;padding:6px 10px;min-height:0;line-height:1.3;white-space:nowrap}
+.onlybox #calBox{border-top:1px solid var(--line);padding-top:8px}
 .grouphead{display:flex;flex-wrap:wrap;word-break:keep-all;align-items:baseline;gap:2px 8px;margin:14px 2px 2px;font-size:14px;font-weight:750;color:var(--ink)}
 .grouphead:first-child{margin-top:0}
 .gsec{margin-bottom:14px}
@@ -346,12 +350,12 @@ footer.legal a{color:var(--ink-2)}
   .wrap{padding-inline:16px}
   .layout{grid-template-columns:minmax(0,1fr);gap:0}
   .side{position:static;height:auto;display:block}
-  .onlybox{margin-bottom:12px;padding:8px 10px;display:flex;align-items:center;gap:8px}
-  .onlybox h3{margin:0;flex:none;font-size:12px}
-  .onlybox .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;min-width:0}
-  .onlybox .chip{flex:none;white-space:nowrap}
-  .onlybox .chips::-webkit-scrollbar,.cats::-webkit-scrollbar{display:none}
+  .onlybox{margin-bottom:12px;padding:10px 12px}
+  .onlybox h3{margin:0 0 6px;font-size:12.5px}
+  .onlybox .chip{white-space:nowrap}
+  .cats::-webkit-scrollbar{display:none}
   .onlybox .note,.onlybox [data-only-others]{display:none}
+  .onlybox #calBox .note{display:block}
   .cats{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;padding:2px 2px 4px;margin-top:12px}
   .cats>*{flex:none}
   .cats .onlybar,.cats .cats-hint{flex-basis:auto}
