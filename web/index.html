@@ -609,6 +609,7 @@ const saved=store.get("filters",null); if(saved&&!store.get("mig_field",0)){save
 if(saved&&!store.get("mig_st3",0)){ if(Array.isArray(saved.status)&&saved.status.length) saved.status=[...new Set([...saved.status,"예정","마감"])]; store.set("mig_st3",1) }
 if(saved){for(const k of["status","level","orgType","kind","match","source","field","note","ex"]) if(saved[k]) F[k]=new Set(saved[k]); F.region=saved.region||""}
 F.exw=(saved&&Array.isArray(saved.exw)?saved.exw:[]).slice(0,20);
+if(!saved||!store.get("mig_exk",0)){ F.ex.add("kosaf"); store.set("mig_exk",1) } // 기본 설정은 한국장학재단 장학을 빼고 시작 (빼고 보기에서 다시 켤 수 있음)
 // 앱을 켤 때마다 모집중·접수 예정·마감(내년 예상)은 항상 켠 상태로 시작한다 (일정 미정은 고른 대로)
 F.status=new Set([...ST_DEF,...(F.status.has("상시/미정")?["상시/미정"]:[])]); // 이 말이 들어간 장학 빼기
 // 빼고 보기: 누르면 그 기관 장학을 목록에서 뺀다
@@ -996,6 +997,8 @@ $("#cats").addEventListener("click",onCatsClick); $("#onlyBox").addEventListener
 
 /* ---------- 상태 ---------- */
 function stat(r){
+  if(r.status==="예정"&&r.start&&r.start<=TODAY) r.status=(r.end&&r.end<TODAY)?"마감":"모집중"; // 그사이 접수가 시작됐거나 끝남
+  if(r.status==="모집중"&&r.end&&r.end<TODAY) r.status="마감";
   if(r.status==="모집중"){const d=r.end?days(TODAY,r.end):null; return {key:"모집중",d,label:d==null?(r.posted&&!r.start?"마감일 확인":"모집중"):d===0?"오늘 마감":"D-"+d,hot:d!=null&&d<=7}}
   if(r.status==="예정") return {key:"예정",d:days(TODAY,r.start),label:"D-"+days(TODAY,r.start)+" 시작"};
   if(r.status==="마감"){ if(!r.next) return {key:"마감",label:"마감"}; const [y,m]=r.next.split("-"); return {key:"마감",label:(y===TODAY.slice(0,4)?"":"’"+y.slice(2)+" ")+(+m)+"월 예상",ny:y,nm:+m} }
@@ -1534,7 +1537,7 @@ const PB=(m,...a)=>{try{const b=window.AndroidBridge; return b&&typeof b[m]==="f
 const nd=v=>{const m=String(v||"").match(/(20\d\d)[.\-/]?\s*(\d{1,2})[.\-/]?\s*(\d{1,2})/); return m?`${m[1]}-${m[2].padStart(2,"0")}-${m[3].padStart(2,"0")}`:""};
 const CAL_APP=()=>!!(window.AndroidBridge&&window.AndroidBridge.myPortalInfo);
 function myInfo(){ try{ return JSON.parse(PB("myPortalInfo")||"{}")||{} }catch(e){ return {} } }
-function calItems(){
+function myCalItems(){
   let d=null; try{const t=PB("portalData"); d=t?JSON.parse(t):null}catch(e){}
   const i=myInfo(); if(!d||!Array.isArray(d.records)) return {items:[],at:0,info:i};
   const school=i.name||"학교";
@@ -1553,14 +1556,14 @@ function calItems(){
 function calMerge(){
   let n=0; const norm=t=>String(t||"").replace(/[\s()\[\]·ㆍ.,-]/g,"");
   for(let k=DATA.length-1;k>=0;k--) if(DATA[k].source==="my"){ delete BYID[DATA[k].id]; DATA.splice(k,1) }
-  for(const r of calItems().items){ if(BYID[r.id]) continue; const nt=norm(r.title); if(DATA.some(x=>norm(x.title).includes(nt)&&(!r.end||!x.end||x.end===r.end))) continue; if(!cleanRec(r)) continue; DATA.push(r); BYID[r.id]=r; n++ }
+  for(const r of myCalItems().items){ if(BYID[r.id]) continue; const nt=norm(r.title); if(DATA.some(x=>norm(x.title).includes(nt)&&(!r.end||!x.end||x.end===r.end))) continue; if(!cleanRec(r)) continue; DATA.push(r); BYID[r.id]=r; n++ }
   return n;
 }
 function renderMyCal(){
   const box=$("#calBox"); if(!box) return;
   const name=(profile&&profile.schoolName)||"", base=name.replace(/\s.*$/,""), U=UNIV_PORTALS.find(x=>x[0]===base||x[0]===name);
   if(!CAL_APP()){ box.innerHTML=`<p class="note"><b>우리 학교 장학캘린더</b> · 학교 포털에 로그인해야 보이는 장학 일정은 <b>안드로이드 앱</b>에서 내 목록에 더할 수 있어요.</p>`; return }
-  const {items,at,info}=calItems(), st=info.state||"";
+  const {items,at,info}=myCalItems(), st=info.state||"";
   if(!info.domain||(info.name&&info.name!==base)){
     box.innerHTML=`<p class="note"><b>우리 학교 장학캘린더 추가</b> · 학교 포털에 직접 로그인한 뒤 장학 일정·공지·신청 화면에서 「이 화면 저장」을 누르면, 그 목록이 이 휴대폰의 장학금헌터에만 더해져요. 비밀번호는 저장하지 않아요.</p>
       ${U?"":`<input type="url" id="calUrl" placeholder="학교 포털 주소 (https://…)" style="margin-top:6px;font-size:13px;padding:6px 10px">`}

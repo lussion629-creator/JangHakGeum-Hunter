@@ -84,6 +84,8 @@ jobs:
           exit 1
       - name: 페이지 만들기
         run: python scripts/build_site.py
+      - name: 화면 점검 (모든 탭·달력·상세를 실제 브라우저로, 실패하면 배포 안 함)
+        run: python scripts/ui_smoke.py
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with: { path: site }
   deploy:
