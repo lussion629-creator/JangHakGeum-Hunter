@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-22T07:10:48+00:00",
- "finishedAt": "2026-10-22T07:52:41+00:00",
+ "startedAt": "2026-10-22T13:08:19+00:00",
+ "finishedAt": "2026-10-22T13:50:26+00:00",
  "online": true,
- "total": 4664,
- "new": 5,
- "changed": 417,
+ "total": 4613,
+ "new": 12,
+ "changed": 406,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,9 +45,9 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 94,
-   "work": 28,
-   "mode": "online/online"
+   "count": 52,
+   "work": 3,
+   "mode": "online/seed"
   },
   {
    "source": "hywoman",
@@ -60,7 +60,7 @@
    "source": "kangwon",
    "label": "강원대 장학공지(삼척)",
    "ok": true,
-   "count": 92,
+   "count": 97,
    "mode": "online"
   },
   {
@@ -81,7 +81,7 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1088,
+   "count": 1071,
    "mode": "성공 331 / 실패 37"
   },
   {
@@ -150,7 +150,7 @@
     "url": "https://student.snu.ac.kr/?page_id=10815&mod=list&category1=장학공지",
     "enabled": true,
     "verified": true,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -321,7 +321,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 3
+    "count": 2
    },
    {
     "name": "숭실대학교",
@@ -351,7 +351,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 14
+    "count": 15
    },
    {
     "name": "덕성여자대학교",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 11
+    "count": 0
    },
    {
     "name": "서울여자대학교",
@@ -610,8 +610,8 @@
     "url": "https://www.knu.ac.kr/wbbs/wbbs/bbs/btin/list.action?bbs_cde=1&menu_idx=67",
     "enabled": true,
     "verified": true,
-    "ok": true,
-    "count": 1
+    "ok": false,
+    "count": 0
    },
    {
     "name": "충북대학교",
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 11
+    "ok": false,
+    "count": 0
    },
    {
     "name": "호서대학교 아산/천안",
@@ -810,7 +810,7 @@
     "url": "https://www.gwangju.ac.kr/bbs/?b_id=gwangju_notice_se&site=gwangju&mn=538",
     "enabled": true,
     "verified": true,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -851,7 +851,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 2
    },
    {
     "name": "한국예술종합학교",
@@ -871,7 +871,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 2
+    "count": 1
    },
    {
     "name": "한경국립대학교",
@@ -991,7 +991,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 2
+    "count": 1
    },
    {
     "name": "계명대학교",
@@ -1021,7 +1021,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "조선대학교",
@@ -1091,7 +1091,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 7
+    "count": 6
    },
    {
     "name": "성결대학교",
@@ -1171,7 +1171,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 39
+    "count": 40
    },
    {
     "name": "국립군산대학교",
@@ -1211,7 +1211,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 1
+    "count": 0
    },
    {
     "name": "상지대학교",
@@ -5141,7 +5141,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 8
+    "count": 9
    },
    {
     "name": "가톨릭꽃동네대학교",
@@ -5410,8 +5410,8 @@
     "url": "https://www.htus.ac.kr/board/board.php?b_id=001",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 6
    },
    {
     "name": "경민대학교",
@@ -5521,7 +5521,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 3
+    "count": 2
    },
    {
     "name": "수원과학대학교",
@@ -5551,7 +5551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 9
+    "count": 10
    },
    {
     "name": "경복대학교",
@@ -5711,7 +5711,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 8
+    "count": 7
    },
    {
     "name": "영진전문대학교",
@@ -6300,7 +6300,7 @@
     "url": "https://seoksung.co.kr/index.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6830,7 +6830,7 @@
     "url": "http://www.stxfoundation.or.kr/",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
