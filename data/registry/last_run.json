@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-22T01:03:31+00:00",
- "finishedAt": "2026-10-22T01:42:01+00:00",
+ "startedAt": "2026-10-22T03:01:21+00:00",
+ "finishedAt": "2026-10-22T03:46:02+00:00",
  "online": true,
- "total": 4655,
- "new": 7,
- "changed": 420,
+ "total": 4641,
+ "new": 10,
+ "changed": 413,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,8 +45,8 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 87,
-   "work": 21,
+   "count": 74,
+   "work": 25,
    "mode": "online/online"
   },
   {
@@ -81,7 +81,7 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 366곳",
    "ok": true,
-   "count": 1091,
+   "count": 1086,
    "mode": "성공 330 / 실패 36"
   },
   {
@@ -161,7 +161,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 27
+    "count": 26
    },
    {
     "name": "고려대학교 서울",
@@ -211,7 +211,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 15
+    "count": 13
    },
    {
     "name": "건국대학교 서울",
@@ -251,7 +251,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 13
+    "count": 14
    },
    {
     "name": "숙명여자대학교",
@@ -291,7 +291,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 5
+    "count": 6
    },
    {
     "name": "명지대학교 인문/자연",
@@ -501,7 +501,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 10
+    "count": 9
    },
    {
     "name": "경기대학교 수원/서울",
@@ -521,7 +521,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 14
+    "count": 13
    },
    {
     "name": "수원대학교",
@@ -660,7 +660,7 @@
     "url": "https://www.jejunu.ac.kr/ara/noticesurvey/degree.htm?category=238",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -761,7 +761,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 10
+    "count": 9
    },
    {
     "name": "포항공과대학교(POSTECH)",
@@ -981,7 +981,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 8
+    "count": 7
    },
    {
     "name": "영산대학교(와이즈유) 양산/부산",
@@ -1190,7 +1190,7 @@
     "url": "https://www.semyung.ac.kr/prog/vwBoard/bbs06/kor/sub08_02_03/list.do",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -1290,7 +1290,7 @@
     "url": "https://www.kfas.or.kr/bbs/board.php?bo_table=kfas_whats_new",
     "enabled": true,
     "verified": true,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -1780,7 +1780,7 @@
     "url": "https://chest.or.kr/bbs/1000/initPostList.do",
     "enabled": true,
     "verified": true,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -4811,7 +4811,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 17
+    "count": 18
    },
    {
     "name": "강원도립대학교",
@@ -4880,7 +4880,7 @@
     "url": "https://www.ccn.ac.kr/scholarship",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -4941,7 +4941,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 8
+    "count": 7
    },
    {
     "name": "배화여자대학교",
@@ -5131,7 +5131,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 12
+    "count": 11
    },
    {
     "name": "화성의과학대학교",
@@ -5291,7 +5291,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 5
+    "count": 4
    },
    {
     "name": "신안산대학교",
@@ -5471,7 +5471,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 15
+    "count": 16
    },
    {
     "name": "서울장신대학교",
@@ -5591,7 +5591,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 10
+    "count": 9
    },
    {
     "name": "극동대학교",
@@ -5601,7 +5601,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 3
    },
    {
     "name": "대구공업대학교",
@@ -5621,7 +5621,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 9
+    "count": 8
    },
    {
     "name": "동원과학기술대학교",
@@ -6890,7 +6890,7 @@
     "url": "https://www.iljufoundation.org/",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
