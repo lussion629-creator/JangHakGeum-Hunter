@@ -39,3 +39,4 @@ data/seed/kangwon.json
 data/seed/hanyang_public.json
 web/app.codeql.js
 android/build-aab/
+play-store/
