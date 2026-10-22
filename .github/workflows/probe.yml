@@ -6,4 +6,4 @@ jobs:
   cleanup:
     runs-on: ubuntu-latest
     steps:
-      - run: git init -q && git push "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" --delete probe-out || true
+      - run: git init -q && git push "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" --delete probe-out aab-out || true
