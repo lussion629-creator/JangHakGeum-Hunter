@@ -1,9 +1,24 @@
 name: probe
 on: workflow_dispatch
 permissions:
-  contents: write
+  contents: read
 jobs:
-  cleanup:
+  android-tools:
     runs-on: ubuntu-latest
     steps:
-      - run: git init -q && git push "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" --delete probe-out || true
+      - name: 공식 안드로이드 SDK 도구 받기 (API 36, bundletool)
+        run: |
+          set -e
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" >/dev/null
+          mkdir out
+          cp "$ANDROID_HOME/platforms/android-36/android.jar" out/android-36.jar
+          cp "$ANDROID_HOME/build-tools/36.0.0/aapt2" out/aapt2-36
+          cp "$ANDROID_HOME/build-tools/36.0.0/lib/d8.jar" out/d8-36.jar
+          cp "$ANDROID_HOME/build-tools/36.0.0/lib/apksigner.jar" out/apksigner-36.jar
+          curl -sSfL -o out/bundletool.jar https://github.com/google/bundletool/releases/download/1.18.1/bundletool-all-1.18.1.jar
+          sha256sum out/* | tee out/SHA256SUMS
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: android-tools
+          path: out/
+          retention-days: 1
