@@ -16,7 +16,7 @@ from datetime import date
 from pathlib import Path
 
 from .collectors import boards, catalog, gov24, hanyang, hywoman, kangwon, konkuk, kosaf, kosaf_hist, sogang
-from .merge import collapse, deep_check, final_dupes, for_all, merge
+from .merge import collapse, deep_check, final_dupes, for_all, merge, fix_rollover
 from .model import summarize_body, expected_next, now_iso, status_of, support_of
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -199,6 +199,7 @@ def export(con: sqlite3.Connection, summary: dict):
         if hits:
             kind = "new" if any(k == "new" for k, _ in hits) else "updated"
             r["fresh"] = {"kind": kind, "at": max(a for _, a in hits)}
+    rows = fix_rollover(rows)  # 게시판 마감일을 잘못 다음 해로 넘긴 줄 바로잡기 (저장된 줄 포함)
     rows = for_all(rows)  # 전국 모든 학교 학생용: 특정 대학 학생만 지원할 수 있는 장학에는 학교 이름(own)을 붙인다
     rows = deep_check(rows)  # 재확인: 학교 게시판 공고는 본문 전체를 다시 읽어 판정을 한 번 더 검증한다
     VERIFY_LOG[:] = [{"title": r.get("title", "")[:80], "why": r.pop("_why")} for r in rows if r.get("_why")]

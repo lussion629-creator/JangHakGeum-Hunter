@@ -50,4 +50,7 @@ def collect(online: bool = True):
         }))
         if nxt:
             out[-1]["next_hint"] = nxt.strftime("%Y-%m")
+        if c.get("own"):  # 그 학교(캠퍼스) 학생만 신청할 수 있는 교내 장학
+            out[-1]["own"] = list(c["own"])
+            out[-1]["school_types"] = ["특정대학"]
     return out, [{"source": "catalog", "label": f"정기 장학 목록 {len(out)}건", "ok": True, "count": len(out), "mode": "registry"}]

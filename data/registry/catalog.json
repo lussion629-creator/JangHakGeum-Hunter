@@ -1010,8 +1010,8 @@
   "tags": [],
   "windows": [
    [
-    12,
-    1
+    10,
+    11
    ]
   ]
  },
@@ -2077,7 +2077,7 @@
   "windows": [
    [
     10,
-    10
+    11
    ]
   ]
  },
@@ -2471,11 +2471,13 @@
   "level": "대학생",
   "also": [],
   "region": "",
-  "tags": [],
+  "tags": [
+   "대학 추천"
+  ],
   "windows": [
    [
     10,
-    10
+    11
    ]
   ]
  },
@@ -3134,6 +3136,88 @@
     5,
     6
    ]
+  ]
+ },
+ {
+  "name": "우양재단 동행장학생",
+  "org": "우양재단",
+  "url": "https://www.wooyang.org/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [],
+  "windows": [
+   [
+    10,
+    10
+   ]
+  ]
+ },
+ {
+  "name": "한국고등교육재단 인재림",
+  "org": "한국고등교육재단",
+  "url": "https://www.kfas.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [],
+  "windows": [
+   [
+    10,
+    10
+   ]
+  ]
+ },
+ {
+  "name": "동진장학연구재단 장학생",
+  "org": "동진장학연구재단",
+  "url": "http://djfoundation.or.kr/",
+  "support": [
+   "living"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [],
+  "windows": [
+   [
+    10,
+    10
+   ]
+  ]
+ },
+ {
+  "name": "라이언헬프 장학금",
+  "org": "한양대학교",
+  "url": "https://intercollege.hanyang.ac.kr/05_notice/notice01.html?mode=view&No=320",
+  "support": [
+   "living",
+   "tuition"
+  ],
+  "level": "대학생",
+  "also": [],
+  "region": "",
+  "tags": [
+   "가계곤란"
+  ],
+  "windows": [
+   [
+    4,
+    5
+   ],
+   [
+    10,
+    11
+   ]
+  ],
+  "own": [
+   "한양대학교 서울캠퍼스"
   ]
  }
 ]

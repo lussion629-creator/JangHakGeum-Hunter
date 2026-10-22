@@ -117,12 +117,19 @@ def deadline_from(title: str, posted: str) -> str:
         y, mo, d = m.group(1), m.group(2), m.group(3)
     else:
         y, mo, d = None, m.group(4), m.group(5)
+    explicit = bool(y)
+    if not y:  # 제목에 연도가 있으면(예: '2026년 하반기', '(2026-2)') 그 연도를 쓴다
+        ty = re.search(r"(20\d{2})\s*(?:년|학년도|[-.]\s*[12]\b|\s*[12]\s*학기)", title)
+        y = ty.group(1) if ty else None
+        explicit = bool(ty)
     y = int(y) if y else int((posted or date.today().isoformat())[:4])
     try:
         dl = date(y, int(mo), int(d))
     except ValueError:
         return ""
-    if posted and dl.isoformat() < posted:
+    # 다음 해로 넘기는 것은 연말 게시·연초 마감(예: 12월 글의 '~1.15')처럼 해가 바뀌는 경우뿐이다.
+    # 마감 연장·수정 공지처럼 게시일이 마감일보다 조금 늦은 글을 다음 해 마감으로 만들지 않는다.
+    if not explicit and posted and dl.isoformat() < posted and (date.fromisoformat(posted[:10]) - dl).days > 120:
         try:
             dl = date(y + 1, int(mo), int(d))
         except ValueError:

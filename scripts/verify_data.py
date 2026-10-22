@@ -57,6 +57,18 @@ for c in cases:
         if len({(_core(r["title"]), r.get("end") or "") for r in hits}) < len(hits):
             fails.append(f"사례 불일치 [한 줄] {hits[0]['title'][:60]} {len(hits)}줄 " + str([(r['source'], r.get('own'), r.get('end')) for r in hits]) + f" — {c.get('why', '')}")
         continue
+    if c["expect"] == "one_general":  # 모든 학생에게 보이는 줄이 하나뿐이어야 한다 (이름이 조금 다른 중복도 잡는다)
+        gen = [r for r in hits if not r.get("own") and r.get("level") != "고등학생"]
+        if len(gen) > 1:
+            fails.append(f"사례 불일치 [한 줄] {gen[0]['title'][:50]} {len(gen)}줄 " + str([(r['source'], r['title'][:30], r.get('end')) for r in gen]) + f" — {c.get('why', '')}")
+        elif not gen:
+            warns.append(f"사례 없음(지금 자료에 해당 공고 없음): {c.get('title') or c.get('title_re')}")
+        continue
+    if c["expect"] == "end_before":  # 마감일이 이 날짜보다 앞이어야 한다 (연도를 잘못 넘긴 마감 잡기)
+        bad = [r for r in hits if (r.get("end") or "") >= c["date"]]
+        for r in bad:
+            fails.append(f"사례 불일치 [마감 연도] {r['title'][:60]} 마감 {r.get('end')} — {c.get('why', '')}")
+        continue
     if not hits:
         warns.append(f"사례 없음(지금 자료에 해당 공고 없음): {c.get('title') or c.get('title_re')}")
         continue

@@ -906,8 +906,14 @@ def for_all(rows: list[dict]) -> list[dict]:
 _CORE_DROP = re.compile(r"\[[^\]]*\]|\([^)]*\)|20\d\d\s*(학년도|년도|년)?|\d\s*학기|[상하]반기|[1-9]\s*차|모집|선발|안내|공고|신청|장학생|장학금|추천|대상자|[^0-9A-Za-z가-힣]")
 
 
+_ORG_ALIAS = [("한국야쿠르트", "hy"), ("HY", "hy")]  # 운영기관 이름이 바뀐 경우 (한국야쿠르트 → hy)
+
+
 def _core(t: str) -> str:
-    return _CORE_DROP.sub("", t or "")
+    t = t or ""
+    for a, b in _ORG_ALIAS:
+        t = t.replace(a, b)
+    return _CORE_DROP.sub("", re.sub(r"의\s*건\b|^장학\s*안내", "", t))
 
 
 def _latest_only(rows: list[dict]) -> list[dict]:
@@ -1037,7 +1043,18 @@ def final_dupes(rows: list[dict]) -> list[dict]:
                 continue  # 같은 마감일의 같은 장학을 다른 학교가 또 옮겨 실음
             seen[k] = r
         out.append(r)
-    return out
+    # 날짜를 못 읽은 학교 게시판 공지가, 날짜가 있는 같은 장학(이름이 그 안에 들어 있는 줄)과 함께 보이면 날짜 없는 쪽을 뺀다
+    # (예: '2026년 인재림 제 7기 장학생 선발 안내' ⊂ '2026학년도 2학기 한국고등교육재단 인재림 제7기 모집 안내(10.8.~10.29.)')
+    dated = [_core(r.get("title")) for r in out if not r.get("own") and r.get("end") and r.get("level") != "고등학생"]
+    res = []
+    for r in out:
+        src = r.get("source") or ""
+        if (src == "board" or src in SRC_OWN) and not r.get("own") and not r.get("end") and not r.get("start"):
+            c = _core(r.get("title"))
+            if len(c) >= 5 and any(c in d for d in dated):
+                continue
+        res.append(r)
+    return res
 
 
 # ---------------------------------------------------------------------------
@@ -1073,4 +1090,27 @@ def deep_check(rows: list[dict]) -> list[dict]:
     for r in rows:
         r.pop("_srcs2", None)
         r.pop("_relays2", None)
+    return rows
+
+
+def fix_rollover(rows: list[dict]) -> list[dict]:
+    """게시판 공고의 마감일을 잘못 다음 해로 넘긴 줄을 바로잡는다 (예: 10월 15일 게시 '~10.7' → 2027-10-07 이 아니라 2026-10-07).
+    해가 바뀌는 진짜 경우(12월 게시 '~1.15')는 게시일과 마감일 차이가 짧으므로 건드리지 않는다."""
+    from datetime import date, timedelta
+    for r in rows:
+        src = r.get("source") or ""
+        if src.startswith("kosaf") or src in ("k", "kh", "kp", "kc", "catalog"):
+            continue
+        e, p = r.get("end") or "", (r.get("posted") or "")[:10]
+        if len(e) < 10 or len(p) < 10 or e <= p:
+            continue
+        try:
+            de, dp = date.fromisoformat(e[:10]), date.fromisoformat(p)
+            back = de.replace(year=de.year - 1)
+        except ValueError:
+            continue
+        if (de - dp).days > 240 and dp - timedelta(days=120) <= back <= dp:
+            r["end"] = back.isoformat()
+            if r.get("start") and r["start"] > r["end"]:
+                r["start"] = ""
     return rows

@@ -7843,11 +7843,11 @@
   "region": "",
   "district": "",
   "homepage": "https://www.ybz.or.kr",
-  "notice_url": "https://www.ybz.or.kr/",
+  "notice_url": "https://www.ybz.or.kr/board/common_notice",
   "rss": "",
-  "verified": false,
+  "verified": true,
   "enabled": true,
-  "notes": "운영기관 공식 홈페이지 (공지 게시판 위치 미확인)"
+  "notes": "공식 홈페이지 공지사항 게시판 (2026-10-22 확인: 든든 학업지원금 공지)"
  },
  {
   "id": "해동과학문화재단-haedong-",
@@ -9209,6 +9209,32 @@
   "district": "",
   "homepage": "http://www.kcffd.org",
   "notice_url": "http://www.kcffd.org/",
+  "rss": "",
+  "verified": false,
+  "enabled": true,
+  "notes": "운영기관 공식 홈페이지 (공지 게시판 위치 미확인)"
+ },
+ {
+  "id": "한국고등교육재단-인재림",
+  "name": "한국고등교육재단(인재림)",
+  "type": "corporate",
+  "region": "전국",
+  "district": "",
+  "homepage": "https://www.kfas.or.kr",
+  "notice_url": "https://www.kfas.or.kr/bbs/board.php?bo_table=injaerim_2026",
+  "rss": "",
+  "verified": false,
+  "enabled": true,
+  "notes": "인재림 전용 게시판(연도별 이름). 해마다 bo_table 이름 확인"
+ },
+ {
+  "id": "동진장학연구재단-dj",
+  "name": "동진장학연구재단",
+  "type": "corporate",
+  "region": "전국",
+  "district": "",
+  "homepage": "http://djfoundation.or.kr/",
+  "notice_url": "http://djfoundation.or.kr/",
   "rss": "",
   "verified": false,
   "enabled": true,
