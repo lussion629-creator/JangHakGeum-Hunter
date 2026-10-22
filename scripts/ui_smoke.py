@@ -28,6 +28,9 @@ with sync_playwright() as p:
             ov = pg.evaluate("(()=>{const n=document.querySelector('nav.tabs');const r=n.getBoundingClientRect();return n.scrollWidth>n.clientWidth+1||r.right>innerWidth+1})()")
             if ov:
                 fails.append(f"{tag}: 탭 줄이 화면 밖으로 넘침 (마지막 탭·숫자 배지가 잘림)")
+            cut = pg.evaluate("[...document.querySelectorAll('.due span')].filter(e=>e.offsetParent&&e.scrollWidth>e.clientWidth+1).map(e=>e.textContent).slice(0,2)")
+            if cut:
+                fails.append(f"{tag}: 마감일 칸 글자가 잘림 {cut}")
             if pg.locator(".list [data-id]").count() == 0:
                 fails.append(f"{tag}: 찾기 목록이 비어 있음")
             for t in ("cal", "fav", "alert", "me", "doc", "src", "find"):

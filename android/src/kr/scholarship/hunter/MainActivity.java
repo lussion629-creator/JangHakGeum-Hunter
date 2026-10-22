@@ -56,7 +56,9 @@ public class MainActivity extends Activity {
         s.setGeolocationEnabled(false);
         s.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         s.setSaveFormData(false);
-        s.setTextZoom(100);
+        // 휴대폰 설정의 글자 크기를 따른다 (작게는 줄이지 않고, 화면이 깨지지 않게 130%까지)
+        float fs = getResources().getConfiguration().fontScale;
+        s.setTextZoom(Math.round(Math.min(1.3f, Math.max(1f, fs)) * 100));
         s.setSupportZoom(true);            // 두 손가락으로 벌려 확대·축소
         s.setBuiltInZoomControls(true);
         s.setDisplayZoomControls(false);   // 화면에 +/- 버튼은 띄우지 않는다
