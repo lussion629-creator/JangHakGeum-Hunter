@@ -1,0 +1,27 @@
+name: android-aab
+# 플레이 등록용 '서명 전' AAB·확인용 APK 를 공식 SDK(API 36)로 만든다. 서명은 키가 있는 곳에서 따로 한다.
+# 결과는 임시 브랜치 aab-out 에 올리고, 받은 뒤 probe 작업으로 지운다.
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  aab:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: 서명 전 AAB 빌드
+        run: |
+          set -e
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" >/dev/null
+          curl -sSfL -o /tmp/bundletool.jar https://github.com/google/bundletool/releases/download/1.18.1/bundletool-all-1.18.1.jar
+          BUNDLETOOL=/tmp/bundletool.jar bash android/build_aab.sh
+      - name: 확인용 APK 만들고 임시 브랜치에 올리기
+        run: |
+          cd android/build-aab && mkdir out && cp *.aab out/
+          rm -f ~/.android/debug.keystore
+          java -jar /tmp/bundletool.jar build-apks --bundle=$(ls *.aab) --output=u.apks --mode=universal
+          unzip -q -o u.apks universal.apk -d out && mv out/universal.apk out/universal-unsigned.apk
+          cd out && sha256sum * > SHA256SUMS
+          git init -q && git checkout -q -b aab-out && git add .
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "unsigned aab"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" aab-out

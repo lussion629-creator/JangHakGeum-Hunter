@@ -366,6 +366,12 @@ footer.legal a{color:var(--ink-2)}
   .kpi .n{font-size:11px}
   nav.tabs{width:100%;justify-content:space-between}
   nav.tabs button{padding:8px 6px;flex:1;font-size:13px}
+  /* 좁은 화면: 탭 7개가 한 줄에 다 들어가게 글자·여백을 줄이고, 숫자 배지는 글자 오른쪽 위에 겹쳐 올린다 (칸을 차지하지 않게) */
+}
+@media (max-width:480px){
+  nav.tabs{gap:0;padding:3px;overflow:visible}
+  nav.tabs button{position:relative;flex:1 1 auto;min-width:0;padding:8px 2px;font-size:12.5px;letter-spacing:-.02em}
+  nav.tabs .count{position:absolute;top:-6px;right:-3px;margin:0;font-size:10px;line-height:15px;min-width:15px;padding:0 4px;text-align:center;box-shadow:0 0 0 2px var(--surface)}
   .due{padding:5px 2px}
   .due span:not(.d){font-size:9.5px;letter-spacing:-.02em}
   .item{grid-template-columns:56px minmax(0,1fr) auto;gap:8px;padding:8px 4px 8px 10px}

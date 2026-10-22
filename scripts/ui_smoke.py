@@ -18,13 +18,16 @@ PROFILES = [None, {"schoolName": "한양대학교 ERICA캠퍼스", "status": "un
 with sync_playwright() as p:
     b = p.chromium.launch()
     for prof in PROFILES:
-        for w, h in ((1280, 900), (390, 844)):
+        for w, h in ((1280, 900), (390, 844), (320, 640)):
             pg = b.new_page(viewport={"width": w, "height": h})
             errs = []
             pg.on("pageerror", lambda e, errs=errs: errs.append(str(e)))
             pg.add_init_script("localStorage.setItem('hunt:helpSeen','true');" + (f"localStorage.setItem('hunt:profile',{json.dumps(json.dumps(prof, ensure_ascii=False))});" if prof else ""))
             pg.goto(URL); pg.wait_for_timeout(2500)
             tag = f"{(prof or {}).get('schoolName', '학교 미선택')} {w}px"
+            ov = pg.evaluate("(()=>{const n=document.querySelector('nav.tabs');const r=n.getBoundingClientRect();return n.scrollWidth>n.clientWidth+1||r.right>innerWidth+1})()")
+            if ov:
+                fails.append(f"{tag}: 탭 줄이 화면 밖으로 넘침 (마지막 탭·숫자 배지가 잘림)")
             if pg.locator(".list [data-id]").count() == 0:
                 fails.append(f"{tag}: 찾기 목록이 비어 있음")
             for t in ("cal", "fav", "alert", "me", "doc", "src", "find"):
