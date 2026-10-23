@@ -31,6 +31,8 @@ public class MainActivity extends Activity {
     static final String ORIGIN = "https://" + HOST + "/";
     private WebView web;
     private EdgeToEdge.Holder bars;
+    private Banner banner;
+    private android.widget.FrameLayout adBox;
 
     @Override
     protected void onCreate(Bundle saved) {
@@ -38,7 +40,16 @@ public class MainActivity extends Activity {
         web = new WebView(this);
         android.widget.FrameLayout root = new android.widget.FrameLayout(this);
         root.addView(web, new android.widget.FrameLayout.LayoutParams(-1, -1));
-        bars = EdgeToEdge.wrap(this, root, Color.parseColor("#2d6a3e"), Color.WHITE);
+        // 화면: 위는 웹 화면, 맨 아래는 광고 띠 (내비게이션 막대 바로 위)
+        android.widget.LinearLayout column = new android.widget.LinearLayout(this);
+        column.setOrientation(android.widget.LinearLayout.VERTICAL);
+        column.addView(root, new android.widget.LinearLayout.LayoutParams(-1, 0, 1f));
+        adBox = new android.widget.FrameLayout(this);
+        adBox.setBackgroundColor(Color.WHITE);
+        column.addView(adBox, new android.widget.LinearLayout.LayoutParams(-1, -2));
+        bars = EdgeToEdge.wrap(this, column, Color.parseColor("#2d6a3e"), Color.WHITE);
+        banner = new Banner(this, adBox);
+        bars.onKeyboard = new EdgeToEdge.Holder.Keyboard() { @Override public void on(boolean shown) { banner.keyboard(shown); } };
         setContentView(bars.frame);
         bars.colors(Color.parseColor("#2d6a3e"), Color.WHITE, true);
         if (Build.VERSION.SDK_INT >= 33) {
@@ -98,6 +109,7 @@ public class MainActivity extends Activity {
         if (saved != null) web.restoreState(saved); else web.loadUrl(ORIGIN + "index.html");
         try { AlertJob.schedule(this); } catch (Exception ignored) { }
         silentCal(root);
+        banner.start();
         if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission("android.permission.POST_NOTIFICATIONS") != 0) {
             requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 1);
         }
@@ -155,6 +167,8 @@ public class MainActivity extends Activity {
         if (web != null) web.evaluateJavascript("window.__sysTheme&&window.__sysTheme()", null);
     }
 
+    @Override protected void onDestroy() { if (banner != null) banner.destroy(); super.onDestroy(); }
+
     @Override protected void onSaveInstanceState(Bundle out) { super.onSaveInstanceState(out); web.saveState(out); }
 
     @Override
@@ -205,6 +219,7 @@ public class MainActivity extends Activity {
         public void setDark(final boolean dark) {
             runOnUiThread(new Runnable() { @Override public void run() {
                 bars.colors(Color.parseColor(dark ? "#0e1216" : "#2d6a3e"), Color.parseColor(dark ? "#0e1216" : "#ffffff"), !dark);
+                if (adBox != null) adBox.setBackgroundColor(Color.parseColor(dark ? "#0e1216" : "#ffffff"));
                 if (Build.VERSION.SDK_INT >= 29) web.getSettings().setForceDark(WebSettings.FORCE_DARK_OFF);
             } });
         }

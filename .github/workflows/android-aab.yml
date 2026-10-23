@@ -1,5 +1,6 @@
 name: android-aab
-# 플레이 등록용 '서명 전' AAB·확인용 APK 를 공식 SDK(API 36)로 만든다. 서명은 키가 있는 곳에서 따로 한다.
+# 플레이 등록용 '서명 전' AAB·확인용 APK 를 Gradle(공식 SDK API 36 + 애드몹 SDK)로 만든다. 서명은 키가 있는 곳에서 따로 한다.
+# 애드몹 ID 는 저장소 변수(ADMOB_APP_ID, ADMOB_BANNER_ID)로 넣는다. 없으면 구글 테스트 광고 ID 로 빌드된다.
 # 결과는 임시 브랜치 aab-out 에 올리고, 받은 뒤 probe 작업으로 지운다.
 on: workflow_dispatch
 permissions:
@@ -7,20 +8,38 @@ permissions:
 jobs:
   aab:
     runs-on: ubuntu-latest
+    env:
+      ADMOB_APP_ID: ${{ vars.ADMOB_APP_ID }}
+      ADMOB_BANNER_ID: ${{ vars.ADMOB_BANNER_ID }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-      - name: 서명 전 AAB 빌드
+      - name: 도구 (SDK API 36, Gradle 8.11.1 체크섬 확인, bundletool)
         run: |
           set -e
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" >/dev/null
+          cd /tmp
+          curl -sSfLO https://services.gradle.org/distributions/gradle-8.11.1-bin.zip
+          echo "$(curl -sSfL https://services.gradle.org/distributions/gradle-8.11.1-bin.zip.sha256)  gradle-8.11.1-bin.zip" | sha256sum -c -
+          unzip -q gradle-8.11.1-bin.zip
           curl -sSfL -o /tmp/bundletool.jar https://github.com/google/bundletool/releases/download/1.18.1/bundletool-all-1.18.1.jar
-          BUNDLETOOL=/tmp/bundletool.jar bash android/build_aab.sh
+      - name: 서명 전 AAB 빌드
+        run: |
+          python3 android/gradle/prepare.py
+          /tmp/gradle-8.11.1/bin/gradle -p android/gradle --no-daemon -q :app:bundleRelease
+      - name: 실패하면 SDK 클래스 이름 보여 주기
+        if: failure()
+        run: |
+          f=$(find ~/.gradle/caches -name 'ads-mobile-sdk-*.aar' | head -1); echo "$f"
+          mkdir -p /tmp/aar && cd /tmp/aar && unzip -q -o "$f" classes.jar && unzip -l classes.jar | grep -E '/(AdSize|AdView|AdLoadCallback|LoadAdError|BannerAd|BannerAdRequest|MobileAds|InitializationConfig|OnAdapterInitializationCompleteListener|InitializationStatus)\.class' || true
       - name: 확인용 APK 만들고 임시 브랜치에 올리기
         run: |
-          cd android/build-aab && mkdir out && cp *.aab out/
+          set -e
+          V=$(python3 -c "import re;print(re.search(r'versionName=\"([^\"]+)\"',open('android/AndroidManifest.xml').read()).group(1))")
+          mkdir out && cp android/gradle/app/build/outputs/bundle/release/app-release.aab "out/scholarship-hunter-$V-unsigned.aab"
           rm -f ~/.android/debug.keystore
-          java -jar /tmp/bundletool.jar build-apks --bundle=$(ls *.aab) --output=u.apks --mode=universal
-          unzip -q -o u.apks universal.apk -d out && mv out/universal.apk out/universal-unsigned.apk
+          java -jar /tmp/bundletool.jar build-apks --bundle=out/*.aab --output=/tmp/u.apks --mode=universal
+          unzip -q -o /tmp/u.apks universal.apk -d out && mv out/universal.apk out/universal-unsigned.apk
+          if [ -z "$ADMOB_APP_ID" ]; then echo "test-ads" > out/ADS_MODE; else echo "real-ads" > out/ADS_MODE; fi
           cd out && sha256sum * > SHA256SUMS
           git init -q && git checkout -q -b aab-out && git add .
           git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "unsigned aab"

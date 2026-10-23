@@ -1,0 +1,50 @@
+plugins { id 'com.android.application' }
+
+// 버전은 android/AndroidManifest.xml 한 곳에서 관리한다
+def mf = new groovy.xml.XmlSlurper().parse(file('../../AndroidManifest.xml'))
+def vCode = mf.@'android:versionCode'.text().toInteger()
+def vName = mf.@'android:versionName'.text()
+
+// 애드몹 ID: 빌드 때 ADMOB_APP_ID / ADMOB_BANNER_ID 로 넣는다. 없으면 구글 테스트 광고 ID (실제 수익 없음)
+def TEST_APP = 'ca-app-pub-3940256099942544~3347511713'
+def TEST_BANNER = 'ca-app-pub-3940256099942544/9214589741'
+def admobApp = System.getenv('ADMOB_APP_ID') ?: TEST_APP
+def admobBanner = System.getenv('ADMOB_BANNER_ID') ?: TEST_BANNER
+if (!(admobApp ==~ /ca-app-pub-\d{16}~\d{10}/)) throw new GradleException("ADMOB_APP_ID 형식이 틀렸어요: ${admobApp}")
+if (!(admobBanner ==~ /ca-app-pub-\d{16}\/\d{10}/)) throw new GradleException("ADMOB_BANNER_ID 형식이 틀렸어요: ${admobBanner}")
+
+android {
+    namespace 'kr.scholarship.hunter'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'kr.scholarship.hunter'
+        minSdk 24
+        targetSdk 36
+        versionCode vCode
+        versionName vName
+        manifestPlaceholders = [admobAppId: admobApp]
+        buildConfigField 'String', 'ADMOB_APP_ID', "\"${admobApp}\""
+        buildConfigField 'String', 'ADMOB_BANNER_ID', "\"${admobBanner}\""
+        buildConfigField 'boolean', 'TEST_ADS', "${admobApp == TEST_APP}"
+    }
+    buildFeatures { buildConfig true }
+    sourceSets {
+        main {
+            manifest.srcFile '../../build-gradle/AndroidManifest.xml'
+            java.srcDirs = ['../../src']
+            res.srcDirs = ['../../res']
+            assets.srcDirs = ['../../build-gradle/assets']
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    buildTypes { release { minifyEnabled false } }
+    lint { abortOnError false; checkReleaseBuilds false }
+}
+
+dependencies {
+    // GMA Next-Gen SDK (애드몹 새 SDK). 버전 고정.
+    implementation 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.6.0'
+}

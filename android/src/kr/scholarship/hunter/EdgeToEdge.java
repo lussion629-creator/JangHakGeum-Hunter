@@ -27,6 +27,7 @@ final class EdgeToEdge {
         frame.addView(top, new FrameLayout.LayoutParams(-1, 0, android.view.Gravity.TOP));
         frame.addView(bottom, new FrameLayout.LayoutParams(-1, 0, android.view.Gravity.BOTTOM));
         if (Build.VERSION.SDK_INT >= 30) a.getWindow().setDecorFitsSystemWindows(false);
+        final Holder[] holder = new Holder[1];
         frame.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
             @Override public WindowInsets onApplyWindowInsets(View v, WindowInsets in) {
                 int l, t, r, b;
@@ -34,6 +35,7 @@ final class EdgeToEdge {
                     android.graphics.Insets s = in.getInsets(WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout());
                     android.graphics.Insets ime = in.getInsets(WindowInsets.Type.ime());
                     l = s.left; t = s.top; r = s.right; b = Math.max(s.bottom, ime.bottom);
+                    if (holder[0] != null && holder[0].onKeyboard != null) holder[0].onKeyboard.on(ime.bottom > s.bottom);
                 } else {
                     l = t = r = b = 0;  // Android 10 이하는 시스템이 알아서 막대 아래로 내용을 둔다 (adjustResize 도 그대로)
                 }
@@ -45,11 +47,14 @@ final class EdgeToEdge {
                 return in;
             }
         });
-        return new Holder(a, frame, top, bottom);
+        holder[0] = new Holder(a, frame, top, bottom);
+        return holder[0];
     }
 
     static final class Holder {
         final Activity a; final FrameLayout frame; final View top, bottom;
+        interface Keyboard { void on(boolean shown); }
+        Keyboard onKeyboard;
         Holder(Activity a, FrameLayout f, View t, View b) { this.a = a; frame = f; top = t; bottom = b; }
 
         /** 막대 색을 바꾸고, 밝은 바탕이면 아이콘을 어둡게 한다. */
