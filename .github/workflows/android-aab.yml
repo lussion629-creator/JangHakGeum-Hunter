@@ -22,25 +22,26 @@ jobs:
           echo "$(curl -sSfL https://services.gradle.org/distributions/gradle-8.11.1-bin.zip.sha256)  gradle-8.11.1-bin.zip" | sha256sum -c -
           unzip -q gradle-8.11.1-bin.zip
           curl -sSfL -o /tmp/bundletool.jar https://github.com/google/bundletool/releases/download/1.18.1/bundletool-all-1.18.1.jar
-      - name: 서명 전 AAB 빌드
+      - name: 서명 전 AAB·확인용 APK 빌드 (기록은 결과와 함께 임시 브랜치로)
         run: |
-          python3 android/gradle/prepare.py
-          /tmp/gradle-8.11.1/bin/gradle -p android/gradle --no-daemon -q :app:bundleRelease
-      - name: 실패하면 SDK 클래스 이름 보여 주기
-        if: failure()
-        run: |
-          f=$(find ~/.gradle/caches -name 'ads-mobile-sdk-*.aar' | head -1); echo "$f"
-          mkdir -p /tmp/aar && cd /tmp/aar && unzip -q -o "$f" classes.jar && unzip -l classes.jar | grep -E '/(AdSize|AdView|AdLoadCallback|LoadAdError|BannerAd|BannerAdRequest|MobileAds|InitializationConfig|OnAdapterInitializationCompleteListener|InitializationStatus)\.class' || true
-      - name: 확인용 APK 만들고 임시 브랜치에 올리기
-        run: |
+          mkdir -p out
+          set +e
+          python3 android/gradle/prepare.py > out/build.log 2>&1
+          /tmp/gradle-8.11.1/bin/gradle -p android/gradle --no-daemon --console=plain :app:bundleRelease >> out/build.log 2>&1
+          rc=$?
           set -e
-          V=$(python3 -c "import re;print(re.search(r'versionName=\"([^\"]+)\"',open('android/AndroidManifest.xml').read()).group(1))")
-          mkdir out && cp android/gradle/app/build/outputs/bundle/release/app-release.aab "out/scholarship-hunter-$V-unsigned.aab"
-          rm -f ~/.android/debug.keystore
-          java -jar /tmp/bundletool.jar build-apks --bundle=out/*.aab --output=/tmp/u.apks --mode=universal
-          unzip -q -o /tmp/u.apks universal.apk -d out && mv out/universal.apk out/universal-unsigned.apk
+          f=$(find ~/.gradle/caches -name 'ads-mobile-sdk-*.aar' | head -1)
+          if [ -n "$f" ]; then mkdir -p /tmp/aar && (cd /tmp/aar && unzip -q -o "$f" classes.jar && unzip -l classes.jar | awk '{print $4}' | grep -E '\.class$' | grep -vE '\$|/internal/|zz' ) > out/sdk-classes.txt || true; fi
+          if [ $rc -eq 0 ]; then
+            V=$(python3 -c "import re;print(re.search(r'versionName=\"([^\"]+)\"',open('android/AndroidManifest.xml').read()).group(1))")
+            cp android/gradle/app/build/outputs/bundle/release/app-release.aab "out/scholarship-hunter-$V-unsigned.aab"
+            rm -f ~/.android/debug.keystore
+            java -jar /tmp/bundletool.jar build-apks --bundle=out/scholarship-hunter-$V-unsigned.aab --output=/tmp/u.apks --mode=universal
+            unzip -q -o /tmp/u.apks universal.apk -d out && mv out/universal.apk out/universal-unsigned.apk
+          fi
           if [ -z "$ADMOB_APP_ID" ]; then echo "test-ads" > out/ADS_MODE; else echo "real-ads" > out/ADS_MODE; fi
           cd out && sha256sum * > SHA256SUMS
           git init -q && git checkout -q -b aab-out && git add .
-          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "unsigned aab"
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "build rc=$rc"
           git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" aab-out
+          exit $rc
