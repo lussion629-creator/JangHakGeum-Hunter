@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-23T06:03:37+00:00",
- "finishedAt": "2026-10-23T06:44:18+00:00",
+ "startedAt": "2026-10-23T06:46:24+00:00",
+ "finishedAt": "2026-10-23T07:23:19+00:00",
  "online": true,
- "total": 4644,
- "new": 21,
- "changed": 410,
+ "total": 4661,
+ "new": 3,
+ "changed": 406,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,8 +45,8 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 80,
-   "work": 14,
+   "count": 94,
+   "work": 28,
    "mode": "online/online"
   },
   {
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1070,
-   "mode": "성공 331 / 실패 37"
+   "count": 1082,
+   "mode": "성공 333 / 실패 35"
   },
   {
    "source": "gov24",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 11
    },
    {
     "name": "서울여자대학교",
@@ -660,7 +660,7 @@
     "url": "https://www.jejunu.ac.kr/ara/noticesurvey/degree.htm?category=238",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -5630,8 +5630,8 @@
     "url": "http://www.dist.ac.kr/kor/CMS/Board/Board.do?mCode=MN091",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 5
    },
    {
     "name": "디지털서울문화예술대학교",
@@ -6141,7 +6141,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 2
+    "count": 0
    },
    {
     "name": "용복장학회 희망장학금",
@@ -6441,7 +6441,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 2
+    "count": 0
    },
    {
     "name": "반석나라 장학회",
