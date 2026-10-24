@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-24T07:03:56+00:00",
- "finishedAt": "2026-10-24T07:43:19+00:00",
+ "startedAt": "2026-10-24T13:00:02+00:00",
+ "finishedAt": "2026-10-24T13:38:27+00:00",
  "online": true,
- "total": 4633,
- "new": 1,
- "changed": 408,
+ "total": 4654,
+ "new": 22,
+ "changed": 393,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,9 +45,9 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 74,
-   "work": 25,
-   "mode": "online/online"
+   "count": 112,
+   "work": 8,
+   "mode": "online/seed"
   },
   {
    "source": "hywoman",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1057,
-   "mode": "성공 333 / 실패 35"
+   "count": 1046,
+   "mode": "성공 332 / 실패 36"
   },
   {
    "source": "gov24",
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 11
+    "ok": false,
+    "count": 0
    },
    {
     "name": "호서대학교 아산/천안",
@@ -1250,8 +1250,8 @@
     "url": "https://www.stu.ac.kr/CmsHome/stu06_03_03.eznic",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 7
    },
    {
     "name": "삼성꿈장학재단",
@@ -4661,7 +4661,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "한국장학재단 연합생활관",
@@ -4901,7 +4901,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 10
+    "count": 9
    },
    {
     "name": "대구대학교",
@@ -5300,8 +5300,8 @@
     "url": "https://www.sau.ac.kr/sau/notice/notice_scholarship.do",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 7
+    "ok": false,
+    "count": 0
    },
    {
     "name": "영남신학대학교",
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6890,7 +6890,7 @@
     "url": "https://www.iljufoundation.org/",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
