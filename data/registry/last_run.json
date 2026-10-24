@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-24T13:00:02+00:00",
- "finishedAt": "2026-10-24T13:38:27+00:00",
+ "startedAt": "2026-10-24T18:53:03+00:00",
+ "finishedAt": "2026-10-24T19:30:26+00:00",
  "online": true,
- "total": 4654,
- "new": 22,
- "changed": 393,
+ "total": 4627,
+ "new": 2,
+ "changed": 384,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,8 +45,8 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 112,
-   "work": 8,
+   "count": 92,
+   "work": 7,
    "mode": "online/seed"
   },
   {
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1046,
-   "mode": "성공 332 / 실패 36"
+   "count": 1034,
+   "mode": "성공 329 / 실패 39"
   },
   {
    "source": "gov24",
@@ -241,7 +241,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 6
+    "count": 0
    },
    {
     "name": "이화여자대학교",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 11
    },
    {
     "name": "서울여자대학교",
@@ -1250,8 +1250,8 @@
     "url": "https://www.stu.ac.kr/CmsHome/stu06_03_03.eznic",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 7
+    "ok": false,
+    "count": 0
    },
    {
     "name": "삼성꿈장학재단",
@@ -4951,7 +4951,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 7
    },
    {
     "name": "부산디지털대학교",
@@ -4961,7 +4961,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 7
+    "count": 0
    },
    {
     "name": "삼육보건대학교",
@@ -5410,8 +5410,8 @@
     "url": "https://www.htus.ac.kr/board/board.php?b_id=001",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 6
+    "ok": false,
+    "count": 0
    },
    {
     "name": "경민대학교",
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6100,7 +6100,7 @@
     "url": "http://www.xn--sp5b8o224aja73m.com/",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6141,7 +6141,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 2
+    "count": 0
    },
    {
     "name": "용복장학회 희망장학금",
@@ -6300,7 +6300,7 @@
     "url": "https://seoksung.co.kr/index.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6441,7 +6441,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 2
+    "count": 0
    },
    {
     "name": "반석나라 장학회",
@@ -6890,7 +6890,7 @@
     "url": "https://www.iljufoundation.org/",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
