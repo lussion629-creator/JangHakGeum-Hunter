@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-25T01:00:47+00:00",
- "finishedAt": "2026-10-25T01:40:45+00:00",
+ "startedAt": "2026-10-25T07:05:23+00:00",
+ "finishedAt": "2026-10-25T07:45:01+00:00",
  "online": true,
- "total": 4652,
- "new": 1,
- "changed": 406,
+ "total": 4655,
+ "new": 5,
+ "changed": 402,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1056,
-   "mode": "성공 328 / 실패 40"
+   "count": 1060,
+   "mode": "성공 329 / 실패 39"
   },
   {
    "source": "gov24",
@@ -4881,7 +4881,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 4
    },
    {
     "name": "대경대학교",
@@ -4951,7 +4951,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 7
+    "count": 0
    },
    {
     "name": "부산디지털대학교",
@@ -5301,7 +5301,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 7
    },
    {
     "name": "영남신학대학교",
@@ -5790,7 +5790,7 @@
     "url": "https://www.jnue.kr/portal/jnue/contents/contents_view.do?menuId=M0004000900010000",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
