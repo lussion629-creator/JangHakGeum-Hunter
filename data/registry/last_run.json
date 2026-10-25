@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-25T12:59:53+00:00",
- "finishedAt": "2026-10-25T13:48:48+00:00",
+ "startedAt": "2026-10-25T18:54:33+00:00",
+ "finishedAt": "2026-10-25T19:36:05+00:00",
  "online": true,
- "total": 4608,
- "new": 8,
- "changed": 400,
+ "total": 4597,
+ "new": 1,
+ "changed": 398,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,9 +45,9 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 67,
-   "work": 18,
-   "mode": "online/online"
+   "count": 52,
+   "work": 3,
+   "mode": "online/seed"
   },
   {
    "source": "hywoman",
@@ -60,7 +60,7 @@
    "source": "kangwon",
    "label": "강원대 장학공지(삼척)",
    "ok": true,
-   "count": 97,
+   "count": 92,
    "mode": "online"
   },
   {
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1034,
-   "mode": "성공 328 / 실패 40"
+   "count": 1039,
+   "mode": "성공 333 / 실패 35"
   },
   {
    "source": "gov24",
@@ -241,7 +241,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 6
+    "count": 0
    },
    {
     "name": "이화여자대학교",
@@ -250,8 +250,8 @@
     "url": "https://www.ewha.ac.kr/ewha/bachelor/scholarship-notice.do",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 13
    },
    {
     "name": "숙명여자대학교",
@@ -610,8 +610,8 @@
     "url": "https://www.knu.ac.kr/wbbs/wbbs/bbs/btin/list.action?bbs_cde=1&menu_idx=67",
     "enabled": true,
     "verified": true,
-    "ok": true,
-    "count": 2
+    "ok": false,
+    "count": 0
    },
    {
     "name": "충북대학교",
@@ -710,8 +710,8 @@
     "url": "https://home.sch.ac.kr/sch/06/010300.jsp",
     "enabled": true,
     "verified": true,
-    "ok": true,
-    "count": 9
+    "ok": false,
+    "count": 0
    },
    {
     "name": "경성대학교",
@@ -810,7 +810,7 @@
     "url": "https://www.gwangju.ac.kr/bbs/?b_id=gwangju_notice_se&site=gwangju&mn=538",
     "enabled": true,
     "verified": true,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -1240,8 +1240,8 @@
     "url": "https://janghak.kiu.ac.kr/scholarship/sub/04.htm",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 8
    },
    {
     "name": "서울신학대학교",
@@ -4901,7 +4901,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 9
+    "count": 0
    },
    {
     "name": "대구대학교",
@@ -4971,7 +4971,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 5
    },
    {
     "name": "서울기독대학교",
@@ -5630,8 +5630,8 @@
     "url": "http://www.dist.ac.kr/kor/CMS/Board/Board.do?mCode=MN091",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 5
    },
    {
     "name": "디지털서울문화예술대학교",
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6890,7 +6890,7 @@
     "url": "https://www.iljufoundation.org/",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
