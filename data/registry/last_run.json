@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-24T18:53:03+00:00",
- "finishedAt": "2026-10-24T19:30:26+00:00",
+ "startedAt": "2026-10-25T01:00:47+00:00",
+ "finishedAt": "2026-10-25T01:40:45+00:00",
  "online": true,
- "total": 4627,
- "new": 2,
- "changed": 384,
+ "total": 4652,
+ "new": 1,
+ "changed": 406,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -45,9 +45,9 @@
    "source": "hanyang",
    "label": "한양대 공개 공지(장학/등록·근로 모집)",
    "ok": true,
-   "count": 92,
-   "work": 7,
-   "mode": "online/seed"
+   "count": 94,
+   "work": 28,
+   "mode": "online/online"
   },
   {
    "source": "hywoman",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1034,
-   "mode": "성공 329 / 실패 39"
+   "count": 1056,
+   "mode": "성공 328 / 실패 40"
   },
   {
    "source": "gov24",
@@ -241,7 +241,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 0
+    "count": 6
    },
    {
     "name": "이화여자대학교",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 11
+    "count": 0
    },
    {
     "name": "서울여자대학교",
@@ -660,7 +660,7 @@
     "url": "https://www.jejunu.ac.kr/ara/noticesurvey/degree.htm?category=238",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 11
    },
    {
     "name": "호서대학교 아산/천안",
@@ -1780,7 +1780,7 @@
     "url": "https://chest.or.kr/bbs/1000/initPostList.do",
     "enabled": true,
     "verified": true,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -4961,7 +4961,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 7
    },
    {
     "name": "삼육보건대학교",
@@ -5300,7 +5300,7 @@
     "url": "https://www.sau.ac.kr/sau/notice/notice_scholarship.do",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -5410,8 +5410,8 @@
     "url": "https://www.htus.ac.kr/board/board.php?b_id=001",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 6
    },
    {
     "name": "경민대학교",
@@ -5790,7 +5790,7 @@
     "url": "https://www.jnue.kr/portal/jnue/contents/contents_view.do?menuId=M0004000900010000",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6100,7 +6100,7 @@
     "url": "http://www.xn--sp5b8o224aja73m.com/",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6141,7 +6141,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 0
+    "count": 2
    },
    {
     "name": "용복장학회 희망장학금",
@@ -6300,7 +6300,7 @@
     "url": "https://seoksung.co.kr/index.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6441,7 +6441,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 0
+    "count": 2
    },
    {
     "name": "반석나라 장학회",
@@ -6961,7 +6961,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 1
+    "count": 0
    },
    {
     "name": "KT&G장학재단",
