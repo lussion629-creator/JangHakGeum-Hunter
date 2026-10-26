@@ -1021,6 +1021,11 @@ def final_dupes(rows: list[dict]) -> list[dict]:
     for r in rows:
         if (r.get("source") or "").startswith("kosaf"):
             korg.setdefault(_orgn(r.get("org")), []).append(_core(r.get("title")))
+    kend: dict[str, list] = {}
+    for r in rows:
+        if (r.get("source") or "").startswith("kosaf") and r.get("end"):
+            o = _orgn(r.get("org"))
+            kend.setdefault(o, []).append((o, _core(r.get("title")), r))
     seen: dict[tuple, dict] = {}
     out = []
     for r in rows:
@@ -1033,6 +1038,10 @@ def final_dupes(rows: list[dict]) -> list[dict]:
             continue  # 같은 운영기관의 같은 장학이 한국장학재단 자료에 있다 (실제 모집 기간이 있는 쪽을 남긴다)
         if relay and not r.get("own") and len(c) >= 4 and c in canon and canon[c] is not r:
             continue  # 한국장학재단·정기 장학 목록에 같은 장학이 있다
+        if relay and not r.get("own") and len(c) >= 4 and r.get("end") and any(
+                k["end"] == r["end"] and (c in kc or kc.replace(o, "") in c)
+                for o, kc, k in kend.get(_orgn(r.get("org")), [])):
+            continue  # 같은 운영기관·같은 마감일의 같은 장학이 한국장학재단 자료에 있다 (예: 최경주재단 SKT 희망장학생)
         if relay and not r.get("own") and len(c) >= 4 and r.get("end"):
             k = (c, r["end"])
             if k in seen:
@@ -1097,9 +1106,16 @@ def fix_rollover(rows: list[dict]) -> list[dict]:
     """게시판 공고의 마감일을 잘못 다음 해로 넘긴 줄을 바로잡는다 (예: 10월 15일 게시 '~10.7' → 2027-10-07 이 아니라 2026-10-07).
     해가 바뀌는 진짜 경우(12월 게시 '~1.15')는 게시일과 마감일 차이가 짧으므로 건드리지 않는다."""
     from datetime import date, timedelta
+    from .collectors.boards import clean_title, range_in_body
     for r in rows:
         src = r.get("source") or ""
         if src.startswith("kosaf") or src in ("k", "kh", "kp", "kc", "catalog"):
+            continue
+        r["title"] = clean_title(r.get("title") or "")
+        # 본문에 연도까지 적힌 신청 기간이 있으면 그 기간을 믿는다 (게시일이 잘못 읽혀 다음 해로 넘어간 마감 바로잡기)
+        bs, be = range_in_body(r.get("summary") or "")
+        if be and be != r.get("end") and not re.search(r"20\d{2}\s*[.\-/년]\s*\d{1,2}\s*[.\-/월]\s*\d{1,2}", r.get("title") or ""):
+            r["end"], r["start"] = be, bs or r.get("start") or ""
             continue
         e, p = r.get("end") or "", (r.get("posted") or r.get("first_seen") or "")[:10]
         if len(e) < 10 or len(p) < 10 or e <= p:

@@ -79,6 +79,19 @@ for c in cases:
         if not ok:
             fails.append(f"사례 불일치 [{c['expect']}] {r['title'][:60]} (own={own}) — {c.get('why', '')}")
 
+# 1-2) 게시판 공지의 마감일이 본문에 연도까지 적힌 신청 기간과 다르면 실패 (연도를 잘못 넘긴 마감 잡기)
+try:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from server.collectors.boards import range_in_body
+    for r in rows:
+        if not re.match(r"^(b|u\d)$", r.get("source") or "") or not r.get("end"):
+            continue
+        s_, e_ = range_in_body(r.get("summary") or "")
+        if e_ and e_ != r["end"] and not re.search(r"20\d{2}\s*[.\-/년]\s*\d{1,2}\s*[.\-/월]\s*\d{1,2}", r["title"]):
+            fails.append(f"마감일이 본문 신청 기간과 다름: {r['title'][:50]} 마감 {r['end']} / 본문 {s_}~{e_}")
+except ImportError as ex:
+    warns.append(f"본문 기간 대조를 건너뜀: {ex}")
+
 # 2) 중복
 schools = [s for s, _ in collections.Counter(o for r in rows for o in (r.get("own") or [])).most_common(30)]
 views = [None] + [(base(s), (re.search(r"\s(\S+)캠퍼스$", s) or [None, ""])[1]) for s in schools]

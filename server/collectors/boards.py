@@ -109,8 +109,14 @@ def parse_html(text: str, base: str):
     return items
 
 
+RANGE_T = re.compile(r"\(\s*(\d{1,2})\s*\.\s*(\d{1,2})\.?\s*(?:\([월화수목금토일]\))?\s*[-~∼〜]\s*(\d{1,2})\s*\.\s*(\d{1,2})\.?\s*(?:\([월화수목금토일]\))?\s*\)")
+
+
 def deadline_from(title: str, posted: str) -> str:
     m = DEADLINE.search(title)
+    if not m and RANGE_T.search(title):  # '(1.26-2.2)' → 마감 2.2
+        r = RANGE_T.search(title)
+        return deadline_from("~" + r.group(3) + "/" + r.group(4) + " " + re.sub(r"\(.*?\)", "", title), posted)
     if not m:
         return ""
     if m.group(2):
@@ -119,7 +125,7 @@ def deadline_from(title: str, posted: str) -> str:
         y, mo, d = None, m.group(4), m.group(5)
     explicit = bool(y)
     if not y:  # 제목에 연도가 있으면(예: '2026년 하반기', '(2026-2)') 그 연도를 쓴다
-        ty = re.search(r"(20\d{2})\s*(?:년|학년도|[-.]\s*[12]\b|\s*[12]\s*학기)", title)
+        ty = re.search(r"(20\d{2})\s*(?:년|학년도|[-.]\s*[12]\b|\s*[12]\s*학기)", title) or re.search(r"(?<![\d.])(20\d{2})(?![\d.\-/])", title)
         # '2027년도 장학생 선발'처럼 내년도 장학을 올해 뽑는 글이 많으므로, 게시 연도보다 늦은 제목 연도는 쓰지 않는다
         lim = int((posted or date.today().isoformat())[:4])
         y = ty.group(1) if ty and int(ty.group(1)) <= lim else None
@@ -226,9 +232,15 @@ def list_items(src: dict, status: dict):
     return parse_html(get(u).text, u)
 
 
+def clean_title(t: str) -> str:
+    """목록에서 함께 읽힌 글 번호·날짜('15 [모집] …', '13 2026.10 …')를 제목 앞에서 뗀다."""
+    return re.sub(r"^\d{1,3}\s+(20\d{2}\.\d{1,2}(\.\d{1,2})?\s+)?(?=\S)", "", (t or "").strip())
+
+
 def build_recs(src: dict, items: list, since: str, body_fn=fetch_detail):
     recs = []
     for it in items:
+        it["title"] = clean_title(it["title"])
         if not KEY.search(it["title"]) or DROP.search(it["title"]) or not RECRUIT.search(it["title"]):
             continue
         dl = deadline_from(it["title"], it["posted"])
@@ -249,7 +261,8 @@ def build_recs(src: dict, items: list, since: str, body_fn=fetch_detail):
             "level": "대학생",
             "url": it["url"],
             "posted": it["posted"],
-            "end": dl or _deadline_in_body(body, it["posted"]),
+            "start": range_in_body(body)[0],
+            "end": (range_in_body(body)[1] if range_in_body(body)[1] and not re.search(r"20\d{2}", it["title"]) else "") or dl or _deadline_in_body(body, it["posted"]),
             "summary": body,
             "target": extract_target(body),
             "region": src.get("region") or "",
@@ -284,7 +297,27 @@ def collect_one(src: dict, since: str):
     return recs, status
 
 
+LABELED_RANGE = re.compile(r"(신청|접수|모집)\s*(기간|기한|일정)\s*[:：]?\s*(20\d{2})\s*[.\-/년]\s*(\d{1,2})\s*[.\-/월]\s*(\d{1,2})[^~∼〜\n]{0,20}?[~∼〜]\s*(?:(20\d{2})\s*[.\-/년]\s*)?(\d{1,2})\s*[./월]\s*(\d{1,2})")
+
+
+def range_in_body(text: str) -> tuple[str, str]:
+    """본문의 '신청 기간: 2026. 1. 26(월) ~ 2. 2(월)' 처럼 연도가 적힌 기간을 읽는다 (없으면 빈 값).
+    마감에 연도가 없으면 시작일의 연도를 쓰고, 마감 달이 시작 달보다 앞이면 다음 해로 본다."""
+    m = LABELED_RANGE.search(text or "")
+    if not m:
+        return "", ""
+    y1, m1, d1, y2, m2, d2 = int(m.group(3)), int(m.group(4)), int(m.group(5)), m.group(6), int(m.group(7)), int(m.group(8))
+    y2 = int(y2) if y2 else (y1 + 1 if m2 < m1 else y1)
+    try:
+        return date(y1, m1, d1).isoformat(), date(y2, m2, d2).isoformat()
+    except ValueError:
+        return "", ""
+
+
 def _deadline_in_body(text: str, posted: str) -> str:
+    s, e = range_in_body(text)
+    if e:
+        return e
     m = re.search(r"(신청|접수|모집)\s*(기간|기한|마감)[^\n]{0,40}?[~∼〜-]\s*(20\d{2}[.\-/년]\s*)?(\d{1,2})\s*[./월]\s*(\d{1,2})", text or "")
     if not m:
         return ""
