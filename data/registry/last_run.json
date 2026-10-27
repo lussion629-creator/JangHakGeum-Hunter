@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-27T13:10:18+00:00",
- "finishedAt": "2026-10-27T13:55:06+00:00",
+ "startedAt": "2026-10-27T19:13:11+00:00",
+ "finishedAt": "2026-10-27T19:50:11+00:00",
  "online": true,
- "total": 4638,
- "new": 7,
- "changed": 391,
+ "total": 4644,
+ "new": 2,
+ "changed": 392,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 1007,
-   "mode": "성공 327 / 실패 41"
+   "count": 1013,
+   "mode": "성공 328 / 실패 40"
   },
   {
    "source": "gov24",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 10
    },
    {
     "name": "서울여자대학교",
@@ -781,7 +781,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 7
+    "count": 8
    },
    {
     "name": "동서대학교",
@@ -851,7 +851,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 3
+    "count": 2
    },
    {
     "name": "한국예술종합학교",
@@ -1031,7 +1031,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 14
+    "count": 13
    },
    {
     "name": "인제대학교 김해",
@@ -1090,8 +1090,8 @@
     "url": "https://www.mokwon.ac.kr/kr/html/sub06/0603.html",
     "enabled": true,
     "verified": true,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 5
    },
    {
     "name": "성결대학교",
@@ -4990,8 +4990,8 @@
     "url": "https://www.seojeong.ac.kr/main/campus-life/scholarship-notice.do",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 10
+    "ok": false,
+    "count": 0
    },
    {
     "name": "선학유피대학원대학교",
@@ -5461,7 +5461,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 12
+    "count": 14
    },
    {
     "name": "부산외국어대학교",
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6300,7 +6300,7 @@
     "url": "https://seoksung.co.kr/index.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
