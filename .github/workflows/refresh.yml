@@ -22,7 +22,7 @@ jobs:
         with: { persist-credentials: false }   # 수집·설치 단계에서는 저장소 쓰기 열쇠를 남겨 두지 않는다
       # 공고 본문이 들어 있는 작업 파일(지난 수집 기록·게시판 사본)은 공개 저장소에 올리지 않고 Actions 캐시에만 둔다
       - name: 지난 수집 기록 불러오기
-        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             data/scholarships.db
