@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-10-30T01:24:03+00:00",
- "finishedAt": "2026-10-30T01:57:27+00:00",
+ "startedAt": "2026-10-30T07:22:05+00:00",
+ "finishedAt": "2026-10-30T07:58:06+00:00",
  "online": true,
- "total": 4630,
- "new": 11,
- "changed": 382,
+ "total": 4628,
+ "new": 12,
+ "changed": 380,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 997,
-   "mode": "성공 331 / 실패 37"
+   "count": 996,
+   "mode": "성공 330 / 실패 38"
   },
   {
    "source": "gov24",
@@ -201,7 +201,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 6
+    "count": 5
    },
    {
     "name": "동국대학교 서울",
@@ -211,7 +211,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 10
+    "count": 9
    },
    {
     "name": "건국대학교 서울",
@@ -241,7 +241,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 5
+    "count": 4
    },
    {
     "name": "이화여자대학교",
@@ -321,7 +321,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 3
+    "count": 2
    },
    {
     "name": "숭실대학교",
@@ -351,7 +351,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 13
+    "count": 14
    },
    {
     "name": "덕성여자대학교",
@@ -381,7 +381,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 6
+    "count": 8
    },
    {
     "name": "한국체육대학교",
@@ -451,7 +451,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 32
+    "count": 33
    },
    {
     "name": "가천대학교 글로벌/메디컬",
@@ -1241,7 +1241,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 5
+    "count": 4
    },
    {
     "name": "서울신학대학교",
@@ -1741,7 +1741,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 1
+    "count": 0
    },
    {
     "name": "초록우산(구 어린이재단)",
@@ -4601,7 +4601,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 1
+    "count": 0
    },
    {
     "name": "손태희장학재단",
@@ -5171,7 +5171,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 1
+    "count": 2
    },
    {
     "name": "경인교육대학교",
@@ -5201,7 +5201,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 3
+    "count": 4
    },
    {
     "name": "글로벌사이버대학교",
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
