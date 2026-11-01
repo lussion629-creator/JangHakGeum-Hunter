@@ -1,8 +1,8 @@
 {
- "startedAt": "2026-10-31T19:04:18+00:00",
- "finishedAt": "2026-10-31T19:52:06+00:00",
+ "startedAt": "2026-11-01T01:29:24+00:00",
+ "finishedAt": "2026-11-01T02:07:22+00:00",
  "online": true,
- "total": 4622,
+ "total": 4615,
  "new": 3,
  "changed": 380,
  "sources": [
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 988,
-   "mode": "성공 329 / 실패 39"
+   "count": 981,
+   "mode": "성공 331 / 실패 37"
   },
   {
    "source": "gov24",
@@ -1131,7 +1131,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 6
+    "count": 0
    },
    {
     "name": "전주대학교",
@@ -4660,8 +4660,8 @@
     "url": "https://www.kosaf.go.kr/ko/notice.do?ctgrId1=0000000002&ctgrId2=0000000022&naviParam=JH,09,08,00",
     "enabled": true,
     "verified": true,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 1
    },
    {
     "name": "한국장학재단 연합생활관",
@@ -4750,7 +4750,7 @@
     "url": "https://www.kosaf.go.kr/ko/main.do",
     "enabled": true,
     "verified": true,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -4880,7 +4880,7 @@
     "url": "https://www.ccn.ac.kr/scholarship",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -5141,7 +5141,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 8
+    "count": 7
    },
    {
     "name": "가톨릭꽃동네대학교",
@@ -5661,7 +5661,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 9
+    "count": 8
    },
    {
     "name": "서영대학교",
@@ -5890,7 +5890,7 @@
     "url": "https://shscholar.com/xe/main",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6480,7 +6480,7 @@
     "url": "https://www.partners-korea.org/",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
