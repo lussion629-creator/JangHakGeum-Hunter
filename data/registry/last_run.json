@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-11-02T13:30:56+00:00",
- "finishedAt": "2026-11-02T14:05:22+00:00",
+ "startedAt": "2026-11-02T19:15:47+00:00",
+ "finishedAt": "2026-11-02T19:48:20+00:00",
  "online": true,
- "total": 4623,
- "new": 9,
- "changed": 371,
+ "total": 4614,
+ "new": 4,
+ "changed": 374,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 987,
-   "mode": "성공 330 / 실패 38"
+   "count": 975,
+   "mode": "성공 331 / 실패 37"
   },
   {
    "source": "gov24",
@@ -201,7 +201,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 5
+    "count": 4
    },
    {
     "name": "동국대학교 서울",
@@ -211,7 +211,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 9
+    "count": 8
    },
    {
     "name": "건국대학교 서울",
@@ -291,7 +291,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 7
+    "count": 5
    },
    {
     "name": "명지대학교 인문/자연",
@@ -501,7 +501,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 10
+    "count": 8
    },
    {
     "name": "경기대학교 수원/서울",
@@ -1780,7 +1780,7 @@
     "url": "https://chest.or.kr/bbs/1000/initPostList.do",
     "enabled": true,
     "verified": true,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -4660,8 +4660,8 @@
     "url": "https://www.kosaf.go.kr/ko/notice.do?ctgrId1=0000000002&ctgrId2=0000000022&naviParam=JH,09,08,00",
     "enabled": true,
     "verified": true,
-    "ok": true,
-    "count": 1
+    "ok": false,
+    "count": 0
    },
    {
     "name": "한국장학재단 연합생활관",
@@ -4750,7 +4750,7 @@
     "url": "https://www.kosaf.go.kr/ko/main.do",
     "enabled": true,
     "verified": true,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -4941,7 +4941,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 6
+    "count": 7
    },
    {
     "name": "배화여자대학교",
@@ -4951,7 +4951,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 6
+    "count": 0
    },
    {
     "name": "부산디지털대학교",
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
