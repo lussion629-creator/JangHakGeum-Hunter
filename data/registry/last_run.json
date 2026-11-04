@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-11-03T19:15:02+00:00",
- "finishedAt": "2026-11-03T19:49:19+00:00",
+ "startedAt": "2026-11-04T01:26:52+00:00",
+ "finishedAt": "2026-11-04T02:00:31+00:00",
  "online": true,
- "total": 4580,
- "new": 3,
- "changed": 340,
+ "total": 4586,
+ "new": 4,
+ "changed": 353,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 919,
-   "mode": "성공 329 / 실패 39"
+   "count": 932,
+   "mode": "성공 330 / 실패 38"
   },
   {
    "source": "gov24",
@@ -291,7 +291,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 5
+    "count": 6
    },
    {
     "name": "명지대학교 인문/자연",
@@ -351,7 +351,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 14
+    "count": 13
    },
    {
     "name": "덕성여자대학교",
@@ -610,8 +610,8 @@
     "url": "https://www.knu.ac.kr/wbbs/wbbs/bbs/btin/list.action?bbs_cde=1&menu_idx=67",
     "enabled": true,
     "verified": true,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 2
    },
    {
     "name": "충북대학교",
@@ -780,8 +780,8 @@
     "url": "https://www.silla.ac.kr/ko/index.php?pCode=scnotice",
     "enabled": true,
     "verified": true,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 7
    },
    {
     "name": "동서대학교",
@@ -4971,7 +4971,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 5
    },
    {
     "name": "서울기독대학교",
@@ -5111,7 +5111,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 14
+    "count": 13
    },
    {
     "name": "한림성심대학교",
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
