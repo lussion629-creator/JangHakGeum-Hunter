@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-11-06T07:37:39+00:00",
- "finishedAt": "2026-11-06T08:18:44+00:00",
+ "startedAt": "2026-11-06T13:28:57+00:00",
+ "finishedAt": "2026-11-06T14:02:54+00:00",
  "online": true,
- "total": 4551,
- "new": 5,
- "changed": 331,
+ "total": 4562,
+ "new": 10,
+ "changed": 313,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 887,
-   "mode": "성공 327 / 실패 41"
+   "count": 909,
+   "mode": "성공 329 / 실패 39"
   },
   {
    "source": "gov24",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 10
    },
    {
     "name": "서울여자대학교",
@@ -601,7 +601,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 1
+    "count": 2
    },
    {
     "name": "경북대학교 대구",
@@ -610,7 +610,7 @@
     "url": "https://www.knu.ac.kr/wbbs/wbbs/bbs/btin/list.action?bbs_cde=1&menu_idx=67",
     "enabled": true,
     "verified": true,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -620,8 +620,8 @@
     "url": "https://www.chungbuk.ac.kr/www/selectBbsNttList.do?bbsNo=8&key=815&searchCtgry=학사/장학",
     "enabled": true,
     "verified": true,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 2
    },
    {
     "name": "국립부경대학교",
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 6
    },
    {
     "name": "호서대학교 아산/천안",
@@ -851,7 +851,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 1
+    "count": 2
    },
    {
     "name": "한국예술종합학교",
@@ -871,7 +871,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 2
    },
    {
     "name": "한경국립대학교",
@@ -940,8 +940,8 @@
     "url": "https://www.kduniv.ac.kr/kor/CMS/Board/Board.do?mCode=MN284",
     "enabled": true,
     "verified": true,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 6
    },
    {
     "name": "건양대학교 논산/대전",
@@ -1021,7 +1021,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "조선대학교",
@@ -4861,7 +4861,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 2
+    "count": 3
    },
    {
     "name": "국립목포해양대학교",
@@ -4971,7 +4971,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 5
    },
    {
     "name": "서울기독대학교",
@@ -5420,8 +5420,8 @@
     "url": "https://www.kyungmin.ac.kr/homepage/page.do?page=1&menu=66&m=L",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 8
+    "ok": false,
+    "count": 0
    },
    {
     "name": "대덕대학교",
@@ -5630,8 +5630,8 @@
     "url": "http://www.dist.ac.kr/kor/CMS/Board/Board.do?mCode=MN091",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 5
+    "ok": false,
+    "count": 0
    },
    {
     "name": "디지털서울문화예술대학교",
