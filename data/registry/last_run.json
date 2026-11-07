@@ -1,38 +1,38 @@
 {
- "startedAt": "2026-11-07T07:24:23+00:00",
- "finishedAt": "2026-11-07T07:56:25+00:00",
+ "startedAt": "2026-11-07T13:14:49+00:00",
+ "finishedAt": "2026-11-07T13:49:16+00:00",
  "online": true,
- "total": 4560,
+ "total": 4565,
  "new": 2,
- "changed": 318,
+ "changed": 320,
  "sources": [
   {
    "source": "kosaf_univ",
    "label": "한국장학재단 대학생",
    "ok": true,
    "count": 1925,
-   "mode": "online"
+   "mode": "seed"
   },
   {
    "source": "kosaf_high",
    "label": "한국장학재단 고등학생",
    "ok": true,
    "count": 1205,
-   "mode": "online"
+   "mode": "seed"
   },
   {
    "source": "kosaf_abroad",
    "label": "한국장학재단 해외유학",
    "ok": true,
    "count": 75,
-   "mode": "online"
+   "mode": "seed"
   },
   {
    "source": "kosaf_creditbank",
    "label": "한국장학재단 학점은행제",
    "ok": true,
    "count": 7,
-   "mode": "online"
+   "mode": "seed"
   },
   {
    "source": "kosaf_hist",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 896,
-   "mode": "성공 330 / 실패 38"
+   "count": 902,
+   "mode": "성공 332 / 실패 36"
   },
   {
    "source": "gov24",
@@ -660,7 +660,7 @@
     "url": "https://www.jejunu.ac.kr/ara/noticesurvey/degree.htm?category=238",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -5380,8 +5380,8 @@
     "url": "https://www.af.ac.kr/board/post/list.do?boardUid=ff808081944e945801945e1c9f4c03d6&menuUid=ff80808193e179bd0193e1ff6e0b01b4",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 1
+    "ok": false,
+    "count": 0
    },
    {
     "name": "한양사이버대학교",
@@ -5430,8 +5430,8 @@
     "url": "https://www.ddu.ac.kr/bbs/MN000000000111/list.htm",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 6
    },
    {
     "name": "대동대학교",
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6831,7 +6831,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "우덕윤덕병재단",
