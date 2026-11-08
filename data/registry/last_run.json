@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-11-07T19:06:01+00:00",
- "finishedAt": "2026-11-07T19:36:31+00:00",
+ "startedAt": "2026-11-08T06:16:56+00:00",
+ "finishedAt": "2026-11-08T06:52:39+00:00",
  "online": true,
- "total": 4565,
+ "total": 4551,
  "new": 2,
- "changed": 321,
+ "changed": 315,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 902,
-   "mode": "성공 334 / 실패 34"
+   "count": 885,
+   "mode": "성공 333 / 실패 35"
   },
   {
    "source": "gov24",
@@ -521,7 +521,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 10
+    "count": 9
    },
    {
     "name": "수원대학교",
@@ -1101,7 +1101,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 25
+    "count": 24
    },
    {
     "name": "청주대학교",
@@ -1131,7 +1131,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 5
+    "count": 0
    },
    {
     "name": "전주대학교",
@@ -4880,7 +4880,7 @@
     "url": "https://www.ccn.ac.kr/scholarship",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -4900,8 +4900,8 @@
     "url": "http://www.dnue.ac.kr/kor/CMS/Board/Board.do?mCode=MN169",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 7
+    "ok": false,
+    "count": 0
    },
    {
     "name": "대구대학교",
@@ -4971,7 +4971,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 5
+    "count": 0
    },
    {
     "name": "서울기독대학교",
@@ -5141,7 +5141,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 7
+    "count": 6
    },
    {
     "name": "가톨릭꽃동네대학교",
@@ -5770,8 +5770,8 @@
     "url": "https://www.jeiu.ac.kr/board/list.asp?BoardID=00005",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 3
    },
    {
     "name": "장로회신학대학교",
@@ -5890,7 +5890,7 @@
     "url": "https://shscholar.com/xe/main",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6300,7 +6300,7 @@
     "url": "https://seoksung.co.kr/index.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6480,7 +6480,7 @@
     "url": "https://www.partners-korea.org/",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
