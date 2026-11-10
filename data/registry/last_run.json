@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-11-10T07:28:58+00:00",
- "finishedAt": "2026-11-10T08:01:31+00:00",
+ "startedAt": "2026-11-10T19:51:10+00:00",
+ "finishedAt": "2026-11-10T20:29:30+00:00",
  "online": true,
- "total": 4571,
- "new": 16,
- "changed": 342,
+ "total": 4534,
+ "new": 6,
+ "changed": 331,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 915,
-   "mode": "성공 331 / 실패 37"
+   "count": 866,
+   "mode": "성공 329 / 실패 39"
   },
   {
    "source": "gov24",
@@ -201,7 +201,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 6
+    "count": 5
    },
    {
     "name": "동국대학교 서울",
@@ -291,7 +291,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 3
+    "count": 4
    },
    {
     "name": "명지대학교 인문/자연",
@@ -371,7 +371,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 1
+    "count": 2
    },
    {
     "name": "성공회대학교",
@@ -470,7 +470,7 @@
     "url": "https://www.hs.ac.kr/bbs/kor/275/artclList.do?layout=unknown",
     "enabled": true,
     "verified": true,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -501,7 +501,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 14
+    "count": 13
    },
    {
     "name": "경기대학교 수원/서울",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 9
+    "count": 0
    },
    {
     "name": "서울여자대학교",
@@ -610,7 +610,7 @@
     "url": "https://www.knu.ac.kr/wbbs/wbbs/bbs/btin/list.action?bbs_cde=1&menu_idx=67",
     "enabled": true,
     "verified": true,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -620,8 +620,8 @@
     "url": "https://www.chungbuk.ac.kr/www/selectBbsNttList.do?bbsNo=8&key=815&searchCtgry=학사/장학",
     "enabled": true,
     "verified": true,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 2
    },
    {
     "name": "국립부경대학교",
@@ -641,7 +641,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "충남대학교",
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 7
+    "ok": false,
+    "count": 0
    },
    {
     "name": "호서대학교 아산/천안",
@@ -791,7 +791,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 11
+    "count": 12
    },
    {
     "name": "한동대학교",
@@ -1100,8 +1100,8 @@
     "url": "https://www.sungkyul.ac.kr/bbs/skukr/95/artclList.do",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 24
+    "ok": false,
+    "count": 0
    },
    {
     "name": "청주대학교",
@@ -1221,7 +1221,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 6
+    "count": 7
    },
    {
     "name": "동신대학교",
@@ -4641,7 +4641,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 7
+    "count": 6
    },
    {
     "name": "서울미래인재재단",
@@ -4660,8 +4660,8 @@
     "url": "https://www.kosaf.go.kr/ko/notice.do?ctgrId1=0000000002&ctgrId2=0000000022&naviParam=JH,09,08,00",
     "enabled": true,
     "verified": true,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 1
    },
    {
     "name": "한국장학재단 연합생활관",
@@ -4750,7 +4750,7 @@
     "url": "https://www.kosaf.go.kr/ko/main.do",
     "enabled": true,
     "verified": true,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -4971,7 +4971,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 5
+    "count": 0
    },
    {
     "name": "서울기독대학교",
@@ -5351,7 +5351,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 1
+    "count": 0
    },
    {
     "name": "충청대학교",
@@ -5830,8 +5830,8 @@
     "url": "https://www.halla.ac.kr/kr/244/subview.do",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 8
+    "ok": false,
+    "count": 0
    },
    {
     "name": "인슐레이션코리아 드림재단",
