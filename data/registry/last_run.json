@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-11-09T22:29:34+00:00",
- "finishedAt": "2026-11-09T23:03:33+00:00",
+ "startedAt": "2026-11-10T07:28:58+00:00",
+ "finishedAt": "2026-11-10T08:01:31+00:00",
  "online": true,
- "total": 4567,
- "new": 5,
- "changed": 336,
+ "total": 4571,
+ "new": 16,
+ "changed": 342,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 906,
-   "mode": "성공 332 / 실패 36"
+   "count": 915,
+   "mode": "성공 331 / 실패 37"
   },
   {
    "source": "gov24",
@@ -161,7 +161,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 24
+    "count": 22
    },
    {
     "name": "고려대학교 서울",
@@ -231,7 +231,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 4
+    "count": 5
    },
    {
     "name": "삼육대학교",
@@ -291,7 +291,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 5
+    "count": 3
    },
    {
     "name": "명지대학교 인문/자연",
@@ -311,7 +311,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 4
+    "count": 5
    },
    {
     "name": "한성대학교",
@@ -321,7 +321,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 2
    },
    {
     "name": "숭실대학교",
@@ -501,7 +501,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 13
+    "count": 14
    },
    {
     "name": "경기대학교 수원/서울",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 9
    },
    {
     "name": "서울여자대학교",
@@ -571,7 +571,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "대진대학교",
@@ -601,7 +601,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 2
+    "count": 1
    },
    {
     "name": "경북대학교 대구",
@@ -620,8 +620,8 @@
     "url": "https://www.chungbuk.ac.kr/www/selectBbsNttList.do?bbsNo=8&key=815&searchCtgry=학사/장학",
     "enabled": true,
     "verified": true,
-    "ok": true,
-    "count": 2
+    "ok": false,
+    "count": 0
    },
    {
     "name": "국립부경대학교",
@@ -641,7 +641,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 1
+    "count": 0
    },
    {
     "name": "충남대학교",
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 7
    },
    {
     "name": "호서대학교 아산/천안",
@@ -791,7 +791,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 12
+    "count": 11
    },
    {
     "name": "한동대학교",
@@ -1131,7 +1131,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 5
+    "count": 4
    },
    {
     "name": "전주대학교",
@@ -1181,7 +1181,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 2
+    "count": 3
    },
    {
     "name": "세명대학교",
@@ -4660,8 +4660,8 @@
     "url": "https://www.kosaf.go.kr/ko/notice.do?ctgrId1=0000000002&ctgrId2=0000000022&naviParam=JH,09,08,00",
     "enabled": true,
     "verified": true,
-    "ok": true,
-    "count": 1
+    "ok": false,
+    "count": 0
    },
    {
     "name": "한국장학재단 연합생활관",
@@ -4750,7 +4750,7 @@
     "url": "https://www.kosaf.go.kr/ko/main.do",
     "enabled": true,
     "verified": true,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -5091,7 +5091,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 10
+    "count": 8
    },
    {
     "name": "장안대학교",
@@ -5171,7 +5171,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 1
+    "count": 0
    },
    {
     "name": "경인교육대학교",
@@ -5431,7 +5431,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 6
+    "count": 5
    },
    {
     "name": "대동대학교",
@@ -5821,7 +5821,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 1
+    "count": 2
    },
    {
     "name": "한라대학교",
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6570,7 +6570,7 @@
     "url": "http://www.sffl.or.kr/main/index.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6670,7 +6670,7 @@
     "url": "https://www.fecwf.or.kr/",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
