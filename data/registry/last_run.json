@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-11-14T06:41:02+00:00",
- "finishedAt": "2026-11-14T07:15:17+00:00",
+ "startedAt": "2026-11-14T18:16:04+00:00",
+ "finishedAt": "2026-11-14T18:49:17+00:00",
  "online": true,
- "total": 4540,
- "new": 0,
- "changed": 320,
+ "total": 4557,
+ "new": 2,
+ "changed": 330,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 873,
-   "mode": "성공 332 / 실패 36"
+   "count": 898,
+   "mode": "성공 335 / 실패 33"
   },
   {
    "source": "gov24",
@@ -551,7 +551,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 9
    },
    {
     "name": "서울여자대학교",
@@ -940,8 +940,8 @@
     "url": "https://www.kduniv.ac.kr/kor/CMS/Board/Board.do?mCode=MN284",
     "enabled": true,
     "verified": true,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 6
    },
    {
     "name": "건양대학교 논산/대전",
@@ -1131,7 +1131,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 4
    },
    {
     "name": "전주대학교",
@@ -4951,7 +4951,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 6
    },
    {
     "name": "부산디지털대학교",
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6300,7 +6300,7 @@
     "url": "https://seoksung.co.kr/index.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
