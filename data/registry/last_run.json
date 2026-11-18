@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-11-18T07:41:20+00:00",
- "finishedAt": "2026-11-18T08:23:54+00:00",
+ "startedAt": "2026-11-18T20:40:41+00:00",
+ "finishedAt": "2026-11-18T21:20:04+00:00",
  "online": true,
- "total": 4585,
- "new": 49,
- "changed": 328,
+ "total": 4563,
+ "new": 8,
+ "changed": 341,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 919,
-   "mode": "성공 324 / 실패 44"
+   "count": 898,
+   "mode": "성공 329 / 실패 39"
   },
   {
    "source": "gov24",
@@ -151,7 +151,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 1
+    "count": 3
    },
    {
     "name": "연세대학교 신촌",
@@ -251,7 +251,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 18
+    "count": 17
    },
    {
     "name": "숙명여자대학교",
@@ -291,7 +291,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 5
+    "count": 3
    },
    {
     "name": "명지대학교 인문/자연",
@@ -480,7 +480,7 @@
     "url": "https://www.shinhan.ac.kr/bbs/kr/197/artclList.do?layout=unknown",
     "enabled": true,
     "verified": true,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -501,7 +501,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 15
+    "count": 14
    },
    {
     "name": "경기대학교 수원/서울",
@@ -601,7 +601,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 2
+    "count": 1
    },
    {
     "name": "경북대학교 대구",
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 8
+    "ok": false,
+    "count": 0
    },
    {
     "name": "호서대학교 아산/천안",
@@ -791,7 +791,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 12
+    "count": 13
    },
    {
     "name": "한동대학교",
@@ -1031,7 +1031,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 10
+    "count": 11
    },
    {
     "name": "인제대학교 김해",
@@ -1131,7 +1131,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 5
+    "count": 0
    },
    {
     "name": "전주대학교",
@@ -1240,8 +1240,8 @@
     "url": "https://janghak.kiu.ac.kr/scholarship/sub/04.htm",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 3
    },
    {
     "name": "서울신학대학교",
@@ -4871,7 +4871,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 13
+    "count": 12
    },
    {
     "name": "기독간호대학교",
@@ -4880,7 +4880,7 @@
     "url": "https://www.ccn.ac.kr/scholarship",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -4981,7 +4981,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "서정대학교",
@@ -5061,7 +5061,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 3
+    "count": 2
    },
    {
     "name": "용인예술과학대학교",
@@ -5111,7 +5111,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 10
+    "count": 9
    },
    {
     "name": "한림성심대학교",
@@ -5700,7 +5700,7 @@
     "url": "https://www.seoularts.ac.kr/web/cop/bbsWeb/selectBoardList.do?bbsId=BBSMSTR_000000000651",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -5830,8 +5830,8 @@
     "url": "https://www.halla.ac.kr/kr/244/subview.do",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 8
+    "ok": false,
+    "count": 0
    },
    {
     "name": "인슐레이션코리아 드림재단",
@@ -5890,7 +5890,7 @@
     "url": "https://shscholar.com/xe/main",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6180,7 +6180,7 @@
     "url": "https://ktgf.or.kr/news/notice.php",
     "enabled": true,
     "verified": true,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6480,7 +6480,7 @@
     "url": "https://www.partners-korea.org/",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
