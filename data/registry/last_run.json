@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-11-19T20:46:58+00:00",
- "finishedAt": "2026-11-19T21:21:01+00:00",
+ "startedAt": "2026-11-20T07:28:49+00:00",
+ "finishedAt": "2026-11-20T08:13:15+00:00",
  "online": true,
- "total": 4626,
- "new": 9,
- "changed": 359,
+ "total": 4622,
+ "new": 45,
+ "changed": 345,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -60,8 +60,8 @@
    "source": "kangwon",
    "label": "강원대 장학공지(삼척)",
    "ok": true,
-   "count": 97,
-   "mode": "seed"
+   "count": 87,
+   "mode": "online"
   },
   {
    "source": "sogang",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 924,
-   "mode": "성공 330 / 실패 38"
+   "count": 918,
+   "mode": "성공 325 / 실패 43"
   },
   {
    "source": "gov24",
@@ -231,7 +231,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 6
+    "count": 7
    },
    {
     "name": "삼육대학교",
@@ -251,7 +251,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 17
+    "count": 18
    },
    {
     "name": "숙명여자대학교",
@@ -291,7 +291,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 3
+    "count": 5
    },
    {
     "name": "명지대학교 인문/자연",
@@ -610,7 +610,7 @@
     "url": "https://www.knu.ac.kr/wbbs/wbbs/bbs/btin/list.action?bbs_cde=1&menu_idx=67",
     "enabled": true,
     "verified": true,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -641,7 +641,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "충남대학교",
@@ -720,8 +720,8 @@
     "url": "http://kscms.ks.ac.kr/kor/CMS/Board/Board.do?mCode=MN094",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 9
+    "ok": false,
+    "count": 0
    },
    {
     "name": "호서대학교 아산/천안",
@@ -791,7 +791,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 13
+    "count": 14
    },
    {
     "name": "한동대학교",
@@ -961,7 +961,7 @@
     "enabled": true,
     "verified": true,
     "ok": true,
-    "count": 4
+    "count": 5
    },
    {
     "name": "부산가톨릭대학교",
@@ -1011,7 +1011,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 11
+    "count": 10
    },
    {
     "name": "울산대학교",
@@ -1021,7 +1021,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 2
+    "count": 0
    },
    {
     "name": "조선대학교",
@@ -1031,7 +1031,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 11
+    "count": 12
    },
    {
     "name": "인제대학교 김해",
@@ -1061,7 +1061,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 10
+    "count": 12
    },
    {
     "name": "배재대학교",
@@ -1090,8 +1090,8 @@
     "url": "https://www.mokwon.ac.kr/kr/html/sub06/0603.html",
     "enabled": true,
     "verified": true,
-    "ok": true,
-    "count": 5
+    "ok": false,
+    "count": 0
    },
    {
     "name": "성결대학교",
@@ -1201,7 +1201,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 6
+    "count": 7
    },
    {
     "name": "가톨릭관동대학교",
@@ -4520,7 +4520,7 @@
     "url": "https://sangahfoundation.or.kr/notice",
     "enabled": true,
     "verified": true,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -4811,7 +4811,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 17
+    "count": 18
    },
    {
     "name": "강원도립대학교",
@@ -4880,7 +4880,7 @@
     "url": "https://www.ccn.ac.kr/scholarship",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -4971,7 +4971,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 5
+    "count": 0
    },
    {
     "name": "서울기독대학교",
@@ -4991,7 +4991,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 8
+    "count": 9
    },
    {
     "name": "선학유피대학원대학교",
@@ -5061,7 +5061,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 2
+    "count": 3
    },
    {
     "name": "용인예술과학대학교",
@@ -5101,7 +5101,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 7
+    "count": 6
    },
    {
     "name": "추계예술대학교",
@@ -5141,7 +5141,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 6
+    "count": 5
    },
    {
     "name": "가톨릭꽃동네대학교",
@@ -5221,7 +5221,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 6
+    "count": 5
    },
    {
     "name": "대구한의대학교",
@@ -5240,8 +5240,8 @@
     "url": "https://hit.ac.kr/main",
     "enabled": true,
     "verified": false,
-    "ok": true,
-    "count": 5
+    "ok": false,
+    "count": 0
    },
    {
     "name": "목포과학대학교",
@@ -5290,8 +5290,8 @@
     "url": "https://www.sunlin.ac.kr/?main=true",
     "enabled": true,
     "verified": false,
-    "ok": false,
-    "count": 0
+    "ok": true,
+    "count": 6
    },
    {
     "name": "신안산대학교",
@@ -5431,7 +5431,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 3
+    "count": 4
    },
    {
     "name": "대동대학교",
@@ -5461,7 +5461,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 12
+    "count": 10
    },
    {
     "name": "부산외국어대학교",
@@ -5601,7 +5601,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 3
+    "count": 6
    },
    {
     "name": "대구공업대학교",
@@ -5661,7 +5661,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 7
+    "count": 8
    },
    {
     "name": "서영대학교",
@@ -5801,7 +5801,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 1
+    "count": 2
    },
    {
     "name": "진주교육대학교",
@@ -5900,7 +5900,7 @@
     "url": "http://baekyoungfoundation.org/niabbs5/index.php",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
