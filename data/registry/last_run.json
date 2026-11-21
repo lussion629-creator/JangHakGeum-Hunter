@@ -1,10 +1,10 @@
 {
- "startedAt": "2026-11-21T07:23:14+00:00",
- "finishedAt": "2026-11-21T07:57:53+00:00",
+ "startedAt": "2026-11-21T19:27:40+00:00",
+ "finishedAt": "2026-11-21T20:01:30+00:00",
  "online": true,
- "total": 4638,
- "new": 0,
- "changed": 360,
+ "total": 4639,
+ "new": 2,
+ "changed": 357,
  "sources": [
   {
    "source": "kosaf_univ",
@@ -81,8 +81,8 @@
    "source": "board",
    "label": "대학·재단·지자체 게시판 368곳",
    "ok": true,
-   "count": 938,
-   "mode": "성공 330 / 실패 38"
+   "count": 939,
+   "mode": "성공 331 / 실패 37"
   },
   {
    "source": "gov24",
@@ -4981,7 +4981,7 @@
     "enabled": true,
     "verified": false,
     "ok": true,
-    "count": 0
+    "count": 1
    },
    {
     "name": "서정대학교",
@@ -6300,7 +6300,7 @@
     "url": "https://seoksung.co.kr/index.html",
     "enabled": true,
     "verified": false,
-    "ok": true,
+    "ok": false,
     "count": 0
    },
    {
@@ -6350,7 +6350,7 @@
     "url": "https://www.daesanmemorial.org/business.html?html=business/business2.html",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
@@ -6830,7 +6830,7 @@
     "url": "http://www.stxfoundation.or.kr/",
     "enabled": true,
     "verified": false,
-    "ok": false,
+    "ok": true,
     "count": 0
    },
    {
